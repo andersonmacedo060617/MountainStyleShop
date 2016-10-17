@@ -2,6 +2,7 @@
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,21 @@ namespace MountainStyleShop.ModelNH.Model
     public class Produto
     {
         public virtual int Id { get; set; }
+        
+        [Display(Name = "Nome do Produto")]
+        [Required(ErrorMessage = "O Nome é Obrigatorio.")]
         public virtual string Nome { get; set; }
+
+        [Display(Name = "Descrição")]
+        [Required(ErrorMessage = "A Descrição é Obrigatorio.")]
         public virtual string Descricao { get; set; }
         public virtual string Imagem { get; set; }
+
+        [Display(Name = "Valor de venda:")]
+        [Required(ErrorMessage = "O Valor é Obrigatorio.")]
+        [Range(0.01, 99999.99, ErrorMessage = "O Preço de Venda deve estar entre 10,00 e 99999,99.")]
         public virtual Double Valor { get; set; }
+
         public virtual Categoria Categoria { get; set; }
 
         

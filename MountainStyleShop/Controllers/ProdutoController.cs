@@ -1,4 +1,5 @@
 ﻿using MountainStyleShop.ModelNH.Config;
+using MountainStyleShop.ModelNH.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,19 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
-        
+        [HttpPost]
+        public ActionResult Gravar(Produto produto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Criar", produto);
+            }
+
+            ConfigDB.Instance.CategoriaRepository.Gravar(categoria);
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

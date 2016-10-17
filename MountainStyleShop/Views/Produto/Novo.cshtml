@@ -1,18 +1,18 @@
 ﻿@model MountainStyleShop.ModelNH.Model.Produto
 
 @{
-    ViewBag.Title = "Novo";
+    ViewBag.Title = "Novo - Mountain Style Shop";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Administração do sistema - Produtos</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Gravar", "Produto", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Novo</h4>
+        <h4>Incluir Produto</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -47,14 +47,13 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Salvar" class="btn btn-success" />
+            <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
+                Voltar
+            </a>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
