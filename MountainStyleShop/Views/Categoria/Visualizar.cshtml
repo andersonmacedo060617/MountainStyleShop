@@ -1,0 +1,40 @@
+﻿@model MountainStyleShop.ModelNH.Model.Categoria
+
+@{
+    ViewBag.Title = "Administração do sistema - Categoria";
+}
+
+<h2>Administração do sistema - Categoria</h2>
+
+<div>
+    <h4>Detalhes - Categoria: @Model.Nome</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-warning" href="@Url.Action("Alterar",new { id = Model.Id })" aria-label="Confimar">
+        Alterar
+    </a>
+    <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
+        Voltar
+    </a>
+    @*@Html.ActionLink("Alterar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

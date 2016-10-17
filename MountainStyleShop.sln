@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainStyleShop", "MountainStyleShop\MountainStyleShop.csproj", "{16D0C5D7-A959-402B-9BE5-D745E1765D57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainStyleShop.ModelNH", "MountainStyleShop.ModelNH\MountainStyleShop.ModelNH.csproj", "{84A02856-C0C6-4519-B575-C0CD15B5ED8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16D0C5D7-A959-402B-9BE5-D745E1765D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16D0C5D7-A959-402B-9BE5-D745E1765D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16D0C5D7-A959-402B-9BE5-D745E1765D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16D0C5D7-A959-402B-9BE5-D745E1765D57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84A02856-C0C6-4519-B575-C0CD15B5ED8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A02856-C0C6-4519-B575-C0CD15B5ED8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A02856-C0C6-4519-B575-C0CD15B5ED8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A02856-C0C6-4519-B575-C0CD15B5ED8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

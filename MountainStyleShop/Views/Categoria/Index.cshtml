@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.Categoria>
+
+@{
+    ViewBag.Title = "Administração do sistema - Categoria";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script language="javascript">
+    document.getElementById("Categorias").className = "active";
+
+</script>
+
+<h2>Administração do sistema - Categorias</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a class="btn btn-success" href="@Url.Action("Novo", "Categoria")" aria-label="Novo">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var categoria in (IList<MountainStyleShop.ModelNH.Model.Categoria>)ViewBag.Categorias) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => categoria.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => categoria.Descricao)
+        </td>
+        <td>
+            @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
+            <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = categoria.Id })" aria-label="Visualizar">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+            @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
+            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = categoria.Id })" aria-label="Alterar">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=categoria.Id })" aria-label="Delete">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+
