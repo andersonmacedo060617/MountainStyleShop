@@ -19,21 +19,27 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult Novo()
         {
+            var categorias = ConfigDB.Instance.CategoriaRepository.GetAll();
+            var lstCategoria = new SelectList(categorias, "Id", "Nome");
+            ViewBag.lstCategoria = lstCategoria;
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Gravar(Produto produto)
         {
+            produto.Categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(c => c.Id == produto.Categoria.Id);
             if (!ModelState.IsValid)
             {
-                return View("Criar", produto);
+                return View("Novo", produto);
             }
 
-            ConfigDB.Instance.CategoriaRepository.Gravar(categoria);
+            ConfigDB.Instance.ProdutoRepository.Gravar(produto);
 
             return RedirectToAction("Index");
         }
+
 
 
     }

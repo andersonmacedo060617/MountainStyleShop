@@ -27,6 +27,7 @@ namespace MountainStyleShop.ModelNH.Model
         [Range(0.01, 99999.99, ErrorMessage = "O Preço de Venda deve estar entre 10,00 e 99999,99.")]
         public virtual Double Valor { get; set; }
 
+        
         public virtual Categoria Categoria { get; set; }
 
         

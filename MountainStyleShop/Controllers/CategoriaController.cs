@@ -27,7 +27,7 @@ namespace MountainStyleShop.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Criar", categoria);
+                return View("Novo", categoria);
             }
 
             ConfigDB.Instance.CategoriaRepository.Gravar(categoria);
@@ -72,5 +72,7 @@ namespace MountainStyleShop.Controllers
             }
             return View();
         }
+
+
     }
 }
