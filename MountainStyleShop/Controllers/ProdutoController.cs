@@ -30,9 +30,10 @@ namespace MountainStyleShop.Controllers
         public ActionResult Gravar(Produto produto)
         {
             produto.Categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(c => c.Id == produto.Categoria.Id);
+            
             if (!ModelState.IsValid)
             {
-                return View("Novo", produto);
+                return RedirectToAction("Novo", produto);
             }
 
             ConfigDB.Instance.ProdutoRepository.Gravar(produto);
