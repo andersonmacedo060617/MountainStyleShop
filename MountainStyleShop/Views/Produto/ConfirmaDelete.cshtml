@@ -1,14 +1,14 @@
-﻿@model MountainStyleShop.ModelNH.Model.Categoria
+﻿@model MountainStyleShop.ModelNH.Model.Produto
 
 @{
-    ViewBag.Title = "Administração do sistema - Categoria";
+    ViewBag.Title = "Confirma Delete";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Administração do sistema - Categoria</h2>
+<h2>Deseja realmente apagar o registro?</h2>
 
 <div>
-    <h4>Detalhes - Categoria: @Model.Nome</h4>
+    <h4>@Model.Nome</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -27,15 +27,24 @@
             @Html.DisplayFor(model => model.Descricao)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome)
+        </dd>
+
     </dl>
 </div>
 <p>
-    <a class="btn btn-warning" href="@Url.Action("Alterar",new { id = Model.Id })" aria-label="Altear">
-        Alterar
+    <a class="btn btn-success" href="@Url.Action("Apagar",@Model)" aria-label="Confimar">
+        Confirmar
     </a>
     <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
         Voltar
     </a>
-    @*@Html.ActionLink("Alterar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")*@
+    @*@Html.ActionLink("Confirmar", "Apagar", @Model) |
+        @Html.ActionLink("Voltar", "Index")*@
+
 </p>

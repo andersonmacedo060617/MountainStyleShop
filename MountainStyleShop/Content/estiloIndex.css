@@ -1,0 +1,27 @@
+﻿#carouselImagensIndex .item{
+    width:100%;
+    height:350px;
+}
+
+#carouselImagensIndex{
+    width: 100%;
+    height:100%;
+}
+
+#carouselImagensIndex img{
+    width:100%;
+    height:350px;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+.thumbnail img {
+    width: 100%;
+}

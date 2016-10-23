@@ -70,7 +70,7 @@ namespace MountainStyleShop.Controllers
             {
                 return View(categoria);
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
 

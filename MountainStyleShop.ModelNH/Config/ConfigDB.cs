@@ -19,7 +19,7 @@ namespace MountainStyleShop.ModelNH.Config
     public class ConfigDB
     {
         public static string StringConexao =
-            "Persist Security Info=False;server=localhost;port=3306;" +
+            "Persist Security Info=False;server=192.168.11.200;port=3306;" +
             "database=MountainStyleShop;uid=root;pwd=root";
 
         private ISessionFactory SessionFactory;

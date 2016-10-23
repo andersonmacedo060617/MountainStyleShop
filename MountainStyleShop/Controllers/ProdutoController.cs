@@ -29,6 +29,8 @@ namespace MountainStyleShop.Controllers
         [HttpPost]
         public ActionResult Gravar(Produto produto)
         {
+            ModelState.Remove("Categoria.Nome");
+            ModelState.Remove("Categoria.Descricao");
             produto.Categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(c => c.Id == produto.Categoria.Id);
             
             if (!ModelState.IsValid)
@@ -41,7 +43,47 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Alterar(int id)
+        {
+            var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            if (produto != null)
+            {
+                var categorias = ConfigDB.Instance.CategoriaRepository.GetAll();
+                var lstCategoria = new SelectList(categorias, "Id", "Nome", produto.Categoria);
+                ViewBag.lstCategoria = lstCategoria;
 
+                return View(produto);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ConfirmaDelete(int id)
+        {
+            var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            if (produto != null)
+            {
+                return View(produto);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Apagar(Produto prouto)
+        {
+            ConfigDB.Instance.ProdutoRepository.Excluir(prouto);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Visualizar(int id)
+        {
+            var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(x => x.Id == id);
+            if(produto != null)
+            {
+                return View(produto);
+            }
+            return RedirectToAction("Index");
+        }
 
     }
 }
