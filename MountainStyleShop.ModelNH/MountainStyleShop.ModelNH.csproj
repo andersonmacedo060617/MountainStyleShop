@@ -56,11 +56,19 @@
   <ItemGroup>
     <Compile Include="Config\ConfigDB.cs" />
     <Compile Include="Model\Categoria.cs" />
+    <Compile Include="Model\DetalhaCusto.cs" />
+    <Compile Include="Model\ItemPedido.cs" />
+    <Compile Include="Model\NotaDeCompra.cs" />
     <Compile Include="Model\Produto.cs" />
+    <Compile Include="Model\TipoDetalhamento.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CategoriaRepository.cs" />
+    <Compile Include="Repository\DetalhaCustoRepository.cs" />
+    <Compile Include="Repository\ItemPedidoRepository.cs" />
+    <Compile Include="Repository\NotaDeCompraRepository.cs" />
     <Compile Include="Repository\ProdutoRepository.cs" />
+    <Compile Include="Repository\TipoDetalhamentoRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
   </ItemGroup>
   <ItemGroup>

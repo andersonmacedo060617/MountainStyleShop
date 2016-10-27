@@ -43,6 +43,10 @@ namespace MountainStyleShop.ModelNH.Config
         public ProdutoRepository ProdutoRepository { get; set; }
         public UsuarioRepository UsuarioRepository { get; set; }
         public CategoriaRepository CategoriaRepository { get; set; }
+        public DetalhaCustoRepository DetalhaCustoRepository { get; set; }
+        public ItemPedidoRepository ItemPedidoRepository { get; set; }
+        public NotaDeCompraRepository NotaDeCompraRepository { get; set; }
+        public TipoDetalhamentoRepository TipoDetalhamentoRepository { get; set; }
 
         public ConfigDB()
         {
@@ -51,6 +55,10 @@ namespace MountainStyleShop.ModelNH.Config
                 this.ProdutoRepository = new ProdutoRepository(Session);
                 this.UsuarioRepository = new UsuarioRepository(Session);
                 this.CategoriaRepository = new CategoriaRepository(Session);
+                this.DetalhaCustoRepository = new DetalhaCustoRepository(Session);
+                this.ItemPedidoRepository = new ItemPedidoRepository(Session);
+                this.NotaDeCompraRepository = new NotaDeCompraRepository(Session);
+                this.TipoDetalhamentoRepository = new TipoDetalhamentoRepository(Session);
             }
         }
 
@@ -113,6 +121,25 @@ namespace MountainStyleShop.ModelNH.Config
                 mapper.AddMappings(
                     Assembly.GetAssembly(typeof(UsuarioMap)).GetTypes()
                 );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(ProdutoMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(Categoria)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(DetalhaCustoMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(ItemPedidoMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(NotaDeCompraMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(TipoDetalhamentoMap)).GetTypes()
+                );
+
 
                 return mapper.CompileMappingForAllExplicitlyAddedEntities();
             }
