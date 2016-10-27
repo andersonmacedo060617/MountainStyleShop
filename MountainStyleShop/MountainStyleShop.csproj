@@ -150,7 +150,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdministrativoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotaDeCompraController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -257,6 +259,9 @@
     <Content Include="Views\Produto\Alterar.cshtml" />
     <Content Include="Views\Produto\ConfirmaDelete.cshtml" />
     <Content Include="Views\Produto\Visualizar.cshtml" />
+    <Content Include="Views\NotaDeCompra\Index.cshtml" />
+    <Content Include="Views\NotaDeCompra\Novo.cshtml" />
+    <Content Include="Views\Fornecedor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

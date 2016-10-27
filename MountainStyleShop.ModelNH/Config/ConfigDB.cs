@@ -47,6 +47,7 @@ namespace MountainStyleShop.ModelNH.Config
         public ItemPedidoRepository ItemPedidoRepository { get; set; }
         public NotaDeCompraRepository NotaDeCompraRepository { get; set; }
         public TipoDetalhamentoRepository TipoDetalhamentoRepository { get; set; }
+        public PessoaRepository PessoaRepository { get; set; }
 
         public ConfigDB()
         {
@@ -59,6 +60,7 @@ namespace MountainStyleShop.ModelNH.Config
                 this.ItemPedidoRepository = new ItemPedidoRepository(Session);
                 this.NotaDeCompraRepository = new NotaDeCompraRepository(Session);
                 this.TipoDetalhamentoRepository = new TipoDetalhamentoRepository(Session);
+                this.PessoaRepository = new PessoaRepository(Session);
             }
         }
 

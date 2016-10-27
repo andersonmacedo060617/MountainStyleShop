@@ -18,7 +18,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual string Nome { get; set; }
 
         [Display(Name = "Descrição")]
-        [Required(ErrorMessage = "A Descrição é Obrigatorio.")]
+        [Required(ErrorMessage = "A Descrição é Obrigatoria.")]
         public virtual string Descricao { get; set; }
 
         public virtual IList<Produto> Produtos { get; set; }

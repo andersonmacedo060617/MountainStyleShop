@@ -2,6 +2,7 @@
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,35 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public virtual int Id { get; set; }
 
+        [Display(Name = "Data da Compra")]
+        [Required(ErrorMessage = "A Data da Compra é obrigatoria.")]
+        [DataType(dataType: DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
         public virtual DateTime DataDaCompra { get; set; }
 
+        [Display(Name = "Data Prevista da Entrega")]
+        [Required(ErrorMessage = "A Data da Entrega é obrigatoria.")]
+        [DataType(dataType: DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
         public virtual DateTime DataDeEntrega { get; set; }
 
+        [Display(Name = "Valor Total da Nota")]
+        [DisplayFormat(DataFormatString = "{0:n2}",
+            ApplyFormatInEditMode = true)]
         public virtual Double ValorTotal { get; set; }
 
+        [Display(Name = "Data Prevista da Entrega")]
+        [Required(ErrorMessage = "A Data da Entrega é obrigatoria.")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
         public virtual DateTime DataDeCadastro { get; set; }
 
+        [Display(Name = "Itens da Compra")]
         public virtual IList<ItemPedido> ItensPedidos{get; set;}
 
-        public virtual Usuario UsuarioCadastro { get; set; }
-
+        [Display(Name = "Fornecedor")]
+        public virtual Pessoa Fornecedor { get; set; }
+        
         public NotaDeCompra()
         {
             ItensPedidos = new List<ItemPedido>();
@@ -48,9 +66,11 @@ namespace MountainStyleShop.ModelNH.Model
             Property<DateTime>(x => x.DataDeCadastro);
             Property<Double>(x => x.ValorTotal);
 
-            ManyToOne<Usuario>(x => x.UsuarioCadastro, m =>
+           
+
+            ManyToOne<Pessoa>(x => x.Fornecedor, m =>
             {
-                m.Column("idUsuarioCadastro");
+                m.Column("idPessoa_Fornecedor");
             });
 
             Bag<ItemPedido>(x => x.ItensPedidos, m =>
