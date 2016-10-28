@@ -18,26 +18,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Nome)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PFisica)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fornecedor)
-        </th>
-        <th></th>
+        
     </tr>
 
-@foreach (var Fornecedor in (List<MountainStyleShop.ModelNH.Model.Pessoa>) ViewBag.Fornecedores) {
+@foreach (var Fornecedor in (IList<MountainStyleShop.ModelNH.Model.Pessoa>)ViewBag.Fornecedores)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => Fornecedor.Nome)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => Fornecedor.PFisica)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => Fornecedor.Fornecedor)
-        </td>
+       
         <td>
             @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
             <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = Fornecedor.Id })" aria-label="Alterar">

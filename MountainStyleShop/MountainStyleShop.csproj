@@ -262,6 +262,7 @@
     <Content Include="Views\NotaDeCompra\Index.cshtml" />
     <Content Include="Views\NotaDeCompra\Novo.cshtml" />
     <Content Include="Views\Fornecedor\Index.cshtml" />
+    <Content Include="Views\Fornecedor\Novo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
