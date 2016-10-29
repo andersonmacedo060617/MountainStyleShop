@@ -222,6 +222,10 @@
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -257,12 +261,16 @@
     <Content Include="Views\Categoria\ConfirmaDelete.cshtml" />
     <Content Include="Views\Categoria\Visualizar.cshtml" />
     <Content Include="Views\Produto\Alterar.cshtml" />
-    <Content Include="Views\Produto\ConfirmaDelete.cshtml" />
     <Content Include="Views\Produto\Visualizar.cshtml" />
     <Content Include="Views\NotaDeCompra\Index.cshtml" />
     <Content Include="Views\NotaDeCompra\Novo.cshtml" />
     <Content Include="Views\Fornecedor\Index.cshtml" />
     <Content Include="Views\Fornecedor\Novo.cshtml" />
+    <Content Include="Views\Fornecedor\Alterar.cshtml" />
+    <Content Include="Views\Fornecedor\ConfirmaDelete.cshtml" />
+    <Content Include="Views\Produto\ConfirmaDelete.cshtml" />
+    <Content Include="Views\Fornecedor\Visualizar.cshtml" />
+    <Content Include="Views\NotaDeCompra\Alterar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

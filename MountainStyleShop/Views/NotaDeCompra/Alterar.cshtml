@@ -1,19 +1,22 @@
 ﻿@model MountainStyleShop.ModelNH.Model.NotaDeCompra
 
 @{
-    ViewBag.Title = "Novo";
+    ViewBag.Title = "Alterar";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Novo</h2>
+<h2>Alterar</h2>
 
-@using (Html.BeginForm("Gravar", "NotaDeCompra", FormMethod.Post)) 
+@using (Html.BeginForm("Gravar", "NotaDeCompra", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Nota de Pedido</h4>
+        <h4>NotaDeCompra</h4>
         <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Fornecedor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,7 +25,6 @@
             </div>
         </div>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.DataDaCompra, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -39,15 +41,16 @@
             </div>
         </div>
 
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Gravar" class="btn btn-success" />
+
+                <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
+                    Voltar
+                </a>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

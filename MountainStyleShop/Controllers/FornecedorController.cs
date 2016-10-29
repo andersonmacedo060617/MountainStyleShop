@@ -40,5 +40,47 @@ namespace MountainStyleShop.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Alterar(int id)
+        {
+            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            if (fornecedor != null)
+            {
+                return View(fornecedor);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ConfirmaDelete(int id)
+        {
+            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            if (fornecedor != null)
+            {
+                return View(fornecedor);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Apagar(int id)
+        {
+            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            if (fornecedor != null)
+            {
+                ConfigDB.Instance.PessoaRepository.Excluir(fornecedor);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Visualizar(int id)
+        {
+            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(c => c.Id == id);
+            if (fornecedor != null)
+            {
+                return View(fornecedor);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

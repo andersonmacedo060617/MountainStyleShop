@@ -69,9 +69,9 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Apagar(Produto prouto)
+        public ActionResult Apagar(Produto produto)
         {
-            ConfigDB.Instance.ProdutoRepository.Excluir(prouto);
+            ConfigDB.Instance.ProdutoRepository.Excluir(produto);
             return RedirectToAction("Index");
         }
 

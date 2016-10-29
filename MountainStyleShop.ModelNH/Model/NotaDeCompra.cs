@@ -16,12 +16,12 @@ namespace MountainStyleShop.ModelNH.Model
         [Display(Name = "Data da Compra")]
         [Required(ErrorMessage = "A Data da Compra é obrigatoria.")]
         [DataType(dataType: DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
         public virtual DateTime DataDaCompra { get; set; }
 
         [Display(Name = "Data Prevista da Entrega")]
         [Required(ErrorMessage = "A Data da Entrega é obrigatoria.")]
-        [DataType(dataType: DataType.Date)]
+        //[DataType(dataType: DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
         public virtual DateTime DataDeEntrega { get; set; }
 
@@ -30,10 +30,9 @@ namespace MountainStyleShop.ModelNH.Model
             ApplyFormatInEditMode = true)]
         public virtual Double ValorTotal { get; set; }
 
-        [Display(Name = "Data Prevista da Entrega")]
-        [Required(ErrorMessage = "A Data da Entrega é obrigatoria.")]
+        [Display(Name = "Data de Cadastro")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public virtual DateTime DataDeCadastro { get; set; }
 
         [Display(Name = "Itens da Compra")]
