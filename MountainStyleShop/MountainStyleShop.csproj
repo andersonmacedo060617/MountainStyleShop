@@ -152,6 +152,7 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemPedidoController.cs" />
     <Compile Include="Controllers\NotaDeCompraController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -271,6 +272,9 @@
     <Content Include="Views\Produto\ConfirmaDelete.cshtml" />
     <Content Include="Views\Fornecedor\Visualizar.cshtml" />
     <Content Include="Views\NotaDeCompra\Alterar.cshtml" />
+    <Content Include="Views\NotaDeCompra\ConfirmaDelete.cshtml" />
+    <Content Include="Views\NotaDeCompra\AddProduto.cshtml" />
+    <Content Include="Views\ItemPedido\Novo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

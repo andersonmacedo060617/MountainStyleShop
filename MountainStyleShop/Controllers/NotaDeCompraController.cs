@@ -15,6 +15,7 @@ namespace MountainStyleShop.Controllers
         {
             var notasDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll();
             ViewBag.NotasDeCompra = notasDeCompra;
+            
             return View();
         }
 
@@ -28,19 +29,25 @@ namespace MountainStyleShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Novo(NotaDeCompra notaDeCompra)
+        public ActionResult Gravar(NotaDeCompra notaDeCompra)
         {
             ModelState.Remove("Fornecedor.Nome");
             notaDeCompra.Fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(x => x.Id == notaDeCompra.Fornecedor.Id);
-            
-            if(ConfigDB.Instance.NotaDeCompraRepository.GetAll().First(x=>x.Id == notaDeCompra.Id) == null)
+
+            bool novoRegistro = notaDeCompra.Id == 0 ? true:false;
+
+            //Data de Cadastro Atual para o novo registro
+            if (novoRegistro)
             {
                 notaDeCompra.DataDeCadastro = DateTime.Now;
             }
 
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && novoRegistro)
             {
                 return View("Novo", notaDeCompra);
+            }else if(!ModelState.IsValid && !novoRegistro)
+            {
+                return View("Alterar", notaDeCompra);
             }
             
             ConfigDB.Instance.NotaDeCompraRepository.Gravar(notaDeCompra);
@@ -62,5 +69,45 @@ namespace MountainStyleShop.Controllers
             return  RedirectToAction("Index");
             
         }
+
+        public ActionResult ConfirmaDelete(int id)
+        {
+            var notaDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            if (notaDeCompra != null)
+            {
+                if(notaDeCompra.ItensPedidos.Count != 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(notaDeCompra);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddProduto(int id)
+        {
+            var notaDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().First(x => x.Id == id);
+
+            if (!notaDeCompra.ProdEntregue)
+            {
+                return View(notaDeCompra);
+            }
+            
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Apagar(int id)
+        {
+            var notaCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            if (notaCompra != null)
+            {
+                if (notaCompra.ItensPedidos.Count == 0) { 
+                    ConfigDB.Instance.NotaDeCompraRepository.Excluir(notaCompra);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }

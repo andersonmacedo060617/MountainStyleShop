@@ -40,6 +40,12 @@ namespace MountainStyleShop.ModelNH.Model
         {
             DetalhamentoValor = new List<DetalhaCusto>();
         }
+
+        [Display(Name ="Valor Total Itens")]
+        public virtual Double ValorTotalItens()
+        {
+            return ValorUnitario * Quantidade;
+        }
     }
 
     public class ItemPedidoMap : ClassMapping<ItemPedido>
