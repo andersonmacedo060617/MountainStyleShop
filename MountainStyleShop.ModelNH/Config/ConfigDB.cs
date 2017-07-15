@@ -13,16 +13,30 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Configuration;
 
 namespace MountainStyleShop.ModelNH.Config
 {
     public class ConfigDB
     {
-        public static string StringConexao =
-            "Persist Security Info=False;server=192.168.11.200;port=3306;" +
-            "database=MountainStyleShop;uid=root;pwd=root";
+        public static string StringConexao = ConnectionString();
+        
+        public ConnectionStringSettingsCollection Configuracao = ConfigurationManager.ConnectionStrings;
 
         private ISessionFactory SessionFactory;
+
+        
+
+
+        #region PegaStringDeConexao
+        private static string ConnectionString()
+        {
+            ConnectionStringSettingsCollection Configuracoes = ConfigurationManager.ConnectionStrings;
+            var strConn = Configuracoes["MountainStyleShop"].ConnectionString;
+            return strConn;
+        }
+        #endregion
+
 
         private static ConfigDB _instance = null;
         public static ConfigDB Instance
@@ -68,7 +82,7 @@ namespace MountainStyleShop.ModelNH.Config
         private bool Conexao()
         {
             //Cria a configuração com o NH
-            var config = new Configuration();
+            var config = new NHibernate.Cfg.Configuration();
             try
             {
                 //Integração com o Banco de Dados
