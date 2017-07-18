@@ -20,7 +20,10 @@ namespace MountainStyleShop.ModelNH.Model
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "A Descrição é Obrigatorio.")]
         public virtual string Descricao { get; set; }
+
+        [Display(Name = "Imagem do produto")]
         public virtual string Imagem { get; set; }
+        
 
         [Display(Name = "Valor de venda:")]
         [DisplayFormat(DataFormatString = "{0:C0}")]

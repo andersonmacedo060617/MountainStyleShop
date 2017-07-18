@@ -27,7 +27,7 @@ namespace MountainStyleShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Gravar(Produto produto)
+        public ActionResult Gravar(Produto produto, HttpPostedFileBase file)
         {
             ModelState.Remove("Categoria.Nome");
             ModelState.Remove("Categoria.Descricao");
@@ -39,6 +39,25 @@ namespace MountainStyleShop.Controllers
             }
 
             ConfigDB.Instance.ProdutoRepository.Gravar(produto);
+
+            if(file != null)
+            {
+                if(produto.Imagem != null)
+                {
+                    if (System.IO.File.Exists(Server.MapPath("~/" + produto.Imagem)))
+                    {
+                        System.IO.File.Delete(Server.MapPath("~/" + produto.Imagem));
+                    }
+                }
+                String[] strName = file.FileName.Split('.');
+                String strExt = strName[strName.Count() - 1];
+                string pathSave = String.Format("{0}{1}.{2}", Server.MapPath("~/Imagens/Produtos/"), produto.Id, strExt);
+                String pathBase = String.Format("/Imagens/Produtos/{0}.{1}", produto.Id, strExt);
+                file.SaveAs(pathSave);
+                produto.Imagem = pathBase;
+
+                ConfigDB.Instance.ProdutoRepository.Gravar(produto);
+            }
 
             return RedirectToAction("Index");
         }

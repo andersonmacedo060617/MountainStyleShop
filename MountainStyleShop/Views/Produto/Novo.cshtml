@@ -7,7 +7,8 @@
 
 <h2>Administração do sistema - Produtos</h2>
 
-@using (Html.BeginForm("Gravar", "Produto", FormMethod.Post)) 
+@using (Html.BeginForm("Gravar", "Produto", FormMethod.Post,
+                              new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -34,8 +35,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Imagem, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Imagem, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Imagem, "", new { @class = "text-danger" })
+                <input type="file" name="file" id="file" class="form-control" />
+                @Html.HiddenFor(model => model.Imagem)
+                @Html.ValidationMessageFor(model => model.Imagem)
             </div>
         </div>
 
@@ -50,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Valor, new {htmlAttributes = new { @class = "form-control", @type="number" } })
                 @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
             </div>
         </div>
