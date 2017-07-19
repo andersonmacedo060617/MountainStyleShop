@@ -176,6 +176,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\ico\Icon_mountain.png" />
     <Content Include="Imagens\Painel\img1.jpg" />
     <Content Include="Imagens\Painel\img10.jpeg" />
     <Content Include="Imagens\Painel\img11.jpeg" />
