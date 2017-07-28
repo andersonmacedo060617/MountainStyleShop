@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.Categoria>
+
+<ul class="list-group">
+    @foreach (var Categoria in (IList<MountainStyleShop.ModelNH.Model.Categoria>)ViewBag.Categorias)
+    {
+        
+        <li class="list-group-item" >
+                <a  href="@Url.Action("ProdutosCategoria", "Produto",new { idCategoria = Categoria.Id })">@Html.DisplayFor(modelItem => Categoria.Nome)</a>
+                <span class="badge">@Html.Label(Categoria.QuantidadeProdutos.ToString())</span>
+        </li>
+    }
+
+</ul>

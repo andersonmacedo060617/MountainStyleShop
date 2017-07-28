@@ -34,7 +34,7 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public UsuarioMap()
         {
-            Table("Usuario");
+            
 
             Id<int>(x => x.Id, m =>
             {

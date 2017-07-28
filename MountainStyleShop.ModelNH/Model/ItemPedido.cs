@@ -52,7 +52,7 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public ItemPedidoMap()
         {
-            Table("ItemPedido");
+            
 
             Id<int>(x => x.Id, m =>
             {

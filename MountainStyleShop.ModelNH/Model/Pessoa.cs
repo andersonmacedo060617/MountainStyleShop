@@ -28,7 +28,7 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public PessoaMap()
         {
-            Table("Pessoa");
+            
 
             Id<int>(x => x.Id, m =>
             {

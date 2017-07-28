@@ -56,7 +56,7 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public NotaDeCompraMap()
         {
-            Table("NotaDeCompra");
+            
 
             Id<int>(x => x.Id, m =>
             {

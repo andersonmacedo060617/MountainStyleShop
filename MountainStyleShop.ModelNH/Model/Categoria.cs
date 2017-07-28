@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.Config;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -22,18 +23,22 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual string Descricao { get; set; }
 
         public virtual IList<Produto> Produtos { get; set; }
-
-        public Categoria()
-        {
-            this.Produtos = new List<Produto>();
+        
+        public virtual int QuantidadeProdutos {
+            get
+            {
+                return ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Categoria.Id == this.Id).Count();
+            }
         }
+
+
     }
 
     public class CategoriaMap : ClassMapping<Categoria>
     {
         public CategoriaMap()
         {
-            Table("Cateogoria");
+            
 
             Id<int>(x => x.Id, m =>
             {

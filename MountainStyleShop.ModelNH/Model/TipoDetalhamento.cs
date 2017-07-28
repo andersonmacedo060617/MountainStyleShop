@@ -22,7 +22,7 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public TipoDetalhamentoMap()
         {
-            Table("TipoDetalhamento");
+            
 
             Id<int>(x => x.Id, m =>
             {

@@ -13,7 +13,7 @@ namespace MountainStyleShop.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetLimit(10);
+            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetLimit(8);
             return View();
         }
 
@@ -45,6 +45,8 @@ namespace MountainStyleShop.Controllers
             }
             return View();
         }
+
+        
         
 
     }

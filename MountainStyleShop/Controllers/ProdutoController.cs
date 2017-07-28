@@ -104,5 +104,11 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ProdutosCategoria(int idCategoria)
+        {
+            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x=>x.Categoria.Id == idCategoria);
+            return View();
+        }
+
     }
 }

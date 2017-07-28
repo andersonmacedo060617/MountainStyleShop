@@ -26,9 +26,9 @@ namespace MountainStyleShop.ModelNH.Model
         
 
         [Display(Name = "Valor de venda:")]
-        [DisplayFormat(DataFormatString = "{0:C0}")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         [Required(ErrorMessage = "O Valor é Obrigatorio.")]
-        [Range(0.01, 99999.99, ErrorMessage = "O Preço de Venda deve estar entre 10,00 e 99999,99.")]
+        [Range(0.01, 99999.99, ErrorMessage = "O Preço de Venda deve estar entre 0,01 e 99999,99.")]
         public virtual Double Valor { get; set; }
 
         [Range(0, 1000000, ErrorMessage ="Quantidade entre 0 e 1.000.000")]
@@ -45,7 +45,7 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public ProdutoMap()
         {
-            Table("Produto");
+            
 
             Id<int>(x => x.Id, m =>
             {

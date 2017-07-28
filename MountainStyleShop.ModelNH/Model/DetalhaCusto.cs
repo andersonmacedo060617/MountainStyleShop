@@ -34,7 +34,7 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public DetalhaCustoMap()
         {
-            Table("DetalhaCusto");
+            
 
             Id<int>(x => x.Id, m =>
             {
