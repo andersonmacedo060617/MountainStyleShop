@@ -287,6 +287,8 @@
     <Content Include="Views\ItemPedido\Novo.cshtml" />
     <Content Include="Views\Componentes\_MenuCategorias.cshtml" />
     <Content Include="Views\Produto\ProdutosCategoria.cshtml" />
+    <Content Include="Views\Componentes\_PainelImagensIndex.cshtml" />
+    <Content Include="Views\Produto\_ExibirProdutos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

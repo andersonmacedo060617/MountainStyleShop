@@ -104,10 +104,34 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ProdutosCategoria(int idCategoria)
+        public ActionResult ProdutosCategoria(int idCategoria = 0)
         {
-            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x=>x.Categoria.Id == idCategoria);
+            if (idCategoria == 0)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x=>x.Categoria.Id == idCategoria).ToList();
+            var Categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(x => x.Id == idCategoria);
+
+            if(Categoria == null)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.Categoria = Categoria;
+
             return View();
+        }
+
+        public PartialViewResult ExibirProdutos(int idCategoria = 0)
+        {
+            if(idCategoria == 0)
+            {
+                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll();
+            }
+            else
+            {
+                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Categoria.Id == idCategoria).ToList();
+            }
+            
+            return PartialView("_ExibirProdutos");
         }
 
     }

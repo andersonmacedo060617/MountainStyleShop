@@ -1,0 +1,30 @@
+﻿
+@foreach (var produto in (IList<MountainStyleShop.ModelNH.Model.Produto>)ViewBag.Produtos)
+{
+
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+            <img src="@produto.Imagem" alt="@produto.Nome" width="350" height="150">
+            <div class="caption">
+                <h4>
+                    <b><a href="@Url.Action("Visualizar", "Produto",new { id = produto.Id })">@produto.Nome</a></b>
+                </h4>
+                <h4>
+                    R$ @produto.Valor.ToString()
+                </h4>
+                <p>@produto.Descricao</p>
+            </div>
+            <div class="ratings">
+                <p class="pull-right">15 Avaliações</p>
+                <p>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
