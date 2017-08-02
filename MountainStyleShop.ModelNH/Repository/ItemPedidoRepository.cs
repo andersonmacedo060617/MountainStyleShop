@@ -8,55 +8,10 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Repository
 {
-    public class ItemPedidoRepository
+    public class ItemPedidoRepository:RepositoryBase<ItemPedido>
     {
-        private ISession session;
-        public ItemPedidoRepository(ISession session)
+        public ItemPedidoRepository(ISession session) : base(session)
         {
-            this.session = session;
-        }
-
-        public IList<ItemPedido> GetAll()
-        {
-            var itensPedidos = this.session.CreateCriteria<ItemPedido>().List<ItemPedido>();
-            return itensPedidos;
-        }
-
-        public bool Gravar(ItemPedido itemPedido)
-        {
-            try
-            {
-                session.Clear();
-                var transacao = this.session.BeginTransaction();
-                this.session.SaveOrUpdate(itemPedido);
-
-
-                transacao.Commit();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public bool Excluir(ItemPedido itemPedido)
-        {
-            try
-            {
-                session.Clear();
-                var transacao = this.session.BeginTransaction();
-                this.session.Delete(itemPedido);
-
-                transacao.Commit();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
 

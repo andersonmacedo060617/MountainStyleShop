@@ -30,7 +30,7 @@ namespace MountainStyleShop.ModelNH.Repository
             return true;
         }
 
-        public bool Delete(T entity)
+        public bool Excluir(T entity)
         {
             this.session.Clear();
             var transacao = this.session.BeginTransaction();
@@ -39,7 +39,7 @@ namespace MountainStyleShop.ModelNH.Repository
             return true;
         }
 
-        public IList<T> BuscaTodos()
+        public IList<T> GetAll()
         {
             return this.session.CreateCriteria<T>().List<T>();
         }

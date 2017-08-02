@@ -10,55 +10,10 @@ namespace MountainStyleShop.ModelNH.Repository
 {
     
 
-    public class DetalhaCustoRepository
+    public class DetalhaCustoRepository:RepositoryBase<DetalhaCusto>
     {
-        private ISession session;
-        public DetalhaCustoRepository(ISession session)
+        public DetalhaCustoRepository(ISession session) : base(session)
         {
-            this.session = session;
-        }
-
-        public IList<DetalhaCusto> GetAll()
-        {
-            var detalhesCusto = this.session.CreateCriteria<DetalhaCusto>().List<DetalhaCusto>();
-            return detalhesCusto;
-        }
-
-        public bool Gravar(DetalhaCusto detalhe)
-        {
-            try
-            {
-                session.Clear();
-                var transacao = this.session.BeginTransaction();
-                this.session.SaveOrUpdate(detalhe);
-
-
-                transacao.Commit();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public bool Excluir(DetalhaCusto detalhe)
-        {
-            try
-            {
-                session.Clear();
-                var transacao = this.session.BeginTransaction();
-                this.session.Delete(detalhe);
-
-                transacao.Commit();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
 

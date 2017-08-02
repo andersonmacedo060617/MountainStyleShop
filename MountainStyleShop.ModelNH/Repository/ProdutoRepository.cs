@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Repository
 {
-    public class ProdutoRepository
+    public class ProdutoRepository:RepositoryBase<Produto>
     {
-        private ISession session;
-        public ProdutoRepository(ISession session)
+        public ProdutoRepository(ISession session) : base(session)
         {
-            this.session = session;
         }
 
         public IList<Produto> GetLimit(int quantidade)
@@ -22,46 +20,6 @@ namespace MountainStyleShop.ModelNH.Repository
             return produtos;
         }
 
-        public IList<Produto> GetAll()
-        {
-            var produtos = this.session.CreateCriteria<Produto>().List<Produto>();
-            return produtos;
-        }
-
-        public bool Gravar(Produto produto)
-        {
-            try
-            {
-                session.Clear();
-                var transacao = this.session.BeginTransaction();
-                this.session.SaveOrUpdate(produto);
-
-                transacao.Commit();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public bool Excluir(Produto produto)
-        {
-            try
-            {
-                session.Clear();
-                var transacao = this.session.BeginTransaction();
-                this.session.Delete(produto);
-
-                transacao.Commit();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+       
     }
 }
