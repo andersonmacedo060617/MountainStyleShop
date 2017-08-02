@@ -69,6 +69,7 @@
     <Compile Include="Model\TipoDetalhamento.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AvaliacaoProtudoRepository.cs" />
     <Compile Include="Repository\CategoriaRepository.cs" />
     <Compile Include="Repository\DetalhaCustoRepository.cs" />
     <Compile Include="Repository\ItemPedidoRepository.cs" />

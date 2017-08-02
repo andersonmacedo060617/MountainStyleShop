@@ -52,8 +52,7 @@ namespace MountainStyleShop.ModelNH.Config
             }
         }
 
-       
-
+        #region Repositorys
         public ProdutoRepository ProdutoRepository { get; set; }
         public UsuarioRepository UsuarioRepository { get; set; }
         public CategoriaRepository CategoriaRepository { get; set; }
@@ -62,9 +61,12 @@ namespace MountainStyleShop.ModelNH.Config
         public NotaDeCompraRepository NotaDeCompraRepository { get; set; }
         public TipoDetalhamentoRepository TipoDetalhamentoRepository { get; set; }
         public PessoaRepository PessoaRepository { get; set; }
+        public AvaliacaoProtudoRepository AvaliacaoRepository { get; set; }
+        #endregion
 
         public ConfigDB()
         {
+            #region InstanciaRepositorys
             if (Conexao())
             {
                 this.ProdutoRepository = new ProdutoRepository(Session);
@@ -75,7 +77,9 @@ namespace MountainStyleShop.ModelNH.Config
                 this.NotaDeCompraRepository = new NotaDeCompraRepository(Session);
                 this.TipoDetalhamentoRepository = new TipoDetalhamentoRepository(Session);
                 this.PessoaRepository = new PessoaRepository(Session);
+                this.AvaliacaoRepository = new AvaliacaoProtudoRepository(Session);
             }
+            #endregion
         }
 
 
@@ -102,6 +106,7 @@ namespace MountainStyleShop.ModelNH.Config
                     c.LogFormattedSql = true;
                     // CRIA O SCHEMA DO BANCO DE DADOS SEMPRE QUE A CONFIGURATION FOR UTILIZADA
                     c.SchemaAction = SchemaAutoAction.Update;
+                    
                 });
 
                 //Realiza o mapeamento das classes
@@ -122,14 +127,16 @@ namespace MountainStyleShop.ModelNH.Config
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
+        #region Mapeamento
         private HbmMapping Mapeamento()
         {
+            
             try
             {
                 var mapper = new ModelMapper();
@@ -155,16 +162,20 @@ namespace MountainStyleShop.ModelNH.Config
                 mapper.AddMappings(
                     Assembly.GetAssembly(typeof(TipoDetalhamentoMap)).GetTypes()
                 );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(AvaliacaoProdutoMap)).GetTypes()
+                );
 
 
                 return mapper.CompileMappingForAllExplicitlyAddedEntities();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
 
             }
         }
+        #endregion
 
         private ISession Session
         {
@@ -182,9 +193,9 @@ namespace MountainStyleShop.ModelNH.Config
                     CurrentSessionContext.Bind(session);
                     return session;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
 

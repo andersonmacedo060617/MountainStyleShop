@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Repository
 {
-    public class CategoriaRepository : RepositoryBase<Categoria>
+    public class AvaliacaoProtudoRepository: RepositoryBase<AvaliacaoProduto>
     {
-        public CategoriaRepository(ISession session) : base(session)
+        public AvaliacaoProtudoRepository(ISession session) : base(session)
         {
         }
     }
