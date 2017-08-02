@@ -38,6 +38,28 @@ namespace MountainStyleShop.ModelNH.Model
         
         public virtual Categoria Categoria { get; set; }
 
+        public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
+
+        public virtual double MediaNotasAvaliacao
+        {
+            get
+            {
+                int Total = 0;
+                foreach (var Avalicao in this.AvaliacoesProdutos)
+                {
+                    Total += Avalicao.NotaAvaliacao;
+                }
+
+                return Total  / this.AvaliacoesProdutos.Count;
+            }
+        }
+
+        public virtual int QuantidadeAvaliacoes {
+            get
+            {
+                return this.AvaliacoesProdutos.Count;
+            }
+        }
         
     }
 
@@ -62,6 +84,16 @@ namespace MountainStyleShop.ModelNH.Model
             {
                 m.Column("IdCategoria");
             });
+
+            Bag<AvaliacaoProduto>(x => x.AvaliacoesProdutos, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+           );
+
         }
     }
 }
