@@ -13,5 +13,23 @@ namespace MountainStyleShop.ModelNH.Repository
         public UsuarioRepository(ISession session) : base(session)
         {
         }
+
+        public Usuario BuscaPorLogin(string Login)
+        {
+            session.Clear();
+            var usuario = this.GetAll().Where(x => x.Login == Login).FirstOrDefault();
+
+            return usuario;
+        }
+
+        public Usuario BuscaPorLoginSenha(string Login, string Senha)
+        {
+            session.Clear();
+            var usuario = this.GetAll().Where(
+                x => x.Login == Login && x.Senha == Senha
+                ).FirstOrDefault();
+
+            return usuario;
+        }
     }
 }

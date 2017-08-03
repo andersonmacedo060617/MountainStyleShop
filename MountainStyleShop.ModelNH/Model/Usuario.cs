@@ -27,7 +27,9 @@ namespace MountainStyleShop.ModelNH.Model
             ErrorMessage ="A senha deve conter no minimo 8 caracteres")]
         public virtual string Senha { get; set; }
 
-        
+        public virtual bool Admin { get; set; }
+
+        public virtual bool Ativo { get; set; }
     }
 
     public class UsuarioMap : ClassMapping<Usuario>
@@ -44,7 +46,8 @@ namespace MountainStyleShop.ModelNH.Model
             Property<string>(x => x.Nome);
             Property<string>(x => x.Login);
             Property<string>(x => x.Senha);
-
+            Property<bool>(x => x.Ativo);
+            Property<bool>(x => x.Admin);
         }
     }
 }
