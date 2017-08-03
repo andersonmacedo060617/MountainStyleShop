@@ -11,17 +11,20 @@ namespace MountainStyleShop.Controllers
     public class CategoriaController : Controller
     {
         // GET: Categoria
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             ViewBag.Categorias = ConfigDB.Instance.CategoriaRepository.GetAll();
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult Gravar(Categoria categoria)
         {
@@ -35,6 +38,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Alterar(int id)
         {
             var categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(f=>f.Id == id);
@@ -46,6 +50,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult ConfirmaDelete(int id)
         {
             var categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(f => f.Id == id);
@@ -57,12 +62,14 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Apagar(Categoria categoria)
         {
             ConfigDB.Instance.CategoriaRepository.Excluir(categoria);
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Visualizar(int id)
         {
             var categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(c=>c.Id == id);

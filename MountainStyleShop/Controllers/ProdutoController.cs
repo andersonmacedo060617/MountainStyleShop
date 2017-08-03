@@ -11,12 +11,13 @@ namespace MountainStyleShop.Controllers
     public class ProdutoController : Controller
     {
         // GET: Produto
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll();
             return View();
         }
-
+        [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
             var categorias = ConfigDB.Instance.CategoriaRepository.GetAll();
@@ -26,6 +27,7 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult Gravar(Produto produto, HttpPostedFileBase file)
         {
@@ -62,6 +64,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Alterar(int id)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(f => f.Id == id);
@@ -77,6 +80,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult ConfirmaDelete(int id)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(f => f.Id == id);
@@ -88,12 +92,14 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Apagar(Produto produto)
         {
             ConfigDB.Instance.ProdutoRepository.Excluir(produto);
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Visualizar(int id)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(x => x.Id == id);
@@ -104,6 +110,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        
         public ActionResult ProdutosCategoria(int idCategoria = 0)
         {
             if (idCategoria == 0)

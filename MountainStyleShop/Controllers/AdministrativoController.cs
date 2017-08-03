@@ -6,9 +6,11 @@ using System.Web.Mvc;
 
 namespace MountainStyleShop.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class AdministrativoController : Controller
     {
         // GET: Administrativo
+
         public ActionResult Index()
         {
             return View();

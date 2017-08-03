@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MountainStyleShop.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class NotaDeCompraController : Controller
     {
         // GET: NotaDeCompra

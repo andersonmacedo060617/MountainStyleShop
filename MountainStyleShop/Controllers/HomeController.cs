@@ -31,11 +31,7 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
-        public ActionResult ListaProdutos()
-        {
-            return View();
-        }
-
+        
         public ActionResult VisualizarProduto(int id)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(c => c.Id == id);
