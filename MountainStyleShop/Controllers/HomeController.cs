@@ -1,6 +1,7 @@
 ﻿
 using MountainStyleShop.ModelNH.Config;
 using MountainStyleShop.ModelNH.Model;
+using MountainStyleShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,8 +43,22 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
-        
-        
+        public ActionResult SemAcesso()
+        {
+            if (UsuarioUtils.Usuario != null)
+            {
+                TempData["MSG_FalhaExecucao"] = "Você não tem acesso a está opção";
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using MountainStyleShop.ModelNH.Model;
+﻿using MountainStyleShop.ModelNH.Config;
+using MountainStyleShop.ModelNH.Model;
 using MountainStyleShop.Models;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,27 @@ namespace MountainStyleShop.Controllers
             UsuarioUtils.Deslogar();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Index()
+        {
+            var Usuarios = ConfigDB.Instance.UsuarioRepository.GetAll();
+
+            return View(Usuarios);
+        }
+
+        public ActionResult Novo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Gravar(Usuario Usuario)
+        {
+            Usuario.Ativo = true;
+            ConfigDB.Instance.UsuarioRepository.Gravar(Usuario);
+
+            return RedirectToAction("Index");
         }
     }
 }

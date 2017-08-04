@@ -99,7 +99,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Administrador")]
+        
         public ActionResult Visualizar(int id)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(x => x.Id == id);

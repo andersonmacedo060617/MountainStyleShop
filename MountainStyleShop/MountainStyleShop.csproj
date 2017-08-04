@@ -292,11 +292,13 @@
     <Content Include="Views\Produto\ProdutosCategoria.cshtml" />
     <Content Include="Views\Componentes\_PainelImagensIndex.cshtml" />
     <Content Include="Views\Produto\_ExibirProdutos.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Novo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Imagens\Produtos\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
