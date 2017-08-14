@@ -53,8 +53,9 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Login()
+        public ActionResult Login(String ReturnUrl)
         {
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 

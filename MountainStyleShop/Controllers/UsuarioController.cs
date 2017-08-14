@@ -13,27 +13,51 @@ namespace MountainStyleShop.Controllers
     {
         // GET: Usuario
         [HttpPost]
-        public ActionResult Logar(Usuario usuario)
+        public ActionResult Logar(Usuario usuario, String ReturnUrl)
         {
-
+            
             if (UsuarioUtils.Usuario != null)
             {
                 if (UsuarioUtils.Logar(usuario.Login, usuario.Senha))
                 {
-                    return RedirectToAction("Principal", "Home");
+                    string decodedUrl = "";
+                    if (!string.IsNullOrEmpty(ReturnUrl))
+                        decodedUrl = Server.UrlDecode(ReturnUrl);
+
+                    if (Url.IsLocalUrl(decodedUrl))
+                    {
+                        return Redirect(decodedUrl);
+                    }
+                    else
+                    {
+                        return UsuarioUtils.Usuario.Admin ? RedirectToAction("Index", "Administrativo") : RedirectToAction("Index", "Home");
+                    }
+
+                    
                 }
             }
-
+            ModelState.Remove("Nome");
             if (ModelState.IsValid)
             {
                 if (UsuarioUtils.Logar(usuario.Login, usuario.Senha))
                 {
-                    return RedirectToAction("Principal", "Home");
+                    string decodedUrl = "";
+                    if (!string.IsNullOrEmpty(ReturnUrl))
+                        decodedUrl = Server.UrlDecode(ReturnUrl);
+
+                    if (Url.IsLocalUrl(decodedUrl))
+                    {
+                        return Redirect(decodedUrl);
+                    }
+                    else
+                    {
+                        return UsuarioUtils.Usuario.Admin ? RedirectToAction("Index", "Administrativo") : RedirectToAction("Index", "Home");
+                    }
                 }
             }
             TempData["MSG_FalhaAcesso"] = "Login ou senha invalidos!";
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Home");
         }
 
         [Authorize(Roles = "Administrador, Usuario")]
@@ -64,5 +88,7 @@ namespace MountainStyleShop.Controllers
 
             return RedirectToAction("Index");
         }
+        
+        
     }
 }
