@@ -40,6 +40,8 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
 
+        public virtual bool ApareeceNaVitrine { get; set; }
+
         public virtual double MediaNotasAvaliacao
         {
             get
@@ -79,6 +81,8 @@ namespace MountainStyleShop.ModelNH.Model
             Property<string>(x => x.Imagem);
             Property<Double>(x => x.Valor);
             Property<int>(x => x.Quantidade);
+            Property<bool>(x => x.ApareeceNaVitrine);
+
 
             ManyToOne<Categoria>(x => x.Categoria, m =>
             {

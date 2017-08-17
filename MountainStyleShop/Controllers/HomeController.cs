@@ -14,7 +14,7 @@ namespace MountainStyleShop.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetLimit(8);
+            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.ApareeceNaVitrine == true);
             return View();
         }
 
