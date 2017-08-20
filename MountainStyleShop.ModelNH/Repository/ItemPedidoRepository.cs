@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Repository
 {
-    public class ItemPedidoRepository:RepositoryBase<ItemPedido>
+    public class ItemPedidoRepository:RepositoryBase<ItemNotaCompraFornecedor>
     {
         public ItemPedidoRepository(ISession session) : base(session)
         {

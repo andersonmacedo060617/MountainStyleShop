@@ -26,7 +26,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual Double Percentual { get; set; }
 
         [Display(Name = "Item")]
-        public virtual ItemPedido Item { get; set; }
+        public virtual ItemNotaCompraFornecedor Item { get; set; }
 
     }
 
@@ -49,7 +49,7 @@ namespace MountainStyleShop.ModelNH.Model
                 m.Column("IdTipoDetalhamento");
             });
 
-            ManyToOne<ItemPedido>(x => x.Item, m =>
+            ManyToOne<ItemNotaCompraFornecedor>(x => x.Item, m =>
             {
                 m.Column("IdItemPedido");
             });

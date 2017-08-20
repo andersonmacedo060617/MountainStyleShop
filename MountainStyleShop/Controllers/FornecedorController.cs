@@ -14,8 +14,8 @@ namespace MountainStyleShop.Controllers
         // GET: Fornecedor
         public ActionResult Index()
         {
-            IList<Pessoa> fornecedores = ConfigDB.Instance.PessoaRepository.GetAll();
-            fornecedores.OrderBy(x => x.Nome).Where(x=>x.Fornecedor == true);
+            IList<Fornecedor> fornecedores = ConfigDB.Instance.PessoaRepository.GetAll();
+            fornecedores.OrderBy(x => x.Nome);
             ViewBag.Fornecedores = fornecedores;
             return View();
         }
@@ -26,12 +26,9 @@ namespace MountainStyleShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Gravar(Pessoa fornecedor)
+        public ActionResult Gravar(Fornecedor fornecedor)
         {
-            fornecedor.Fornecedor = true;
-            fornecedor.PFisica = false;
-
-
+            
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Novo", fornecedor);

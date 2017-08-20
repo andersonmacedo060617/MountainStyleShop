@@ -30,6 +30,12 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual bool Admin { get; set; }
 
         public virtual bool Ativo { get; set; }
+
+        public virtual List<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
+
+        public virtual List<ProdutoFavorito> ProdutosFavoritos { get; set; }
+
+        public virtual List<VendaCliente> VendasCliente { get; set; }
     }
 
     public class UsuarioMap : ClassMapping<Usuario>
@@ -48,6 +54,33 @@ namespace MountainStyleShop.ModelNH.Model
             Property<string>(x => x.Senha);
             Property<bool>(x => x.Ativo);
             Property<bool>(x => x.Admin);
+
+            Bag<AvaliacaoProduto>(x => x.AvaliacoesProdutos, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            Bag<ProdutoFavorito>(x => x.ProdutosFavoritos, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            Bag<VendaCliente>(x => x.VendasCliente, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
         }
     }
 }

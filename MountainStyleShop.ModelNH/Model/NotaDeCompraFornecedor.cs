@@ -1,6 +1,7 @@
 ﻿using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Model
 {
-    public class NotaDeCompra
+    public class NotaDeCompraFornecedor
     {
         public virtual int Id { get; set; }
 
@@ -20,19 +21,17 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual DateTime DataDaCompra { get; set; }
 
         [Display(Name = "Data Prevista da Entrega")]
-        [Required(ErrorMessage = "A Data da Entrega é obrigatoria.")]
+        [Required(ErrorMessage = "A Data da Entrega Prevista é obrigatoria.")]
+        [DataType(dataType: DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
+        public virtual DateTime DataEntregaPrevista { get; set; }
+
+
+
+        [Display(Name = "Data da Entrega")]
         [DataType(dataType: DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
         public virtual DateTime DataDeEntrega { get; set; }
-
-        [Display(Name = "Valor Total da Nota")]
-        [DisplayFormat(DataFormatString = "{0:n2}",
-            ApplyFormatInEditMode = true)]
-        public virtual Double ValorTotal { get; set; }
-
-        [Display(Name = "Produtos Entregues?")]
-        public virtual bool ProdEntregue { get; set; }
-
 
         [Display(Name = "Data de Cadastro")]
         [DataType(DataType.DateTime)]
@@ -40,21 +39,23 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual DateTime DataDeCadastro { get; set; }
 
         [Display(Name = "Itens da Compra")]
-        public virtual IList<ItemPedido> ItensPedidos{get; set;}
+        public virtual IList<ItemNotaCompraFornecedor> ItensPedidos{get; set;}
 
         [Display(Name = "Fornecedor")]
-        public virtual Pessoa Fornecedor { get; set; }
+        public virtual Fornecedor Fornecedor { get; set; }
         
-        public NotaDeCompra()
+        public virtual IList<ValorAddNotaCompraFornecedor> ValorAddNotaCompra { get; set; }
+
+        public NotaDeCompraFornecedor()
         {
-            ItensPedidos = new List<ItemPedido>();
+            ItensPedidos = new List<ItemNotaCompraFornecedor>();
         }
 
     }
 
-    public class NotaDeCompraMap : ClassMapping<NotaDeCompra>
+    public class NotaDeCompraFornecedorMap : ClassMapping<NotaDeCompraFornecedor>
     {
-        public NotaDeCompraMap()
+        public NotaDeCompraFornecedorMap()
         {
             
 
@@ -66,25 +67,32 @@ namespace MountainStyleShop.ModelNH.Model
 
             Property<DateTime>(x => x.DataDaCompra);
             Property<DateTime>(x => x.DataDeEntrega);
+            Property<DateTime>(x => x.DataEntregaPrevista);
             Property<DateTime>(x => x.DataDeCadastro);
-            Property<Double>(x => x.ValorTotal);
-            Property<bool>(x => x.ProdEntregue);
+            
 
-
-
-            ManyToOne<Pessoa>(x => x.Fornecedor, m =>
+            ManyToOne<Fornecedor>(x => x.Fornecedor, m =>
             {
-                m.Column("idPessoa_Fornecedor");
+                m.Column("idFornecedor");
             });
 
-            Bag<ItemPedido>(x => x.ItensPedidos, m =>
+            Bag<ItemNotaCompraFornecedor>(x => x.ItensPedidos, m =>
             {
                 m.Cascade(Cascade.All);
                 m.Lazy(CollectionLazy.Lazy);
                 m.Inverse(true);
             },
                 r => r.OneToMany()
-           );
+            );
+
+            Bag<ValorAddNotaCompraFornecedor>(x => x.ValorAddNotaCompra, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
 
         }
     }

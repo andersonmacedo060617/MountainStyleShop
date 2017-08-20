@@ -30,22 +30,21 @@ namespace MountainStyleShop.ModelNH.Model
         [Required(ErrorMessage = "O Valor é Obrigatorio.")]
         [Range(0.01, 99999.99, ErrorMessage = "O Preço de Venda deve estar entre 0,01 e 99999,99.")]
         public virtual Double Valor { get; set; }
-
-        [Range(0, 1000000, ErrorMessage ="Quantidade entre 0 e 1.000.000")]
-        [Display(Name ="Quantidade em estoque")]
-        [Required(ErrorMessage ="A quantidade de produtos é obrigatoria")]      
-        public virtual int Quantidade { get; set; }
         
-        public virtual Categoria Categoria { get; set; }
-
-        public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
-
+        
         public virtual bool ApareeceNaVitrine { get; set; }
 
-        public virtual double MediaNotasAvaliacao
+        public virtual List<ProdutoFavorito> ProdutoFavoritos { get; set; }
+        public virtual Categoria Categoria { get; set; }
+        public virtual List<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
+        public virtual List<AjusteEstoque> AjustesDeEstoque { get; set; }
+        public virtual List<ItemNotaCompraFornecedor> ItemNotaDeCompraFornecedor { get; set; }
+        public virtual List<ItemVendaCliente> ItemVendasCliente { get; set; }
+
+        public virtual Fabricante Fabricante { get; set; }
+
+        public double MediaNotasAvaliacao()
         {
-            get
-            {
                 int Total = 0;
                 foreach (var Avalicao in this.AvaliacoesProdutos)
                 {
@@ -53,14 +52,10 @@ namespace MountainStyleShop.ModelNH.Model
                 }
 
                 return Total  / this.AvaliacoesProdutos.Count;
-            }
         }
 
-        public virtual int QuantidadeAvaliacoes {
-            get
-            {
-                return this.AvaliacoesProdutos.Count;
-            }
+        public int QuantidadeAvaliacoes() {
+            return this.AvaliacoesProdutos.Count;
         }
         
     }
@@ -80,13 +75,17 @@ namespace MountainStyleShop.ModelNH.Model
             Property<string>(x => x.Descricao);
             Property<string>(x => x.Imagem);
             Property<Double>(x => x.Valor);
-            Property<int>(x => x.Quantidade);
             Property<bool>(x => x.ApareeceNaVitrine);
 
 
             ManyToOne<Categoria>(x => x.Categoria, m =>
             {
                 m.Column("IdCategoria");
+            });
+
+            ManyToOne<Fabricante>(x => x.Fabricante, m =>
+            {
+                m.Column("IdFabricante");
             });
 
             Bag<AvaliacaoProduto>(x => x.AvaliacoesProdutos, m =>
@@ -97,6 +96,42 @@ namespace MountainStyleShop.ModelNH.Model
             },
                 r => r.OneToMany()
            );
+
+            Bag<ProdutoFavorito>(x => x.ProdutoFavoritos, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            Bag<AjusteEstoque>(x => x.AjustesDeEstoque, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            Bag<ItemNotaCompraFornecedor>(x => x.ItemNotaDeCompraFornecedor, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            Bag<ItemVendaCliente>(x => x.ItemVendasCliente, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
 
         }
     }

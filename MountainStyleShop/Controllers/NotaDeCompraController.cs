@@ -23,14 +23,14 @@ namespace MountainStyleShop.Controllers
         public ActionResult Novo()
         {
             var fornecedores = ConfigDB.Instance.PessoaRepository.GetAll();
-            var lstFornecedores = new SelectList(fornecedores.Where(x => x.Fornecedor == true), "Id", "Nome");
+            var lstFornecedores = new SelectList(fornecedores, "Id", "Nome");
             ViewBag.lstFornecedores = lstFornecedores;
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Gravar(NotaDeCompra notaDeCompra)
+        public ActionResult Gravar(NotaDeCompraFornecedor notaDeCompra)
         {
             ModelState.Remove("Fornecedor.Nome");
             notaDeCompra.Fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(x => x.Id == notaDeCompra.Fornecedor.Id);
@@ -61,7 +61,7 @@ namespace MountainStyleShop.Controllers
             var notaDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().First(x => x.Id == id);
             if(notaDeCompra != null) { 
                 var fornecedores = ConfigDB.Instance.PessoaRepository.GetAll();
-                var lstFornecedores = new SelectList(fornecedores.Where(x => x.Fornecedor == true), "Id", "Nome");
+                var lstFornecedores = new SelectList(fornecedores, "Id", "Nome");
                 ViewBag.lstFornecedores = lstFornecedores;
 
                 return View(notaDeCompra);
@@ -90,7 +90,7 @@ namespace MountainStyleShop.Controllers
         {
             var notaDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().First(x => x.Id == id);
 
-            if (!notaDeCompra.ProdEntregue)
+            if (notaDeCompra == null)
             {
                 return View(notaDeCompra);
             }

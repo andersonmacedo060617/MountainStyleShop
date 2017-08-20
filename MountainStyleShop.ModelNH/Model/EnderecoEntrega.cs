@@ -1,0 +1,68 @@
+﻿using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
+
+namespace MountainStyleShop.ModelNH.Model
+{
+    public class EnderecoEntrega
+    {
+        public virtual int Id { get; set; }
+        public virtual string Rua { get; set; }
+        public virtual string Numero { get; set; }
+        public virtual string Complemento { get; set; }
+        public virtual string Bairro { get; set; }
+        public virtual string CEP { get; set; }
+        public virtual Cidade Cidade { get; set; }
+        public virtual VendaCliente VendaCliente { get; set; }
+
+        
+
+        public ValorEntrega ValorEntrega()
+        {
+            if(this.Cidade.ValoresEntrega.Find(x=>x.CEP == this.CEP) != null)
+            {
+                return this.Cidade.ValoresEntrega.Find(x => x.CEP == this.CEP);
+            }
+
+            ValorEntrega MaiorValor = new ValorEntrega();
+            MaiorValor.Valor = 0;
+            foreach (var vlr in this.Cidade.ValoresEntrega)
+            {
+                if(vlr.Valor > MaiorValor.Valor)
+                {
+                    MaiorValor = vlr;
+                }
+            }
+
+            return MaiorValor;
+        }
+    }
+
+    public class EnderecoEntregaMap : ClassMapping<EnderecoEntrega>
+    {
+        public EnderecoEntregaMap()
+        {
+            Id<int>(x => x.Id, m =>
+            {
+                m.Generator(Generators.Identity);
+            });
+
+            Property<string>(x => x.Rua);
+            Property<string>(x => x.Numero);
+            Property<string>(x => x.Complemento);
+            Property<string>(x => x.Bairro);
+            Property<string>(x => x.CEP);
+            
+
+            ManyToOne<Cidade>(x => x.Cidade, m =>
+            {
+                m.Column("IdCidade");
+            });
+
+            ManyToOne<VendaCliente>(x => x.VendaCliente, m =>
+            {
+                m.Column("IdVendaCliente");
+            });
+        }
+
+    }
+}

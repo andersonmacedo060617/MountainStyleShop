@@ -55,7 +55,7 @@ namespace MountainStyleShop.ModelNH.Model
                   m.Inverse(true);
               },
                 r=>r.OneToMany()
-           );
+            );
             
         }
     }

@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace MountainStyleShop.ModelNH.Repository
 {
     
-    public class PessoaRepository:RepositoryBase<Pessoa>
+    public class PessoaRepository:RepositoryBase<Fornecedor>
     {
         public PessoaRepository(ISession session) : base(session)
         {
         }
 
-        public IList<Pessoa> GetLimit(int quantidade)
+        public IList<Fornecedor> GetLimit(int quantidade)
         {
-            var Pessoas = this.session.CreateCriteria<Pessoa>().SetMaxResults(quantidade).List<Pessoa>();
-            return Pessoas;
+            var Fornecedores = this.session.CreateCriteria<Fornecedor>().SetMaxResults(quantidade).List<Fornecedor>();
+            return Fornecedores;
         }
         
     }

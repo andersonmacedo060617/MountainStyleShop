@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Model
 {
-    public class ItemPedido
+    public class ItemNotaCompraFornecedor
     {
         public virtual int Id { get; set; }
 
@@ -27,7 +27,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual int Quantidade { get; set; }
 
         [Display(Name ="Nota de Compra")]
-        public virtual NotaDeCompra NotaDeCompra { get; set; }
+        public virtual NotaDeCompraFornecedor NotaDeCompra { get; set; }
 
         [Display(Name = "Produto")]
         public virtual Produto Produto { get; set; }
@@ -36,11 +36,6 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual IList<DetalhaCusto> DetalhamentoValor { get; set; }
 
 
-        public ItemPedido()
-        {
-            DetalhamentoValor = new List<DetalhaCusto>();
-        }
-
         [Display(Name ="Valor Total Itens")]
         public virtual Double ValorTotalItens()
         {
@@ -48,7 +43,7 @@ namespace MountainStyleShop.ModelNH.Model
         }
     }
 
-    public class ItemPedidoMap : ClassMapping<ItemPedido>
+    public class ItemPedidoMap : ClassMapping<ItemNotaCompraFornecedor>
     {
         public ItemPedidoMap()
         {
@@ -63,7 +58,7 @@ namespace MountainStyleShop.ModelNH.Model
             Property<Double>(x => x.ValorUnitario);
             Property<int>(x => x.Quantidade);
 
-            ManyToOne<NotaDeCompra>(x => x.NotaDeCompra, m =>
+            ManyToOne<NotaDeCompraFornecedor>(x => x.NotaDeCompra, m =>
             {
                 m.Column("IdNotaDeCompra");
             });
