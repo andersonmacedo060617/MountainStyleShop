@@ -14,6 +14,5 @@ namespace MountainStyleShop.ModelNH.Repository
         {
         }
     }
-    {
-    }
+    
 }
