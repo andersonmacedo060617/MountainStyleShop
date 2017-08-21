@@ -34,16 +34,16 @@ namespace MountainStyleShop.ModelNH.Model
         
         public virtual bool ApareeceNaVitrine { get; set; }
 
-        public virtual List<ProdutoFavorito> ProdutoFavoritos { get; set; }
+        public virtual IList<ProdutoFavorito> ProdutoFavoritos { get; set; }
         public virtual Categoria Categoria { get; set; }
-        public virtual List<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
-        public virtual List<AjusteEstoque> AjustesDeEstoque { get; set; }
-        public virtual List<ItemNotaCompraFornecedor> ItemNotaDeCompraFornecedor { get; set; }
-        public virtual List<ItemVendaCliente> ItemVendasCliente { get; set; }
+        public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
+        public virtual IList<AjusteEstoque> AjustesDeEstoque { get; set; }
+        public virtual IList<ItemNotaCompraFornecedor> ItemNotaDeCompraFornecedor { get; set; }
+        public virtual IList<ItemVendaCliente> ItemVendasCliente { get; set; }
 
         public virtual Fabricante Fabricante { get; set; }
 
-        public double MediaNotasAvaliacao()
+        public virtual double MediaNotasAvaliacao()
         {
                 int Total = 0;
                 foreach (var Avalicao in this.AvaliacoesProdutos)
@@ -54,7 +54,7 @@ namespace MountainStyleShop.ModelNH.Model
                 return Total  / this.AvaliacoesProdutos.Count;
         }
 
-        public int QuantidadeAvaliacoes() {
+        public virtual int QuantidadeAvaliacoes() {
             return this.AvaliacoesProdutos.Count;
         }
         

@@ -14,7 +14,7 @@ namespace MountainStyleShop.Controllers
         // GET: Fornecedor
         public ActionResult Index()
         {
-            IList<Fornecedor> fornecedores = ConfigDB.Instance.PessoaRepository.GetAll();
+            IList<Fornecedor> fornecedores = ConfigDB.Instance.FornecedorRepository.GetAll();
             fornecedores.OrderBy(x => x.Nome);
             ViewBag.Fornecedores = fornecedores;
             return View();
@@ -34,14 +34,14 @@ namespace MountainStyleShop.Controllers
                 return RedirectToAction("Novo", fornecedor);
             }
 
-            ConfigDB.Instance.PessoaRepository.Gravar(fornecedor);
+            ConfigDB.Instance.FornecedorRepository.Gravar(fornecedor);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Alterar(int id)
         {
-            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
             if (fornecedor != null)
             {
                 return View(fornecedor);
@@ -52,7 +52,7 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult ConfirmaDelete(int id)
         {
-            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
             if (fornecedor != null)
             {
                 return View(fornecedor);
@@ -63,17 +63,17 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult Apagar(int id)
         {
-            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
             if (fornecedor != null)
             {
-                ConfigDB.Instance.PessoaRepository.Excluir(fornecedor);
+                ConfigDB.Instance.FornecedorRepository.Excluir(fornecedor);
             }
             return RedirectToAction("Index");
         }
 
         public ActionResult Visualizar(int id)
         {
-            var fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(c => c.Id == id);
+            var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(c => c.Id == id);
             if (fornecedor != null)
             {
                 return View(fornecedor);

@@ -14,7 +14,7 @@ namespace MountainStyleShop.Controllers
         
         public ActionResult Novo(int IdDaNota)
         {
-            NotaDeCompraFornecedor nota = ConfigDB.Instance.NotaDeCompraRepository.GetAll().First(n => n.Id == IdDaNota);
+            NotaDeCompraFornecedor nota = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(n => n.Id == IdDaNota);
             
             if(nota != null) {
                 ItemNotaCompraFornecedor item = new ItemNotaCompraFornecedor()

@@ -8,14 +8,10 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Repository
 {
-    
-
-    public class DetalhaCustoRepository:RepositoryBase<DetalhaCusto>
+    public class CidadeRepository : RepositoryBase<Cidade>
     {
-        public DetalhaCustoRepository(ISession session) : base(session)
+        public CidadeRepository(ISession session) : base(session)
         {
         }
-
-
     }
 }

@@ -31,21 +31,21 @@ namespace MountainStyleShop.ModelNH.Model
 
         [Display(Name = "Produto")]
         public virtual Produto Produto { get; set; }
-
-        [Display(Name ="Detalhes do Custo")]
-        public virtual IList<DetalhaCusto> DetalhamentoValor { get; set; }
-
+        
+        public virtual IList<ValorAddNotaCompraFornecedor> ValorAddNotaCompraFornecedor { get; set; }
 
         [Display(Name ="Valor Total Itens")]
         public virtual Double ValorTotalItens()
         {
             return ValorUnitario * Quantidade;
         }
+
+
     }
 
-    public class ItemPedidoMap : ClassMapping<ItemNotaCompraFornecedor>
+    public class ItemNotaCompraFornecedorMap : ClassMapping<ItemNotaCompraFornecedor>
     {
-        public ItemPedidoMap()
+        public ItemNotaCompraFornecedorMap()
         {
             
 
@@ -68,7 +68,7 @@ namespace MountainStyleShop.ModelNH.Model
                 m.Column("IdProduto");
             });
 
-            Bag<DetalhaCusto>(x => x.DetalhamentoValor, m =>
+            Bag<ValorAddNotaCompraFornecedor>(x => x.ValorAddNotaCompraFornecedor, m =>
             {
                 m.Cascade(Cascade.All);
                 m.Lazy(CollectionLazy.Lazy);

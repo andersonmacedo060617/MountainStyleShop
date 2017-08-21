@@ -9,7 +9,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual int Id { get; set; }
         public virtual string Nome { get; set; }
         public virtual UF UF { get; set; }
-        public virtual List<ValorEntrega> ValoresEntrega { get; set; }
+        public virtual IList<ValorEntrega> ValoresEntrega { get; set; }
     }
 
     public class CidadeMap : ClassMapping<Cidade>

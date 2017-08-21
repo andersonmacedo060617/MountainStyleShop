@@ -31,11 +31,11 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual bool Ativo { get; set; }
 
-        public virtual List<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
+        public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
 
-        public virtual List<ProdutoFavorito> ProdutosFavoritos { get; set; }
+        public virtual IList<ProdutoFavorito> ProdutosFavoritos { get; set; }
 
-        public virtual List<VendaCliente> VendasCliente { get; set; }
+        public virtual IList<VendaCliente> VendasCliente { get; set; }
     }
 
     public class UsuarioMap : ClassMapping<Usuario>

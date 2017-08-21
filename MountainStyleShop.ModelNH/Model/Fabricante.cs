@@ -13,7 +13,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual int Id { get; set; }
         public virtual string Nome { get; set; }
         public virtual Pais Pais { get; set; }
-        public virtual List<Produto> Produtos { get; set; }
+        public virtual IList<Produto> Produtos { get; set; }
     }
 
     public class FabricanteMap : ClassMapping<Fabricante>

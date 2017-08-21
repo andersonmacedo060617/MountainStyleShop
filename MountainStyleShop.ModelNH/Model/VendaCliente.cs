@@ -14,9 +14,9 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual bool VendaConfirmada { get; set; }
         public virtual Usuario Cliente { get; set; }
         public virtual EnderecoEntrega EnderecoParaEntrega { get; set; }
-        public virtual List<ItemVendaCliente> ItensVendaCliente { get; set; }
-        public virtual List<CustoAddVendaCliente> CustosAdicionaisVenda { get; set; }
-        public virtual List<ValoresPagamentoVendaCliente> ValoresPagamentoVendaCliente { get; set; }
+        public virtual IList<ItemVendaCliente> ItensVendaCliente { get; set; }
+        public virtual IList<CustoAddVendaCliente> CustosAdicionaisVenda { get; set; }
+        public virtual IList<ValoresPagamentoVendaCliente> ValoresPagamentoVendaCliente { get; set; }
         public virtual double ValorFrete { get; set; }
     }
 

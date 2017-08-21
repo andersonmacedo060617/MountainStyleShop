@@ -64,7 +64,6 @@
     <Compile Include="Model\Categoria.cs" />
     <Compile Include="Model\Cidade.cs" />
     <Compile Include="Model\CustoAddVendaCliente.cs" />
-    <Compile Include="Model\DetalhaCusto.cs" />
     <Compile Include="Model\EnderecoEntrega.cs" />
     <Compile Include="Model\Fabricante.cs" />
     <Compile Include="Model\FormaPagamento.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Model\Pais.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\ProdutoFavorito.cs" />
-    <Compile Include="Model\TipoDetalhamento.cs" />
     <Compile Include="Model\TipoValorAdd.cs" />
     <Compile Include="Model\UF.cs" />
     <Compile Include="Model\Usuario.cs" />
@@ -85,16 +83,30 @@
     <Compile Include="Model\ValoresPagamentoVendaCliente.cs" />
     <Compile Include="Model\VendaCliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AvaliacaoProtudoRepository.cs" />
+    <Compile Include="Repository\AjusteEstoqueRepository.cs" />
+    <Compile Include="Repository\AvaliacaoProdutoRepository.cs" />
     <Compile Include="Repository\CategoriaRepository.cs" />
-    <Compile Include="Repository\DetalhaCustoRepository.cs" />
-    <Compile Include="Repository\ItemPedidoRepository.cs" />
-    <Compile Include="Repository\NotaDeCompraRepository.cs" />
-    <Compile Include="Repository\PessoaRepository.cs" />
+    <Compile Include="Repository\CidadeRepository.cs" />
+    <Compile Include="Repository\CustoAddVendaClienteRepository.cs" />
+    <Compile Include="Repository\EnderecoEntregaRepository.cs" />
+    <Compile Include="Repository\FabricanteRepository.cs" />
+    <Compile Include="Repository\FormaPagamentoRepository.cs" />
+    <Compile Include="Repository\FornecedorRepository.cs" />
+    <Compile Include="Repository\ItemNotaCompraFornecedorRepository.cs" />
+    <Compile Include="Repository\ItemVendaClienteRepository.cs" />
+    <Compile Include="Repository\NotaDeCompraFornecedorRepository.cs" />
+    <Compile Include="Repository\PagamentoRepository.cs" />
+    <Compile Include="Repository\PaisRepository.cs" />
+    <Compile Include="Repository\ProdutoFavoritoRepository.cs" />
     <Compile Include="Repository\ProdutoRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
-    <Compile Include="Repository\TipoDetalhamentoRepository.cs" />
+    <Compile Include="Repository\TipoValorAddRepository.cs" />
+    <Compile Include="Repository\UFRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
+    <Compile Include="Repository\ValorAddNotaCompraFornecedorRepository.cs" />
+    <Compile Include="Repository\ValorEntregaRepository.cs" />
+    <Compile Include="Repository\ValoresPagamentoVendaClienteRepository.cs" />
+    <Compile Include="Repository\VendaClienteRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

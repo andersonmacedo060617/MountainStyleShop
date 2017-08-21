@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace MountainStyleShop.ModelNH.Repository
 {
-    public class ItemPedidoRepository:RepositoryBase<ItemNotaCompraFornecedor>
+    public class NotaDeCompraFornecedorRepository : RepositoryBase<NotaDeCompraFornecedor>
     {
-        public ItemPedidoRepository(ISession session) : base(session)
+        public NotaDeCompraFornecedorRepository(ISession session) : base(session)
         {
         }
-
-
     }
 }

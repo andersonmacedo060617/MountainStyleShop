@@ -53,15 +53,30 @@ namespace MountainStyleShop.ModelNH.Config
         }
 
         #region Repositorys
-        public ProdutoRepository ProdutoRepository { get; set; }
-        public UsuarioRepository UsuarioRepository { get; set; }
+        public AjusteEstoqueRepository AjusteEstoqueRepository { get; set; }
+        public AvaliacaoProdutoRepository AvaliacaoProdutoRepository { get; set; }
         public CategoriaRepository CategoriaRepository { get; set; }
-        public DetalhaCustoRepository DetalhaCustoRepository { get; set; }
-        public ItemPedidoRepository ItemPedidoRepository { get; set; }
-        public NotaDeCompraRepository NotaDeCompraRepository { get; set; }
-        public TipoDetalhamentoRepository TipoDetalhamentoRepository { get; set; }
-        public PessoaRepository PessoaRepository { get; set; }
-        public AvaliacaoProtudoRepository AvaliacaoRepository { get; set; }
+        public CidadeRepository CidadeRepository { get; set; }
+        public CustoAddVendaClienteRepository CustoAddVendaClienteRepository { get; set; }
+        public EnderecoEntregaRepository EnderecoEntregaRepository { get; set; }
+        public FabricanteRepository FabricanteRepository { get; set; }
+        public FormaPagamentoRepository FormaPagamentoRepository { get; set; }
+        public FornecedorRepository FornecedorRepository { get; set; }
+        public ItemNotaCompraFornecedorRepository ItemNotaCompraFornecedorRepository { get; set; }
+        public ItemVendaClienteRepository ItemVendaClienteRepository { get; set; }
+        public NotaDeCompraFornecedorRepository NotaDeCompraFornecedorRepository { get; set; }
+        public PagamentoRepository PagamentoRepository { get; set; }
+        public PaisRepository PaisRepository { get; set; }
+        public ProdutoFavoritoRepository ProdutoFavoritoRepository { get; set; }
+        public ProdutoRepository ProdutoRepository { get; set; }
+        public TipoValorAddRepository TipoValorAddRepository { get; set; }
+        public UFRepository UFRepository { get; set; }
+        public UsuarioRepository UsuarioRepository { get; set; }
+        public ValorAddNotaCompraFornecedorRepository ValorAddNotaCompraFornecedorRepository { get; set; }
+        public ValorEntregaRepository ValorEntregaRepository { get; set; }
+        public ValoresPagamentoVendaClienteRepository ValoresPagamentoVendaClienteRepository { get; set; }
+        public VendaClienteRepository VendaClienteRepository { get; set; }
+        
         #endregion
 
         public ConfigDB()
@@ -69,15 +84,31 @@ namespace MountainStyleShop.ModelNH.Config
             #region InstanciaRepositorys
             if (Conexao())
             {
-                this.ProdutoRepository = new ProdutoRepository(Session);
-                this.UsuarioRepository = new UsuarioRepository(Session);
+                this.AjusteEstoqueRepository = new AjusteEstoqueRepository(Session);
+                this.AvaliacaoProdutoRepository = new AvaliacaoProdutoRepository(Session);
                 this.CategoriaRepository = new CategoriaRepository(Session);
-                this.DetalhaCustoRepository = new DetalhaCustoRepository(Session);
-                this.ItemPedidoRepository = new ItemPedidoRepository(Session);
-                this.NotaDeCompraRepository = new NotaDeCompraRepository(Session);
-                this.TipoDetalhamentoRepository = new TipoDetalhamentoRepository(Session);
-                this.PessoaRepository = new PessoaRepository(Session);
-                this.AvaliacaoRepository = new AvaliacaoProtudoRepository(Session);
+                this.CidadeRepository = new CidadeRepository(Session);
+                this.CustoAddVendaClienteRepository = new CustoAddVendaClienteRepository(Session);
+                this.EnderecoEntregaRepository = new EnderecoEntregaRepository(Session);
+                this.FabricanteRepository = new FabricanteRepository(Session);
+                this.FormaPagamentoRepository = new FormaPagamentoRepository(Session);
+                this.FornecedorRepository = new FornecedorRepository(Session);
+                this.ItemNotaCompraFornecedorRepository = new ItemNotaCompraFornecedorRepository(Session);
+                this.ItemVendaClienteRepository = new ItemVendaClienteRepository(Session);
+                this.NotaDeCompraFornecedorRepository = new NotaDeCompraFornecedorRepository(Session);
+                this.PagamentoRepository = new PagamentoRepository(Session);
+                this.PaisRepository = new PaisRepository(Session);
+                this.ProdutoFavoritoRepository = new ProdutoFavoritoRepository(Session);
+                this.ProdutoRepository = new ProdutoRepository(Session);
+                this.TipoValorAddRepository = new TipoValorAddRepository(Session);
+                this.UFRepository = new UFRepository(Session);
+                this.UsuarioRepository = new UsuarioRepository(Session);
+                this.ValorAddNotaCompraFornecedorRepository = new ValorAddNotaCompraFornecedorRepository(Session);
+                this.ValorEntregaRepository = new ValorEntregaRepository(Session);
+                this.ValoresPagamentoVendaClienteRepository = new ValoresPagamentoVendaClienteRepository(Session);
+                this.VendaClienteRepository = new VendaClienteRepository(Session);
+                
+
             }
             #endregion
         }
@@ -142,31 +173,75 @@ namespace MountainStyleShop.ModelNH.Config
                 var mapper = new ModelMapper();
 
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(UsuarioMap)).GetTypes()
+                    Assembly.GetAssembly(typeof(AjusteEstoqueMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(AvaliacaoProdutoMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(CategoriaMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(CidadeMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(CustoAddVendaClienteMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(EnderecoEntregaMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(FabricanteMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(FormaPagamentoMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(FornecedorMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(ItemNotaCompraFornecedorMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(ItemVendaClienteMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(NotaDeCompraFornecedorMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(PagamentoMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(PaisMap)).GetTypes()
                 );
                 mapper.AddMappings(
                     Assembly.GetAssembly(typeof(ProdutoMap)).GetTypes()
                 );
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(Categoria)).GetTypes()
+                    Assembly.GetAssembly(typeof(ProdutoFavoritoMap)).GetTypes()
                 );
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(DetalhaCustoMap)).GetTypes()
+                    Assembly.GetAssembly(typeof(TipoValorAddMap)).GetTypes()
                 );
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(ItemPedidoMap)).GetTypes()
+                    Assembly.GetAssembly(typeof(UFMap)).GetTypes()
                 );
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(NotaDeCompraMap)).GetTypes()
+                    Assembly.GetAssembly(typeof(UsuarioMap)).GetTypes()
                 );
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(TipoDetalhamentoMap)).GetTypes()
+                    Assembly.GetAssembly(typeof(ValorAddNotaCompraFornecedorMap)).GetTypes()
                 );
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(AvaliacaoProdutoMap)).GetTypes()
+                    Assembly.GetAssembly(typeof(ValorEntregaMap)).GetTypes()
                 );
-
-
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(ValoresPagamentoVendaClienteMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(VendaClienteMap)).GetTypes()
+                );
+                
                 return mapper.CompileMappingForAllExplicitlyAddedEntities();
             }
             catch (Exception ex)

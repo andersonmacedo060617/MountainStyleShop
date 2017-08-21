@@ -10,7 +10,7 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual string Nome { get; set; }
 
-        public virtual List<UF> UFs { get; set; }
+        public virtual IList<UF> UFs { get; set; }
     }
 
     public class PaisMap : ClassMapping<Pais>

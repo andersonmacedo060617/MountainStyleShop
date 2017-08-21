@@ -1,5 +1,6 @@
 ﻿using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
+using System.Collections.Generic;
 
 namespace MountainStyleShop.ModelNH.Model
 {
@@ -16,11 +17,12 @@ namespace MountainStyleShop.ModelNH.Model
 
         
 
-        public ValorEntrega ValorEntrega()
+        public virtual ValorEntrega ValorFrete()
         {
-            if(this.Cidade.ValoresEntrega.Find(x=>x.CEP == this.CEP) != null)
+            List<ValorEntrega> vlrEntrega = this.Cidade.ValoresEntrega as List<ValorEntrega>;
+            if(vlrEntrega.Exists(x=>x.CEP == this.CEP))
             {
-                return this.Cidade.ValoresEntrega.Find(x => x.CEP == this.CEP);
+                return vlrEntrega.Find(x => x.CEP == this.CEP);
             }
 
             ValorEntrega MaiorValor = new ValorEntrega();

@@ -11,7 +11,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual Produto Produto { get; set; }
         public virtual VendaCliente VendaCliente { get; set; }
 
-        public double ValorTotal()
+        public virtual double ValorTotal()
         {
             return this.Quantidade * this.ValorUnitario;
         }

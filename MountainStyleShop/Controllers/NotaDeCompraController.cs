@@ -14,7 +14,7 @@ namespace MountainStyleShop.Controllers
         // GET: NotaDeCompra
         public ActionResult Index()
         {
-            var notasDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll();
+            var notasDeCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll();
             ViewBag.NotasDeCompra = notasDeCompra;
             
             return View();
@@ -22,7 +22,7 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult Novo()
         {
-            var fornecedores = ConfigDB.Instance.PessoaRepository.GetAll();
+            var fornecedores = ConfigDB.Instance.FornecedorRepository.GetAll();
             var lstFornecedores = new SelectList(fornecedores, "Id", "Nome");
             ViewBag.lstFornecedores = lstFornecedores;
 
@@ -33,7 +33,7 @@ namespace MountainStyleShop.Controllers
         public ActionResult Gravar(NotaDeCompraFornecedor notaDeCompra)
         {
             ModelState.Remove("Fornecedor.Nome");
-            notaDeCompra.Fornecedor = ConfigDB.Instance.PessoaRepository.GetAll().FirstOrDefault(x => x.Id == notaDeCompra.Fornecedor.Id);
+            notaDeCompra.Fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(x => x.Id == notaDeCompra.Fornecedor.Id);
 
             bool novoRegistro = notaDeCompra.Id == 0 ? true:false;
 
@@ -51,16 +51,16 @@ namespace MountainStyleShop.Controllers
                 return View("Alterar", notaDeCompra);
             }
             
-            ConfigDB.Instance.NotaDeCompraRepository.Gravar(notaDeCompra);
+            ConfigDB.Instance.NotaDeCompraFornecedorRepository.Gravar(notaDeCompra);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Alterar(int id)
         {
-            var notaDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().First(x => x.Id == id);
+            var notaDeCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(x => x.Id == id);
             if(notaDeCompra != null) { 
-                var fornecedores = ConfigDB.Instance.PessoaRepository.GetAll();
+                var fornecedores = ConfigDB.Instance.FornecedorRepository.GetAll();
                 var lstFornecedores = new SelectList(fornecedores, "Id", "Nome");
                 ViewBag.lstFornecedores = lstFornecedores;
 
@@ -73,7 +73,7 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult ConfirmaDelete(int id)
         {
-            var notaDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            var notaDeCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
             if (notaDeCompra != null)
             {
                 if(notaDeCompra.ItensPedidos.Count != 0)
@@ -88,7 +88,7 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult AddProduto(int id)
         {
-            var notaDeCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().First(x => x.Id == id);
+            var notaDeCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(x => x.Id == id);
 
             if (notaDeCompra == null)
             {
@@ -100,11 +100,11 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult Apagar(int id)
         {
-            var notaCompra = ConfigDB.Instance.NotaDeCompraRepository.GetAll().FirstOrDefault(f => f.Id == id);
+            var notaCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
             if (notaCompra != null)
             {
                 if (notaCompra.ItensPedidos.Count == 0) { 
-                    ConfigDB.Instance.NotaDeCompraRepository.Excluir(notaCompra);
+                    ConfigDB.Instance.NotaDeCompraFornecedorRepository.Excluir(notaCompra);
                 }
             }
             return RedirectToAction("Index");
