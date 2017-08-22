@@ -57,9 +57,11 @@ footer {
     margin: 50px 0;
 }
 
+
 .container{
-    margin-top: 25px;
+    margin-top: 50px;
 }
+
 
 @media (min-width: 1500px) {
   .container {
@@ -222,4 +224,47 @@ footer {
   .col-lg-offset-11 {
     margin-left: 91.66666666666666%;
   }
+}
+
+
+.navbar-top-links li:last-child {
+  margin-right: 15px;
+}
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
+.navbar-top-links {
+    margin-right: 0;
+}
+
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.navbar-top-links li a {
+  padding: 15px;
+  min-height: 50px;
+}
+
+.navbar-top-links .dropdown-user {
+  right: 0;
+  left: auto;
+}
+
+.navbar-top-links .dropdown-menu li {
+  display: block;
+}
+.navbar-top-links .dropdown-menu li:last-child {
+  margin-right: 0;
+}
+.navbar-top-links .dropdown-menu li a {
+  padding: 3px 20px;
+  min-height: 0;
+}
+.navbar-top-links .dropdown-menu li a div {
+  white-space: normal;
 }
