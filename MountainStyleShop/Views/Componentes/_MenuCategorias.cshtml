@@ -1,23 +1,27 @@
 ﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.Categoria>
-
-<ul class="list-group">
-    @foreach (var Categoria in (IList<MountainStyleShop.ModelNH.Model.Categoria>)ViewBag.Categorias)
-    {
-        if (ViewBag.CategoriaAtiva == Categoria.Id)
+<div class="panel panel-info">
+    <div class="panel-heading" align="center">
+        <a data-toggle="collapse" data-target="#listaCategorias"><p class="lead">Categorias <i class="fa fa-sort-desc" aria-hidden="true"></i></p></a>
+    </div>
+    <ul class="list-group collapse" id="listaCategorias">
+        @foreach (var Categoria in (IList<MountainStyleShop.ModelNH.Model.Categoria>)ViewBag.Categorias)
         {
-            <li class="list-group-item active">
-                @Html.DisplayFor(modelItem => Categoria.Nome)
-                <span class="badge">@Html.Label(Categoria.QuantidadeProdutos.ToString())</span>
-            </li>
-        }
-        else
-        {
-            <li class="list-group-item">
-                <a href="@Url.Action("ProdutosCategoria", "Produto",new { idCategoria = Categoria.Id })">@Html.DisplayFor(modelItem => Categoria.Nome)</a>
-                <span class="badge">@Html.Label(Categoria.QuantidadeProdutos.ToString())</span>
-            </li>
+            if (ViewBag.CategoriaAtiva == Categoria.Id)
+            {
+                <li class="list-group-item active">
+                    @Html.DisplayFor(modelItem => Categoria.Nome)
+                    <span class="badge">@Html.Label(Categoria.QuantidadeProdutos.ToString())</span>
+                </li>
+            }
+            else
+            {
+                <li class="list-group-item">
+                    <a href="@Url.Action("ProdutosCategoria", "Produto",new { idCategoria = Categoria.Id })">@Html.DisplayFor(modelItem => Categoria.Nome)</a>
+                    <span class="badge">@Html.Label(Categoria.QuantidadeProdutos.ToString())</span>
+                </li>
+            }
+
         }
 
-    }
-
-</ul>
+    </ul>
+</div>
