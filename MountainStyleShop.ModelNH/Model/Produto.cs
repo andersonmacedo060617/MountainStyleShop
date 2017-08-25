@@ -50,8 +50,23 @@ namespace MountainStyleShop.ModelNH.Model
                 {
                     Total += Avalicao.NotaAvaliacao;
                 }
+                if(Total > 0)
+                    return Total  / this.AvaliacoesProdutos.Count;
 
-                return Total  / this.AvaliacoesProdutos.Count;
+                return Total;
+        }
+
+        public virtual double MediaNotasFatamAvaliacao()
+        {
+            int Total = 0;
+            foreach (var Avalicao in this.AvaliacoesProdutos)
+            {
+                Total += Avalicao.NotaAvaliacao;
+            }
+            if (Total > 0)
+                return Total / this.AvaliacoesProdutos.Count;
+
+            return 5 - Total;
         }
 
         public virtual int QuantidadeAvaliacoes() {

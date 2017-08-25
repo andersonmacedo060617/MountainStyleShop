@@ -1,4 +1,5 @@
 ﻿using MountainStyleShop.ModelNH.Config;
+using MountainStyleShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,10 @@ namespace MountainStyleShop.Controllers
 
         public PartialViewResult MenuUsuarioLogado()
         {
-            return PartialView("_MenuUsuarioLogado");
+            if(UsuarioUtils.Usuario != null)
+                return PartialView("_MenuUsuarioLogado");
+
+            return PartialView("_MenuUsuarioDeslogado");
         }
 
 
