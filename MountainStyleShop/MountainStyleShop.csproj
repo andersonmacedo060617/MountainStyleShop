@@ -299,6 +299,7 @@
     <Content Include="Views\Componentes\_MenuUsuarioLogado.cshtml" />
     <Content Include="Views\Componentes\_MenuUsuarioDesLogado.cshtml" />
     <Content Include="Views\Avaliacao\_PainelAvaliacoesProduto.cshtml" />
+    <Content Include="Views\Avaliacao\_FormularioInseriAvaliacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,7 +19,7 @@
                 
                 @Html.DisplayFor(modelItem => Avaliacao.Usuario.Nome)
 
-                <span class="pull-right">@Html.DisplayFor(modelItem => Avaliacao.Data)</span>
+                <span class="pull-right">@Html.Label(Avaliacao.Data.ToString("dd/MM/yy HH:mm"))</span>
                 <p>@Html.DisplayFor(modelItem => Avaliacao.Comentario)</p>
             </div>
         </div>

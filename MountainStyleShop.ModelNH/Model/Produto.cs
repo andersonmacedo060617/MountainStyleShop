@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.Config;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -45,32 +46,24 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual double MediaNotasAvaliacao()
         {
-                int Total = 0;
-                foreach (var Avalicao in this.AvaliacoesProdutos)
+                double Total = 0;
+                foreach (var Avalicao in ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x => x.Produto.Id == this.Id).ToList())
                 {
                     Total += Avalicao.NotaAvaliacao;
                 }
                 if(Total > 0)
-                    return Total  / this.AvaliacoesProdutos.Count;
+                    return Total  / ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x => x.Produto.Id == this.Id).ToList().Count;
 
                 return Total;
         }
 
         public virtual double MediaNotasFatamAvaliacao()
         {
-            int Total = 0;
-            foreach (var Avalicao in this.AvaliacoesProdutos)
-            {
-                Total += Avalicao.NotaAvaliacao;
-            }
-            if (Total > 0)
-                return Total / this.AvaliacoesProdutos.Count;
-
-            return 5 - Total;
+            return 5 - Int32.Parse(MediaNotasAvaliacao().ToString("N0"));
         }
 
         public virtual int QuantidadeAvaliacoes() {
-            return this.AvaliacoesProdutos.Count;
+            return ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x=>x.Produto.Id == this.Id).ToList().Count;
         }
         
     }

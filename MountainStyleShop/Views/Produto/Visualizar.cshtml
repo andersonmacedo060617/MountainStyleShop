@@ -19,8 +19,6 @@
                     R$ @Model.Valor.ToString()
                 </h4>
 
-               
-
                 <h4>
                     @Model.Nome
                 </h4>
@@ -42,12 +40,17 @@
                         <span class="glyphicon glyphicon-star-empty"></span>
                     }
 
-                    @Model.MediaNotasAvaliacao()
+                    @Model.MediaNotasAvaliacao().ToString("N1")
                 </p>
             </div>
         </div>
         <div class="well">
             @Html.Action("PainelAvaliacoesProduto", "Avaliacao", new { idProduto = @Model.Id })
+            <div id="InseriAvaliacao">
+                @Html.Action("FormularioInseriAvaliacao", "Avaliacao", new { idProduto = @Model.Id })
+            </div>
         </div>
+
+        
     </div>
 </div>
