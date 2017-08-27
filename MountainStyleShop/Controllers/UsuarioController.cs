@@ -83,7 +83,8 @@ namespace MountainStyleShop.Controllers
         [HttpPost]
         public ActionResult Gravar(Usuario Usuario)
         {
-            Usuario.Ativo = true;
+            
+            Usuario.CriptografaSenha();
             ConfigDB.Instance.UsuarioRepository.Gravar(Usuario);
 
             return RedirectToAction("Index");

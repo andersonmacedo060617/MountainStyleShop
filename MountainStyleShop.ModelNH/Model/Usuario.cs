@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.Utils;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,9 @@ namespace MountainStyleShop.ModelNH.Model
 
         [Display(Name = "Senha")]
         [Required(ErrorMessage = "A senha é Obrigatoria.")]
-        [StringLength(maximumLength:400,
-            MinimumLength =8, 
-            ErrorMessage ="A senha deve conter no minimo 8 caracteres")]
+    
         public virtual string Senha { get; set; }
-
+        
         public virtual bool Admin { get; set; }
 
         public virtual bool Ativo { get; set; }
@@ -36,6 +35,16 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual IList<ProdutoFavorito> ProdutosFavoritos { get; set; }
 
         public virtual IList<VendaCliente> VendasCliente { get; set; }
+
+        public virtual bool SenhaValida(string Senha)
+        {
+            return Criptografia.Comparar(Senha, this.Senha);
+        }
+
+        public virtual void CriptografaSenha()
+        {
+            this.Senha = Criptografia.CodificaMD5(this.Senha);
+        }
     }
 
     public class UsuarioMap : ClassMapping<Usuario>

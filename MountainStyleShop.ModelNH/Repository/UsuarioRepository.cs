@@ -31,5 +31,7 @@ namespace MountainStyleShop.ModelNH.Repository
 
             return usuario;
         }
+
+        
     }
 }

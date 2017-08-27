@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CryptSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CryptSharpOfficial.2.1.0.0\lib\CryptSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
@@ -107,6 +111,7 @@
     <Compile Include="Repository\ValorEntregaRepository.cs" />
     <Compile Include="Repository\ValoresPagamentoVendaClienteRepository.cs" />
     <Compile Include="Repository\VendaClienteRepository.cs" />
+    <Compile Include="Utils\Criptografia.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

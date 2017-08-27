@@ -26,9 +26,9 @@ namespace MountainStyleShop.Models
 
         public static bool Logar(string Login, string Senha)
         {
-            var usuario = ConfigDB.Instance.UsuarioRepository.BuscaPorLoginSenha(Login, Senha);
+            var usuario = ConfigDB.Instance.UsuarioRepository.BuscaPorLogin(Login);
 
-            if (usuario != null && usuario.Ativo)
+            if (usuario != null && usuario.Ativo && usuario.SenhaValida(Senha))
             {
                 FormsAuthentication.SetAuthCookie(usuario.Login, false);
                 HttpContext.Current.Session["Usuario"] = usuario;
