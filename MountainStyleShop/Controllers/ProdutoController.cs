@@ -127,6 +127,7 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
+        
         public PartialViewResult ExibirProdutos(int idCategoria = 0)
         {
             if(idCategoria == 0)

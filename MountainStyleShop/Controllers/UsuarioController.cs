@@ -68,6 +68,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var Usuarios = ConfigDB.Instance.UsuarioRepository.GetAll();
@@ -75,11 +76,13 @@ namespace MountainStyleShop.Controllers
             return View(Usuarios);
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrador, Usuario")]
         [HttpPost]
         public ActionResult Gravar(Usuario Usuario)
         {

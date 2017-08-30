@@ -1,5 +1,6 @@
 ﻿using MountainStyleShop.ModelNH.Config;
 using MountainStyleShop.ModelNH.Model;
+using MountainStyleShop.ModelNH.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,28 +52,27 @@ namespace MountainStyleShop.RolesSecurity
         public override string[] GetRolesForUser(string userName)
         {
             List<string> sRoles = new List<string>();
+            
             var user = ConfigDB.Instance.UsuarioRepository.BuscaPorLogin(userName);
             var userSession = (Usuario)HttpContext.Current.Session["Usuario"];
             if (userSession != null)
             {
-                if (user.Login.Equals(userSession.Login) && userSession != null && user.Ativo)
+                if(userSession.Login.Equals(AdministradorDoSistema.Login()) && userSession.Senha.Equals(AdministradorDoSistema.Senha()))
                 {
-                    if (user.Admin)
-                    {
-                        sRoles.Add("Administrador");
-                    }
-                    else
-                    {
-                        sRoles.Add("Usuario");
-                    }
+                    sRoles.Add("Administrador");
+                }
+                else if (user.Login.Equals(userSession.Login) && userSession != null && user.Ativo)
+                {
+                    sRoles.Add("Usuario");
+                }
 
                     //Falta Implementar aqui
                     //foreach (var perfil in user.PerfilAcesso)
                     //{
                     //    sRoles.Add(perfil.AcessoController.Nome + ((perfil.AcessoAcao.Nome != null) ? "_" + perfil.AcessoAcao.Nome : ""));
                     //}
-                }
             }
+
             string[] retorno = sRoles.ToArray();
 
             return retorno;

@@ -111,6 +111,7 @@
     <Compile Include="Repository\ValorEntregaRepository.cs" />
     <Compile Include="Repository\ValoresPagamentoVendaClienteRepository.cs" />
     <Compile Include="Repository\VendaClienteRepository.cs" />
+    <Compile Include="Utils\AdministradorDoSistema.cs" />
     <Compile Include="Utils\Criptografia.cs" />
   </ItemGroup>
   <ItemGroup>

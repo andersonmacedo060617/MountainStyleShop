@@ -15,13 +15,18 @@
                 <p>@produto.Descricao</p>
             </div>
             <div class="ratings">
-                <p class="pull-right">15 Avaliações</p>
+                <p class="pull-right">@produto.MediaNotasAvaliacao().ToString("N1")</p>
                 <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
+                    @for (int i = 0; i < Convert.ToInt32(Math.Floor(produto.MediaNotasAvaliacao())); i++)
+                    {
+                        <span class="glyphicon glyphicon-star"></span>
+                    }
+                    @for (int i = 0; i < Convert.ToInt32(Math.Floor(produto.MediaNotasFatamAvaliacao())); i++)
+                    {
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    }
+                    <br />
+                    @produto.QuantidadeAvaliacoes() Avaliações
                 </p>
             </div>
         </div>

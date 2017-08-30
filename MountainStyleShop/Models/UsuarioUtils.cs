@@ -1,5 +1,6 @@
 ﻿using MountainStyleShop.ModelNH.Config;
 using MountainStyleShop.ModelNH.Model;
+using MountainStyleShop.ModelNH.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +27,24 @@ namespace MountainStyleShop.Models
 
         public static bool Logar(string Login, string Senha)
         {
-            var usuario = ConfigDB.Instance.UsuarioRepository.BuscaPorLogin(Login);
+            if(AdministradorDoSistema.Login().Equals(Login) && AdministradorDoSistema.Senha().Equals(Senha))
+            {
+                var admin = new Usuario()
+                {
+                    Login = AdministradorDoSistema.Login(),
+                    Senha = AdministradorDoSistema.Senha(),
+                    Ativo = true,
+                    Admin = true,
+                };
 
+                FormsAuthentication.SetAuthCookie(admin.Login, false);
+                HttpContext.Current.Session["Usuario"] = admin;
+                return true;
+
+            }
+
+            var usuario = ConfigDB.Instance.UsuarioRepository.BuscaPorLogin(Login);
+            
             if (usuario != null && usuario.Ativo && usuario.SenhaValida(Senha))
             {
                 FormsAuthentication.SetAuthCookie(usuario.Login, false);
