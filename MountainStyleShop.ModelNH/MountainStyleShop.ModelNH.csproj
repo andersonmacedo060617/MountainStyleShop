@@ -71,6 +71,7 @@
     <Compile Include="Model\EnderecoEntrega.cs" />
     <Compile Include="Model\Fabricante.cs" />
     <Compile Include="Model\FormaPagamento.cs" />
+    <Compile Include="Model\Imagem.cs" />
     <Compile Include="Model\ItemNotaCompraFornecedor.cs" />
     <Compile Include="Model\ItemVendaCliente.cs" />
     <Compile Include="Model\NotaDeCompraFornecedor.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Repository\FabricanteRepository.cs" />
     <Compile Include="Repository\FormaPagamentoRepository.cs" />
     <Compile Include="Repository\FornecedorRepository.cs" />
+    <Compile Include="Repository\ImagemRepository.cs" />
     <Compile Include="Repository\ItemNotaCompraFornecedorRepository.cs" />
     <Compile Include="Repository\ItemVendaClienteRepository.cs" />
     <Compile Include="Repository\NotaDeCompraFornecedorRepository.cs" />

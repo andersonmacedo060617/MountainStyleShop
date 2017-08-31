@@ -22,8 +22,7 @@ namespace MountainStyleShop.ModelNH.Model
         [Required(ErrorMessage = "A Descrição é Obrigatorio.")]
         public virtual string Descricao { get; set; }
 
-        [Display(Name = "Imagem do produto")]
-        public virtual string Imagem { get; set; }
+        
         
 
         [Display(Name = "Valor de venda:")]
@@ -31,6 +30,8 @@ namespace MountainStyleShop.ModelNH.Model
         [Required(ErrorMessage = "O Valor é Obrigatorio.")]
         [Range(0.01, 99999.99, ErrorMessage = "O Preço de Venda deve estar entre 0,01 e 99999,99.")]
         public virtual Double Valor { get; set; }
+
+        public virtual Double Peso { get; set; }
         
         
         public virtual bool ApareeceNaVitrine { get; set; }
@@ -41,8 +42,11 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual IList<AjusteEstoque> AjustesDeEstoque { get; set; }
         public virtual IList<ItemNotaCompraFornecedor> ItemNotaDeCompraFornecedor { get; set; }
         public virtual IList<ItemVendaCliente> ItemVendasCliente { get; set; }
+        public virtual IList<Imagem> Imagens { get; set; }
 
         public virtual Fabricante Fabricante { get; set; }
+
+        public virtual bool Ativo { get; set; }
 
         public virtual double MediaNotasAvaliacao()
         {
@@ -81,8 +85,9 @@ namespace MountainStyleShop.ModelNH.Model
 
             Property<string>(x => x.Nome);
             Property<string>(x => x.Descricao);
-            Property<string>(x => x.Imagem);
+            Property<bool>(x => x.Ativo);
             Property<Double>(x => x.Valor);
+            Property<Double>(x => x.Peso);
             Property<bool>(x => x.ApareeceNaVitrine);
 
 
@@ -133,6 +138,15 @@ namespace MountainStyleShop.ModelNH.Model
             );
 
             Bag<ItemVendaCliente>(x => x.ItemVendasCliente, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            Bag<Imagem>(x => x.Imagens, m =>
             {
                 m.Cascade(Cascade.All);
                 m.Lazy(CollectionLazy.Lazy);

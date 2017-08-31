@@ -13,8 +13,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual string Bairro { get; set; }
         public virtual string CEP { get; set; }
         public virtual Cidade Cidade { get; set; }
-        public virtual VendaCliente VendaCliente { get; set; }
-
+        public virtual Usuario Usuario { get; set; }
         
 
         public virtual ValorEntrega ValorFrete()
@@ -60,9 +59,9 @@ namespace MountainStyleShop.ModelNH.Model
                 m.Column("IdCidade");
             });
 
-            ManyToOne<VendaCliente>(x => x.VendaCliente, m =>
+            ManyToOne<Usuario>(x => x.Usuario, m =>
             {
-                m.Column("IdVendaCliente");
+                m.Column("IdUsuario");
             });
         }
 

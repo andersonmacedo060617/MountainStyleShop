@@ -36,6 +36,10 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual IList<VendaCliente> VendasCliente { get; set; }
 
+        public virtual string CPF { get; set; }
+
+        public virtual IList<EnderecoEntrega> Enderecos { get; set; }
+
         public virtual bool SenhaValida(string Senha)
         {
             return Criptografia.Comparar(Senha, this.Senha);
@@ -44,6 +48,11 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual void CriptografaSenha()
         {
             this.Senha = Criptografia.CodificaMD5(this.Senha);
+        }
+
+        public Usuario()
+        {
+            this.Admin = false;
         }
     }
 
@@ -61,8 +70,8 @@ namespace MountainStyleShop.ModelNH.Model
             Property<string>(x => x.Nome);
             Property<string>(x => x.Login);
             Property<string>(x => x.Senha);
+            Property<string>(x => x.CPF);
             Property<bool>(x => x.Ativo);
-            Property<bool>(x => x.Admin);
 
             Bag<AvaliacaoProduto>(x => x.AvaliacoesProdutos, m =>
             {
@@ -90,6 +99,17 @@ namespace MountainStyleShop.ModelNH.Model
             },
                 r => r.OneToMany()
             );
+
+            Bag<EnderecoEntrega>(x => x.Enderecos, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+
         }
     }
 }
