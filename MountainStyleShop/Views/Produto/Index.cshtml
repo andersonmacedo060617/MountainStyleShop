@@ -26,10 +26,25 @@
             @Html.DisplayNameFor(model => model.Descricao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Imagem)
+            @Html.DisplayNameFor(model => model.ImagemPrincipal)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Peso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApareeceNaVitrine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fabricante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
         </th>
         <th></th>
     </tr>
@@ -43,10 +58,22 @@
             @Html.DisplayFor(modelItem => produto.Descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => produto.Imagem)
+            @Html.DisplayFor(modelItem => produto.Valor)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => produto.Valor)
+            @Html.DisplayFor(modelItem => produto.Peso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => produto.ApareeceNaVitrine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => produto.Categoria.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => produto.Fabricante.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => produto.Ativo)
         </td>
         <td>
            @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@ 

@@ -23,7 +23,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual string Descricao { get; set; }
 
         
-        
+        public virtual string ImagemPrincipal { get; set; }
 
         [Display(Name = "Valor de venda:")]
         [DisplayFormat(DataFormatString = "{0:C}")]
@@ -70,6 +70,10 @@ namespace MountainStyleShop.ModelNH.Model
             return ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x=>x.Produto.Id == this.Id).ToList().Count;
         }
         
+        public virtual bool DisponivelParaCompra()
+        {
+            return this.Ativo;
+        }
     }
 
     public class ProdutoMap : ClassMapping<Produto>
@@ -85,6 +89,7 @@ namespace MountainStyleShop.ModelNH.Model
 
             Property<string>(x => x.Nome);
             Property<string>(x => x.Descricao);
+            Property<string>(x => x.ImagemPrincipal);
             Property<bool>(x => x.Ativo);
             Property<Double>(x => x.Valor);
             Property<Double>(x => x.Peso);

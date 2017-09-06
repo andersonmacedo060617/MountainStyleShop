@@ -156,10 +156,12 @@
     <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ComponentesController.cs" />
+    <Compile Include="Controllers\FabricanteController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemPedidoController.cs" />
     <Compile Include="Controllers\NotaDeCompraController.cs" />
+    <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -300,6 +302,10 @@
     <Content Include="Views\Componentes\_MenuUsuarioDesLogado.cshtml" />
     <Content Include="Views\Avaliacao\_PainelAvaliacoesProduto.cshtml" />
     <Content Include="Views\Avaliacao\_FormularioInseriAvaliacao.cshtml" />
+    <Content Include="Views\Fabricante\Index.cshtml" />
+    <Content Include="Views\Fabricante\Novo.cshtml" />
+    <Content Include="Views\Pais\Index.cshtml" />
+    <Content Include="Views\Pais\Novo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

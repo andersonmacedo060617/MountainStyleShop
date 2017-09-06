@@ -23,7 +23,7 @@ namespace MountainStyleShop.ModelNH.Repository
 
         public bool Gravar(T entity)
         {
-
+            this.session.Clear();
             var transacao = this.session.BeginTransaction();
             this.session.SaveOrUpdate(entity);
             transacao.Commit();

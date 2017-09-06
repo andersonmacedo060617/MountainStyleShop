@@ -24,6 +24,10 @@ namespace MountainStyleShop.Controllers
             var lstCategoria = new SelectList(categorias, "Id", "Nome");
             ViewBag.lstCategoria = lstCategoria;
 
+            var fabricantes = ConfigDB.Instance.FabricanteRepository.GetAll();
+            var lstFabricante = new SelectList(fabricantes, "Id", "Nome");
+            ViewBag.lstFabricante = lstFabricante;
+
             return View();
         }
 
@@ -33,6 +37,9 @@ namespace MountainStyleShop.Controllers
         {
             ModelState.Remove("Categoria.Nome");
             ModelState.Remove("Categoria.Descricao");
+            ModelState.Remove("Fabricante.Nome");
+            ModelState.Remove("Fabricante.Pais");
+            ModelState.Remove("Fabricante.Produtos");
             produto.Categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(c => c.Id == produto.Categoria.Id);
             
             if (!ModelState.IsValid)
@@ -44,19 +51,19 @@ namespace MountainStyleShop.Controllers
 
             if(file != null)
             {
-                if(produto.Imagem != null)
+                if(produto.ImagemPrincipal != null)
                 {
-                    if (System.IO.File.Exists(Server.MapPath("~/" + produto.Imagem)))
+                    if (System.IO.File.Exists(Server.MapPath("~/" + produto.ImagemPrincipal)))
                     {
-                        System.IO.File.Delete(Server.MapPath("~/" + produto.Imagem));
+                        System.IO.File.Delete(Server.MapPath("~/" + produto.ImagemPrincipal));
                     }
                 }
-                String[] strName = file.FileName.Split('.');
-                String strExt = strName[strName.Count() - 1];
-                string pathSave = String.Format("{0}{1}.{2}", Server.MapPath("~/Imagens/Produtos/"), produto.Id, strExt);
-                String pathBase = String.Format("/Imagens/Produtos/{0}.{1}", produto.Id, strExt);
+                string[] strName = file.FileName.Split('.');
+                string strExt = strName[strName.Count() - 1];
+                string pathSave = string.Format("{0}{1}_{2}.{3}", Server.MapPath("~/Imagens/Produtos/"), produto.Id, DateTime.Now.ToString("ddMMyyyy - HH_mm_ss"), strExt);
+                string pathBase = string.Format("/Imagens/Produtos/{0}_{1}.{2}", produto.Id, DateTime.Now.ToString("ddMMyyyy - HH_mm_ss"), strExt);
                 file.SaveAs(pathSave);
-                produto.Imagem = pathBase;
+                produto.ImagemPrincipal = pathBase;
 
                 ConfigDB.Instance.ProdutoRepository.Gravar(produto);
             }
@@ -69,10 +76,14 @@ namespace MountainStyleShop.Controllers
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(f => f.Id == id);
             if (produto != null)
-            {
+            {   
                 var categorias = ConfigDB.Instance.CategoriaRepository.GetAll();
                 var lstCategoria = new SelectList(categorias, "Id", "Nome", produto.Categoria);
                 ViewBag.lstCategoria = lstCategoria;
+
+                var fabricantes = ConfigDB.Instance.FabricanteRepository.GetAll();
+                var lstFabricante = new SelectList(fabricantes, "Id", "Nome");
+                ViewBag.lstFabricante = lstFabricante;
 
                 return View(produto);
             }

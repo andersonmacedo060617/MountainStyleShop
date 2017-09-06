@@ -42,6 +42,9 @@
                     <li id="Usuarios">
                         <a href="@Url.Action("Index", "Usuario")"><i class="fa fa-user"></i> Administradores</a>
                     </li>
+                    <li id="Fabricante">
+                        <a href="@Url.Action("Index", "Fabricante")"><i class="fa fa-briefcase" ></i> Fabricantes</a>
+                    </li>
                     <li id="Fornecedor">
                         <a href="@Url.Action("Index", "Fornecedor")"><i class="fa fa-database"></i> Fornecedores</a>
                     </li>
@@ -56,6 +59,21 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "Encomendas")"><i class="fa fa-cube"></i> Encomenda de fonecedores</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li id="TabelasDiversas">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#TabelasDiversasDown"><i class="fa fa-table"></i> Tabelas Diversas <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="TabelasDiversasDown" class="collapse">
+                            <li>
+                                <a href="@Url.Action("Index", "Pais")"> Paises</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Estado")"> Estados</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Cidade")"> Cidades</a>
                             </li>
                         </ul>
                     </li>
