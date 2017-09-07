@@ -9,86 +9,109 @@
     document.getElementById("Produtos").className = "active";
 
 </script>
-<h2>Administração do sistema - Produtos</h2>
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
     <a class="btn btn-success" href="@Url.Action("Novo", "Produto")" aria-label="Novo">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </a>
+    
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagemPrincipal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Valor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Peso)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApareeceNaVitrine)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Categoria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fabricante)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var produto in (IList<MountainStyleShop.ModelNH.Model.Produto>)ViewBag.Produtos) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => produto.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => produto.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => produto.Valor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => produto.Peso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => produto.ApareeceNaVitrine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => produto.Categoria.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => produto.Fabricante.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => produto.Ativo)
-        </td>
-        <td>
-           @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@ 
-            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = produto.Id })" aria-label="Alterar">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>|
-            @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
-            <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = produto.Id })" aria-label="Visualizar">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-            </a> |
-            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=produto.Id })" aria-label="Delete">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </a>
-        </td>
-    </tr>
-}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Lista de Produtos</h3>
+            
+        </div>
 
-</table>
+        
+        <div class="panel-body">
+        
+            @using (Html.BeginForm("Index", "Produto", FormMethod.Post))
+            {
+
+                <div class="input-group col-md-5">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    @Html.Editor("BuscaProduto", new { htmlAttributes = new { @class = "form-control", @placeholder="Digite o nome do produto..." } })
+                </div>
+                <input type="submit" value="Buscar" class="btn btn-info"/>
+            }
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImagemPrincipal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Valor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Peso)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApareeceNaVitrine)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Categoria)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fabricante)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var produto in (IList<MountainStyleShop.ModelNH.Model.Produto>)ViewBag.Produtos)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.Descricao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.Valor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.Peso)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.ApareeceNaVitrine)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.Categoria.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.Fabricante.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => produto.Ativo)
+                        </td>
+                        <td>
+                            @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
+                            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = produto.Id })" aria-label="Alterar">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>|
+                            @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
+                            <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = produto.Id })" aria-label="Visualizar">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a> |
+                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=produto.Id })" aria-label="Delete">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+        </div>

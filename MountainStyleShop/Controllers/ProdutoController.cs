@@ -12,9 +12,16 @@ namespace MountainStyleShop.Controllers
     {
         // GET: Produto
         [Authorize(Roles = "Administrador")]
-        public ActionResult Index()
+        public ActionResult Index(string BuscaProduto)
         {
-            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll();
+            if (BuscaProduto != null)
+            {
+                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Nome.Contains(BuscaProduto)).ToList();
+            }else
+            {
+                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll();
+            }
+                
             return View();
         }
         [Authorize(Roles = "Administrador")]

@@ -25,9 +25,12 @@ namespace MountainStyleShop.Controllers
 
         public PartialViewResult MenuUsuarioLogado()
         {
-            if(UsuarioUtils.Usuario != null)
+            if (UsuarioUtils.Usuario != null)
+            {
+                ViewBag.IsAdmin = UsuarioUtils.Usuario.Admin;
                 return PartialView("_MenuUsuarioLogado");
-
+            }
+            
             return PartialView("_MenuUsuarioDeslogado");
         }
 

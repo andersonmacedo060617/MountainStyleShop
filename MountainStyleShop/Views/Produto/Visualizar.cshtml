@@ -30,14 +30,16 @@
                 }
                 else
                 {
-                    <b>Produto Indisponivel</b>
+                    <div class="alert alert-warning" role="alert" >
+                        <strong>Produto Indisponivel</strong>
+                    </div>
                 }
 
-                <b>Descrição:</b><br />
-                <p>@Model.Descricao</p>
-                <b>Fabricante:</b><br />
-                <p>@Model.Fabricante.Nome</p>
-            </div>
+                        <b>Descrição:</b><br />
+                        <p>@Model.Descricao</p>
+                        <b>Fabricante:</b><br />
+                        <p>@Model.Fabricante.Nome</p>
+                    </div>
             <div class="ratings">
                 <p class="pull-right">@Model.QuantidadeAvaliacoes() Avaliações</p>
                 <p>

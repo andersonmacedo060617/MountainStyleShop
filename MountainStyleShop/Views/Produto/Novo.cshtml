@@ -5,101 +5,103 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Administração do sistema - Produtos</h2>
-
-@using (Html.BeginForm("Gravar", "Produto", FormMethod.Post,
-                              new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Incluir Produto</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fabricante, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Fabricante.Id, (SelectList)ViewBag.lstFabricante, "Selecione...", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Fabricante.Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImagemPrincipal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="file" id="file" class="form-control" />
-                @Html.HiddenFor(model => model.ImagemPrincipal)
-                @Html.ValidationMessageFor(model => model.ImagemPrincipal)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.Categoria.Id, (SelectList)ViewBag.lstCategoria, "Selecione...", new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.Categoria.Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Peso, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Peso, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Valor, new {htmlAttributes = new { @class = "form-control", @type="number" } })
-                @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApareeceNaVitrine, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.ApareeceNaVitrine)
-                    @Html.ValidationMessageFor(model => model.ApareeceNaVitrine, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Ativo)
-                    @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Salvar" class="btn btn-success" />
-            <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
-                Voltar
-            </a>
-        </div>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Incluir Produto</h3>
     </div>
-}
+    <div class="panel-body">
+        @using (Html.BeginForm("Gravar", "Produto", FormMethod.Post,
+                                              new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Fabricante, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Fabricante.Id, (SelectList)ViewBag.lstFabricante, "Selecione...", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Fabricante.Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ImagemPrincipal, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" name="file" id="file" class="form-control" />
+                        @Html.HiddenFor(model => model.ImagemPrincipal)
+                        @Html.ValidationMessageFor(model => model.ImagemPrincipal)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Categoria.Id, (SelectList)ViewBag.lstCategoria, "Selecione...", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Categoria.Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Peso, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Peso, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApareeceNaVitrine, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ApareeceNaVitrine)
+                            @Html.ValidationMessageFor(model => model.ApareeceNaVitrine, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Ativo)
+                            @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Salvar" class="btn btn-success" />
+                <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
+                    Voltar
+                </a>
+
+            </div>
+        }
+    </div>
+</div>
 
 
