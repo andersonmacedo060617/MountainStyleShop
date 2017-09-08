@@ -1,0 +1,29 @@
+﻿@model MountainStyleShop.ModelNH.Model.Usuario
+
+@{
+    ViewBag.Title = "Configuracoes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-3">
+        <div>
+            <ul class="list-group" id="ListaOpcoesUsuario">
+                <li class="list-group-item">
+                    <a href="@Url.Action("EnderecosUsuario", "Endereco", new {idUsuario = Model.Id})">Endereços</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="@Url.Action("AlteraSenha", "Usuario", new {idUsuario = Model.Id})">Alterar senha</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="@Url.Action("HistoricoCompras", "Usuario", new {idUsuario = Model.Id})">Minhas compras</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="@Url.Action("ItensFavoritos", "Usuario", new {idUsuario = Model.Id})">Produtos favoritos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <h3>Bem vindo @Model.Nome</h3>
+    </div>
+</div>

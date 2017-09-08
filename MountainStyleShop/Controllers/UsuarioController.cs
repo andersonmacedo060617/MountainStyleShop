@@ -87,12 +87,58 @@ namespace MountainStyleShop.Controllers
         public ActionResult Gravar(Usuario Usuario)
         {
             
+
             Usuario.CriptografaSenha();
             ConfigDB.Instance.UsuarioRepository.Gravar(Usuario);
 
             return RedirectToAction("Index");
         }
         
+
+        public ActionResult Cadastrar()
+        {
+            if (UsuarioUtils.Usuario != null)
+                return RedirectToAction("Index", "Home");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GravarCadastro(Usuario Usuario)
+        {
+            Usuario.Admin = false;
+            Usuario.Ativo = true;
+            
+            if(ConfigDB.Instance.UsuarioRepository.GetAll().Where(x=>x.CPF == Usuario.CPF).ToList().Count > 0)
+            {
+                TempData["MSG_FalhaCadastro"] = "Já existe um usuario utilizando este CPF.";
+                return RedirectToAction("Cadastrar", "Usuario");
+            }
+
+            if (ConfigDB.Instance.UsuarioRepository.GetAll().Where(x => x.Login == Usuario.Login).ToList().Count > 0)
+            {
+                TempData["MSG_FalhaCadastro"] = "Login já está sendo utlizado.";
+                return RedirectToAction("Cadastrar", "Usuario");
+            }
+
+            //Gravar registro
+            Usuario.CriptografaSenha();
+            ConfigDB.Instance.UsuarioRepository.Gravar(Usuario);
+
+            TempData["MSG_MensagemSucesso"] = "Usuario cadastrado com sucesso!";
+            return RedirectToAction("Login", "Home");
+
+        }
+
+        public ActionResult Configuracoes()
+        {
+            if(UsuarioUtils.Usuario == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            return View(UsuarioUtils.Usuario);
+        }
         
     }
 }

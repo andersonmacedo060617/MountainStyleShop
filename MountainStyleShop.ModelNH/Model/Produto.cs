@@ -74,6 +74,11 @@ namespace MountainStyleShop.ModelNH.Model
         {
             return this.Ativo;
         }
+
+        public virtual int TotalImagens()
+        {
+            return ConfigDB.Instance.ImagemRepository.GetAll().Where(x=>x.Produto.Id == this.Id).ToList().Count + 1;
+        }
     }
 
     public class ProdutoMap : ClassMapping<Produto>

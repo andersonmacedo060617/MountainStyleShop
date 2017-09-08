@@ -27,7 +27,7 @@
         
         <div class="panel-body">
         
-            @using (Html.BeginForm("Index", "Produto", FormMethod.Post))
+            @using (Html.BeginForm("Gravar", "Produto", FormMethod.Post))
             {
 
                 <div class="input-group col-md-5">
@@ -39,14 +39,12 @@
 
             <table class="table">
                 <tr>
+                    <th></th>
                     <th>
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Descricao)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ImagemPrincipal)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Valor)
@@ -66,12 +64,20 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Ativo)
                     </th>
+                    <th>
+                        Total de Imagens
+                    </th>
                     <th></th>
                 </tr>
 
                 @foreach (var produto in (IList<MountainStyleShop.ModelNH.Model.Produto>)ViewBag.Produtos)
             {
                     <tr>
+                        <td>
+                            <a class="btn btn-success fa fa-plus" title="Adicionar Imagem" href="@Url.Action("AddImagemProduto", "Imagem", new { idProduto = produto.Id })" aria-label="Add Imagem Produto">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => produto.Nome)
                         </td>
@@ -95,6 +101,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => produto.Ativo)
+                        </td>
+                        <td>
+                            @produto.TotalImagens().ToString()
                         </td>
                         <td>
                             @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
