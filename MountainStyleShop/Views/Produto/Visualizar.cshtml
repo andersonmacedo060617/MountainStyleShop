@@ -14,7 +14,18 @@
         <div class="thumbnail">
             <img src="@Model.ImagemPrincipal" alt="@Model.Nome" class="img-responsive" width="350" height="150" >
             <div class="caption-full">
-                
+                <div class="row">
+                    <div class="col-lg-3">
+                        <a href="@Url.Action("ImagemProdutos", "Imagem", new { idProduto = Model.Id })">
+                            <div class="list-group-item ">
+
+                                Mais Fotos
+                                <span class="badge">@Model.TotalImagens().ToString()</span>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <h4 class="pull-right">
                     R$ @Model.Valor.ToString()
                 </h4>

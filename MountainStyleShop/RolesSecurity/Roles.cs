@@ -1,6 +1,7 @@
 ﻿using MountainStyleShop.ModelNH.Config;
 using MountainStyleShop.ModelNH.Model;
 using MountainStyleShop.ModelNH.Utils;
+using MountainStyleShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,7 @@ namespace MountainStyleShop.RolesSecurity
             
             var user = ConfigDB.Instance.UsuarioRepository.BuscaPorLogin(userName);
             var userSession = (Usuario)HttpContext.Current.Session["Usuario"];
-            if (userSession != null)
+            if (userSession != null && user != null)
             {
                 if(userSession.Login.Equals(AdministradorDoSistema.Login()) && userSession.Senha.Equals(AdministradorDoSistema.Senha()))
                 {
@@ -71,6 +72,9 @@ namespace MountainStyleShop.RolesSecurity
                     //{
                     //    sRoles.Add(perfil.AcessoController.Nome + ((perfil.AcessoAcao.Nome != null) ? "_" + perfil.AcessoAcao.Nome : ""));
                     //}
+            }else if(UsuarioUtils.Usuario != null && UsuarioUtils.Usuario.Login == "Admin")
+            {
+                sRoles.Add("Administrador");
             }
 
             string[] retorno = sRoles.ToArray();

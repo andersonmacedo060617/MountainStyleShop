@@ -48,5 +48,14 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index", "Produto");
         }
 
+        public ActionResult ImagemProdutos(int? idProduto)
+        {
+            if (idProduto == null)
+                return RedirectToAction("Index", "Home");
+
+            var ImagensProduto = ConfigDB.Instance.ImagemRepository.GetAll().Where(x => x.Produto.Id == idProduto);
+            return View(ImagensProduto);
+        }
+
     }
 }

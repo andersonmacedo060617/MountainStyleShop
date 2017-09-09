@@ -155,7 +155,9 @@
     <Compile Include="Controllers\AdministrativoController.cs" />
     <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\ComponentesController.cs" />
+    <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\FabricanteController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Controllers\NotaDeCompraController.cs" />
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\UFController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -310,6 +313,13 @@
     <Content Include="Views\Usuario\Cadastrar.cshtml" />
     <Content Include="Views\Usuario\Configuracoes.cshtml" />
     <Content Include="Views\Imagem\AddImagemProduto.cshtml" />
+    <Content Include="Views\Imagem\ImagemProdutos.cshtml" />
+    <Content Include="Views\Cidade\Index.cshtml" />
+    <Content Include="Views\Cidade\Novo.cshtml" />
+    <Content Include="Views\UF\Index.cshtml" />
+    <Content Include="Views\UF\Novo.cshtml" />
+    <Content Include="Views\Endereco\EnderecoUsuario.cshtml" />
+    <Content Include="Views\Endereco\Novo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

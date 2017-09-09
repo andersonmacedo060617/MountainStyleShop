@@ -1,0 +1,120 @@
+﻿@model MountainStyleShop.ModelNH.Model.EnderecoEntrega
+
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Novo</h2>
+
+@using (Html.BeginForm("Gravar", "Endereco", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>EnderecoEntrega</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rua, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rua, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CEP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cidade.UF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Cidade.UF.Id, (SelectList)ViewBag.lstEstados, "Selecione...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Cidade.UF.Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Cidade.Id, new SelectList(string.Empty, "", ""), "Selecione...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Cidade.Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {  
+        //Dropdownlist Selectedchange event  
+        $("#Cidade_UF_Id").change(function () {  
+            $("#Cidade_Id").empty();  
+            $.ajax({  
+                type: 'POST',  
+                url: '@Url.Action("GetCidades", "Cidade")', // we are calling json method  
+   
+                dataType: 'json',  
+   
+                data: { idUF: $("#Cidade_UF_Id").val() },
+                // here we are get value of selected country and passing same value as inputto json method GetStates.  
+   
+                success: function (states) {  
+                    // states contains the JSON formatted list  
+                    // of states passed from the controller  
+   
+                    $.each(states, function (i, state) {  
+                        $("#Cidade_Id").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');                                                                                                  
+                        // here we are adding option for States  
+   
+                    });  
+                },  
+            error: function (ex) {  
+                alert('Failed to retrieve states.' + ex);  
+            }  
+        });  
+        return false;  
+    })  
+    });  
+</script>

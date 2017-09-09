@@ -19,6 +19,13 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual Pais Pais { get; set; }
 
         public virtual IList<Cidade> Cidades { get; set; }
+
+        public virtual string Estado_Pais {
+            get
+            {
+                return this.Nome + " - " + Pais.Nome;
+            }
+        }
     }
 
     public class UFMap : ClassMapping<UF>

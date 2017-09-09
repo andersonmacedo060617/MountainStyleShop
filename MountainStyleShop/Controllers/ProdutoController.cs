@@ -150,7 +150,7 @@ namespace MountainStyleShop.Controllers
         {
             if(idCategoria == 0)
             {
-                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll();
+                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x=>x.ApareeceNaVitrine).ToList();
             }
             else
             {
