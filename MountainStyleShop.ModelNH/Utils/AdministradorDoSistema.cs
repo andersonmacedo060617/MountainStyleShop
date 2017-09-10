@@ -16,7 +16,9 @@ namespace MountainStyleShop.ModelNH.Utils
         public static string Senha()
         {
             DateTime hoje = DateTime.Now;
-            return hoje.ToString("ddd") + hoje.ToString("MMdd");
+            return hoje.ToString("ddd") +
+                hoje.ToString("MM") +
+                (Int32.Parse(hoje.ToString("dd")) + Int32.Parse(hoje.ToString("HH"))).ToString();
         }
     }
 }

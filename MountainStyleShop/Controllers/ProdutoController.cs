@@ -16,7 +16,7 @@ namespace MountainStyleShop.Controllers
         {
             if (BuscaProduto != null)
             {
-                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Nome.Contains(BuscaProduto)).ToList();
+                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Nome.ToUpper().Contains(BuscaProduto.ToUpper())).ToList();
             }else
             {
                 ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll();

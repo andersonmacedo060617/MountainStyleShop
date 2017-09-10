@@ -13,7 +13,7 @@ namespace MountainStyleShop.Controllers
         // GET: Componentes
         public PartialViewResult MenuCategorias(int idCategoriaAtiva = 0)
         {
-            ViewBag.Categorias = ConfigDB.Instance.CategoriaRepository.GetAll();
+            ViewBag.Categorias = ConfigDB.Instance.CategoriaRepository.GetAll().OrderBy(x=>x.Nome).ToList();
             ViewBag.CategoriaAtiva = idCategoriaAtiva;
             return PartialView("_MenuCategorias");
         }
