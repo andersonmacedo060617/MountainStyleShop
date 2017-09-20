@@ -160,5 +160,13 @@ namespace MountainStyleShop.Controllers
             return PartialView("_ExibirProdutos");
         }
 
+        public ActionResult ConsultaProdutos(String busca)
+        {
+            var produtosBusca = ConfigDB.Instance.ProdutoRepository.GetAll().
+                Where(x => (x.Nome.ToUpper().Contains(busca.ToUpper()) || x.Descricao.ToUpper().Contains(busca.ToUpper())) && x.Ativo == true).ToList();
+            
+            return View(produtosBusca);
+        }
+
     }
 }

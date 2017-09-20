@@ -1,4 +1,21 @@
 ﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.Categoria>
+
+@using (Html.BeginForm("ConsultaProdutos", "Produto", FormMethod.Get))
+{
+    <div class="sidebar-search">
+        <div class="input-group custom-search-form">
+            <input type="text" class="form-control" name="busca" placeholder="Buscar...">
+            <span class="input-group-btn">
+                <input type="submit" class="btn btn-info" value="Buscar" />
+
+            </span>
+        </div>
+        <!-- /input-group -->
+    </div>
+}
+
+<br />
+
 <div class="panel panel-info">
     <div class="panel-heading" align="center">
         <a data-toggle="collapse" data-target="#listaCategorias"><p class="lead">Categorias <i class="fa fa-sort-desc" aria-hidden="true"></i></p></a>

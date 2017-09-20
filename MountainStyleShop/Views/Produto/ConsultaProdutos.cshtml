@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Resultado Consulta";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/estiloIndex.css">
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        
+        @Html.Action("MenuCategorias", "Componentes")
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+
+            @foreach (var produto in (IList<MountainStyleShop.ModelNH.Model.Produto>)Model)
+            {
+
+                <div class="col-sm-3 col-lg-3 col-md-3">
+                    <div class="thumbnail">
+                        <img src="@produto.ImagemPrincipal" alt="@produto.Nome" width="350" height="150">
+                        <div class="caption">
+                            <h4>
+                                <b><a href="@Url.Action("Visualizar", "Produto",new { id = produto.Id })">@produto.Nome</a></b>
+                            </h4>
+                            <h4>
+                                R$ @produto.Valor.ToString()
+                            </h4>
+                            <p>@produto.Descricao</p>
+                        </div>
+                        <div class="ratings">
+                            <p class="pull-right">@produto.MediaNotasAvaliacao().ToString("N1")</p>
+                            <p>
+                                @for (int i = 0; i < Convert.ToInt32(Math.Floor(produto.MediaNotasAvaliacao())); i++)
+                                {
+                                    <span class="glyphicon glyphicon-star"></span>
+                                }
+                                @for (int i = 0; i < Convert.ToInt32(Math.Floor(produto.MediaNotasFatamAvaliacao())); i++)
+                                {
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                }
+                                <br />
+                                @produto.QuantidadeAvaliacoes() Avaliações
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
