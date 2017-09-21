@@ -77,8 +77,11 @@ namespace MountainStyleShop.ModelNH.Config
         public ValoresPagamentoVendaClienteRepository ValoresPagamentoVendaClienteRepository { get; set; }
         public VendaClienteRepository VendaClienteRepository { get; set; }
         public ImagemRepository ImagemRepository { get; set; }
+        
 
         #endregion
+
+
 
         public ConfigDB()
         {
@@ -109,6 +112,7 @@ namespace MountainStyleShop.ModelNH.Config
                 this.ValoresPagamentoVendaClienteRepository = new ValoresPagamentoVendaClienteRepository(Session);
                 this.VendaClienteRepository = new VendaClienteRepository(Session);
                 this.ImagemRepository = new ImagemRepository(Session);
+                
 
             }
             #endregion
@@ -243,7 +247,7 @@ namespace MountainStyleShop.ModelNH.Config
                     Assembly.GetAssembly(typeof(VendaClienteMap)).GetTypes()
                 );
                 mapper.AddMappings(
-                    Assembly.GetAssembly(typeof(ImagemRepository)).GetTypes()
+                    Assembly.GetAssembly(typeof(ImagemMap)).GetTypes()
                 );
 
                 return mapper.CompileMappingForAllExplicitlyAddedEntities();

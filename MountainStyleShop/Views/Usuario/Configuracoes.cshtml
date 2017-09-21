@@ -8,22 +8,26 @@
     <div class="col-lg-3">
         <div>
             <ul class="list-group" id="ListaOpcoesUsuario">
-                <li class="list-group-item">
-                    <a href="@Url.Action("EnderecoUsuario", "Endereco", new {idUsuario = Model.Id})">Endereços</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="@Url.Action("AlteraSenha", "Usuario", new {idUsuario = Model.Id})">Alterar senha</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="@Url.Action("HistoricoCompras", "Usuario", new {idUsuario = Model.Id})">Minhas compras</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="@Url.Action("ItensFavoritos", "Usuario", new {idUsuario = Model.Id})">Produtos favoritos</a>
-                </li>
+                <a href="@Url.Action("EnderecoUsuario", "Endereco", new {idUsuario = Model.Id})">
+                    <li class="list-group-item">Endereços</li>
+                </a>
+                <a href="@Url.Action("AlteraSenha", "Usuario", new {idUsuario = Model.Id})">
+                    <li class="list-group-item">Alterar senha</li>
+                </a>
+                <a href="@Url.Action("HistoricoCompras", "Usuario", new {idUsuario = Model.Id})">
+                    <li class="list-group-item">Minhas compras</li>
+                </a>
+                <a href="@Url.Action("ItensFavoritos", "Usuario", new {idUsuario = Model.Id})">
+                    <li class="list-group-item">Produtos favoritos</li>
+                </a>
             </ul>
         </div>
     </div>
     <div class="col-lg-9">
         <h3>Bem vindo @Model.Nome</h3>
+        <div class="col-lg-5">
+            @Html.Action("FormInteresses", "Usuario")
+            
+        </div>
     </div>
 </div>

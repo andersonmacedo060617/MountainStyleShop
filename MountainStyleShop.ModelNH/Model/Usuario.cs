@@ -40,6 +40,8 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual IList<EnderecoEntrega> Enderecos { get; set; }
 
+        public virtual IList<Categoria> CategoriasInteresse { get; set; }
+
         public virtual bool SenhaValida(string Senha)
         {
             return Criptografia.Comparar(Senha, this.Senha);
@@ -109,6 +111,16 @@ namespace MountainStyleShop.ModelNH.Model
                 r => r.OneToMany()
             );
 
+            Bag<Categoria>(x => x.CategoriasInteresse, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            
 
         }
     }

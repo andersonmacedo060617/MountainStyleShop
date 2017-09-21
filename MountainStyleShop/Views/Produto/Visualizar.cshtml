@@ -69,8 +69,14 @@
         </div>
         <div class="well">
             @Html.Action("PainelAvaliacoesProduto", "Avaliacao", new { idProduto = @Model.Id })
+
+
             <div id="InseriAvaliacao">
-                @Html.Action("FormularioInseriAvaliacao", "Avaliacao", new { idProduto = @Model.Id })
+                @if (ViewBag.UsuarioLogado)
+                {
+                    @Html.Action("FormularioInseriAvaliacao", "Avaliacao", new { idProduto = @Model.Id })
+                }
+                
             </div>
         </div>
 

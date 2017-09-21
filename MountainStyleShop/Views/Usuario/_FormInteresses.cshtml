@@ -1,0 +1,27 @@
+﻿
+@using (Html.BeginForm("Gravar", "Categoria", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Meus Interesses
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    Categorias: <br />
+                    <div class="col-md-10">
+                        @foreach (var categoria in (IList<MountainStyleShop.ModelNH.Model.Categoria>)ViewBag.Categorias)
+                        {
+
+                            <input type="checkbox" value="@categoria.Id"
+                                    @if (((MountainStyleShop.ModelNH.Model.Usuario)ViewBag.User).CategoriasInteresse.Any(x => x.Nome == categoria.Nome)) { @Html.DisplayText("Checked")       } />@Html.Label(categoria.Nome)<br />
+                        }
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

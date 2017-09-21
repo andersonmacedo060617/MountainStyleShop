@@ -1,5 +1,6 @@
 ﻿using MountainStyleShop.ModelNH.Config;
 using MountainStyleShop.ModelNH.Model;
+using MountainStyleShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace MountainStyleShop.Controllers
         {
             avaliacaoProduto.Produto = ConfigDB.Instance.ProdutoRepository.BuscaPorId(avaliacaoProduto.Produto.Id);
             avaliacaoProduto.Data = DateTime.Now;
+            avaliacaoProduto.Usuario = UsuarioUtils.Usuario.Login == "Admin" ? null : UsuarioUtils.Usuario;
 
             ConfigDB.Instance.AvaliacaoProdutoRepository.Gravar(avaliacaoProduto);
 

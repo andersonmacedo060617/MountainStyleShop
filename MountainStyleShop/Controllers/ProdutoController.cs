@@ -1,5 +1,6 @@
 ﻿using MountainStyleShop.ModelNH.Config;
 using MountainStyleShop.ModelNH.Model;
+using MountainStyleShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,11 +122,22 @@ namespace MountainStyleShop.Controllers
         public ActionResult Visualizar(int id)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(x => x.Id == id);
-            if(produto != null)
+
+            if(produto == null)
             {
-                return View(produto);
+                return RedirectToAction("Index");
+                
             }
-            return RedirectToAction("Index");
+
+            if (UsuarioUtils.Usuario != null)
+            {
+                ViewBag.UsuarioLogado = true;
+            }else
+            {
+                ViewBag.UsuarioLogado = false;
+            }
+                
+            return View(produto);
         }
 
         
@@ -150,7 +162,14 @@ namespace MountainStyleShop.Controllers
         {
             if(idCategoria == 0)
             {
-                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x=>x.ApareeceNaVitrine).ToList();
+                
+                Random rnd = new Random();
+                var Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.ApareeceNaVitrine).Take(8)
+                    //Ordem aleatoria
+                    .OrderBy(i => rnd.Next()).ToList();
+                
+                ViewBag.Produtos = Produtos;
+                
             }
             else
             {
@@ -168,5 +187,6 @@ namespace MountainStyleShop.Controllers
             return View(produtosBusca);
         }
 
+        
     }
 }

@@ -322,6 +322,7 @@
     <Content Include="Views\Endereco\Novo.cshtml" />
     <Content Include="Views\Home\_FormBuscaSimples.cshtml" />
     <Content Include="Views\Produto\ConsultaProdutos.cshtml" />
+    <Content Include="Views\Usuario\_FormInteresses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

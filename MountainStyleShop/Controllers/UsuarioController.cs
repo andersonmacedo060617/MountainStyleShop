@@ -139,6 +139,25 @@ namespace MountainStyleShop.Controllers
 
             return View(UsuarioUtils.Usuario);
         }
-        
+
+        public PartialViewResult FormInteresses()
+        {
+            Usuario user;
+            if (UsuarioUtils.Usuario.Login != "Admin")
+            {
+                user = ConfigDB.Instance.UsuarioRepository.BuscaPorId(UsuarioUtils.Usuario.Id);
+                
+            }else
+            {
+                user = UsuarioUtils.Usuario;
+            }
+            
+
+            ViewBag.User = user;
+            ViewBag.Categorias = ConfigDB.Instance.CategoriaRepository.GetAll().ToList();
+            return PartialView("_FormInteresses");            
+        }
+
+
     }
 }
