@@ -25,10 +25,7 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual DateTime Data { get; set; }
 
-        public virtual int FaltaParaNotaTotal()
-        {
-            return 5 - this.NotaAvaliacao;
-        }
+        
     }
 
     public class AvaliacaoProdutoMap : ClassMapping<AvaliacaoProduto>

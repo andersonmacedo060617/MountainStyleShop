@@ -1,5 +1,5 @@
 ﻿
-@using (Html.BeginForm("Gravar", "Categoria", FormMethod.Post))
+@using (Html.BeginForm("Gravar", "CategoriasInteresse", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="panel panel-default">
@@ -8,17 +8,23 @@
         </div>
         <div class="panel-body">
             <div class="form-horizontal">
-                <div class="form-group">
-                    Categorias: <br />
+                <div class="form-group"> <h4>Categorias: </h4><br />
                     <div class="col-md-10">
                         @foreach (var categoria in (IList<MountainStyleShop.ModelNH.Model.Categoria>)ViewBag.Categorias)
                         {
-
-                            <input type="checkbox" value="@categoria.Id"
-                                    @if (((MountainStyleShop.ModelNH.Model.Usuario)ViewBag.User).CategoriasInteresse.Any(x => x.Nome == categoria.Nome)) { @Html.DisplayText("Checked")       } />@Html.Label(categoria.Nome)<br />
+                            <input type="checkbox"  name="idCategorias" value="@categoria.Id"
+                                    @if (((MountainStyleShop.ModelNH.Model.Usuario)ViewBag.User).EhCategoriaInteresse(categoria.Id)) {
+                                         @Html.DisplayName("checked")
+                                    } 
+                                   /> 
+                                    
+                                    @Html.Label(categoria.Nome)<br />
+                            
                         }
-                    </div>
 
+                        <input type="submit" value="Gravar" class="btn btn-info" />
+                    </div>
+                
 
                 </div>
             </div>

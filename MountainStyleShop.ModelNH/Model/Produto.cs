@@ -48,24 +48,57 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual bool Ativo { get; set; }
 
-        public virtual double MediaNotasAvaliacao()
+        public virtual double PercentualBom()
         {
-                double Total = 0;
-                foreach (var Avalicao in ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x => x.Produto.Id == this.Id).ToList())
-                {
-                    Total += Avalicao.NotaAvaliacao;
-                }
-                if(Total > 0)
-                    return Total  / ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x => x.Produto.Id == this.Id).ToList().Count;
+            var avaliacoes = ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll()
+                .Where(x=>x.Produto.Id == this.Id);
+            if(avaliacoes.Count() > 0)
+            {
+                double bom = avaliacoes.Where(x => x.NotaAvaliacao == 2).Count();
+                double total = avaliacoes.Count();
+                double percentual = ((bom / total) * 100);
 
-                return Total;
+                return Double.Parse(percentual.ToString("N2"));
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
 
-        public virtual double MediaNotasFatamAvaliacao()
+        public virtual double PercentualRuim()
         {
-            return 5 - Int32.Parse(MediaNotasAvaliacao().ToString("N0"));
+            var avaliacoes = ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x => x.Produto.Id == this.Id);
+            if (avaliacoes.Count() > 0)
+            {
+                double ruim = avaliacoes.Where(x => x.NotaAvaliacao == 1).Count();
+                double total = avaliacoes.Count();
+                double percentual = ((ruim / total) * 100);
+                return Double.Parse(percentual.ToString("N2"));
+            }
+            else
+            {
+                return 0;
+            }
         }
 
+        public virtual double PercentualSemNota()
+        {
+            var avaliacoes = ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x => x.Produto.Id == this.Id);
+            if (avaliacoes.Count() > 0)
+            {
+                double ruim = avaliacoes.Where(x => x.NotaAvaliacao == 0).Count();
+                double total = avaliacoes.Count();
+                double percentual = ((ruim / total) * 100);
+                return Double.Parse(percentual.ToString("N2"));
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        
         public virtual int QuantidadeAvaliacoes() {
             return ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x=>x.Produto.Id == this.Id).ToList().Count;
         }

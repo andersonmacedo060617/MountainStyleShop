@@ -155,6 +155,7 @@
     <Compile Include="Controllers\AdministrativoController.cs" />
     <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\CategoriasInteresseController.cs" />
     <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\ComponentesController.cs" />
     <Compile Include="Controllers\EnderecoController.cs" />
@@ -327,6 +328,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Imagens\Produtos\" />
+    <Folder Include="Views\CategoriasInteresse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

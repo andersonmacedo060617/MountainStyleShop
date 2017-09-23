@@ -162,14 +162,36 @@ namespace MountainStyleShop.Controllers
         {
             if(idCategoria == 0)
             {
+                if(UsuarioUtils.Usuario == null || UsuarioUtils.Usuario.CategoriasFavoritas().Count == 0) { 
+                    Random rnd = new Random();
+                    var Produtos = ConfigDB.Instance.ProdutoRepository.GetAll()
+                        .Where(x => x.ApareeceNaVitrine)
+                        //Ordem aleatoria
+                        .OrderBy(i => rnd.Next())
+                        .Take(8).ToList();
                 
-                Random rnd = new Random();
-                var Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.ApareeceNaVitrine).Take(8)
-                    //Ordem aleatoria
-                    .OrderBy(i => rnd.Next()).ToList();
-                
-                ViewBag.Produtos = Produtos;
-                
+                    ViewBag.Produtos = Produtos;
+                }
+                else
+                {
+                    Usuario user = ConfigDB.Instance.UsuarioRepository.BuscaPorId(UsuarioUtils.Usuario.Id);
+                    List<Produto> lstProdutos = new List<Produto>();
+                    foreach (var catFav in user.CategoriasFavoritas())
+                    {
+                        var prodCat = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Categoria.Id == catFav.Id);
+                        foreach (var produto in prodCat)
+                        {
+                            lstProdutos.Add(produto);
+                        }
+                    }
+
+                    //lstProdutos = ConfigDB.Instance.ProdutoRepository.GetAll()
+                    //    .Where(x => x.ApareeceNaVitrine && x.Categoria.Id == user.)
+                    //    .Take(8).ToList();
+
+                    ViewBag.Produtos = lstProdutos.Take(8).ToList();
+                }
+
             }
             else
             {

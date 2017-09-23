@@ -54,16 +54,11 @@
             <div class="ratings">
                 <p class="pull-right">@Model.QuantidadeAvaliacoes() Avaliações</p>
                 <p>
-                    @for (int i = 0; i < Convert.ToInt32(Math.Floor(@Model.MediaNotasAvaliacao())); i++)
-                    {
-                        <span class="glyphicon glyphicon-star"></span>
-                    }
-                    @for (int i = 0; i < Convert.ToInt32(Math.Floor(Model.MediaNotasFatamAvaliacao())); i++)
-                    {
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                    }
-
-                    @Model.MediaNotasAvaliacao().ToString("N1")
+                    <h4>
+                        <span class="fa fa-thumbs-o-up"></span>@Model.PercentualBom().ToString("N1")%  
+                        <span class="fa fa-thumbs-o-down"></span>@Model.PercentualRuim().ToString("N1")%  
+                        <span class="fa fa-quote-right"></span>@Model.PercentualSemNota().ToString("N1")%
+                    </h4>
                 </p>
             </div>
         </div>
@@ -72,10 +67,10 @@
 
 
             <div id="InseriAvaliacao">
-                @if (ViewBag.UsuarioLogado)
-                {
+                @*@if (ViewBag.UsuarioLogado)
+                {*@
                     @Html.Action("FormularioInseriAvaliacao", "Avaliacao", new { idProduto = @Model.Id })
-                }
+                @*}*@
                 
             </div>
         </div>

@@ -11,26 +11,15 @@
 
     @Html.HiddenFor(model=>model.Produto.Id)
 
-    @Html.Label("Nota: ", htmlAttributes: new { })
-    <div class="estrelas">
-        @Html.RadioButtonFor(model => model.NotaAvaliacao, "", new { @checked = true })
+    @Html.HiddenFor(model => model.NotaAvaliacao);
 
-        <label for="cm_star-1"><i class="fa"></i></label>
-        @Html.RadioButtonFor(model => model.NotaAvaliacao, "1", new { @id= "cm_star-1" })        
-        
-        <label for="cm_star-2"><i class="fa"></i></label>
-        @Html.RadioButtonFor(model => model.NotaAvaliacao, "2", new { @id = "cm_star-2" })
-        
-        <label for="cm_star-3"><i class="fa"></i></label>
-        @Html.RadioButtonFor(model => model.NotaAvaliacao, "3", new { @id = "cm_star-3" })
-        
-        <label for="cm_star-4"><i class="fa"></i></label>
-        @Html.RadioButtonFor(model => model.NotaAvaliacao, "4", new { @id = "cm_star-4" })
-        
-        <label for="cm_star-5"><i class="fa"></i></label>
-        @Html.RadioButtonFor(model => model.NotaAvaliacao, "5", new { @id = "cm_star-5" })
-        
+    @Html.Label("Nota: ", htmlAttributes: new { })
+    <div class="btn-toolbar" role="toolbar">
+        <button type="button" class="btn btn-success" onclick="avaliacao(2)"><i class="fa fa-thumbs-o-up fa-2x"></i></button> Gostei <br />
+        <button type="button" class="btn btn-danger" onclick="avaliacao(1)"><i class="fa fa-thumbs-o-down fa-2x"></i></button> Não Gostei <br />
+        <button type="button" class="btn btn-default" onclick="avaliacao(0)"><i class="fa fa-quote-right fa-2x"></i></button> Apenas Comentar <br />
     </div>
+    
     <br />
 
     @Html.Label("Comentario", htmlAttributes: new { })
@@ -42,4 +31,11 @@
     <input type="submit" value="Enviar" class="btn btn-success" />
 
         }
+
+<script>
+    var nota = 0;
+    function avaliacao(i) {
+        document.getElementById("NotaAvaliacao").value = i;
+    }
+</script>
    

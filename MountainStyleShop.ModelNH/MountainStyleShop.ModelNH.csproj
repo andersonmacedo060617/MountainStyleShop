@@ -66,6 +66,7 @@
     <Compile Include="Model\AjusteEstoque.cs" />
     <Compile Include="Model\AvaliacaoProduto.cs" />
     <Compile Include="Model\Categoria.cs" />
+    <Compile Include="Model\CategoriasInteresse.cs" />
     <Compile Include="Model\Cidade.cs" />
     <Compile Include="Model\CustoAddVendaCliente.cs" />
     <Compile Include="Model\EnderecoEntrega.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Repository\AjusteEstoqueRepository.cs" />
     <Compile Include="Repository\AvaliacaoProdutoRepository.cs" />
     <Compile Include="Repository\CategoriaRepository.cs" />
+    <Compile Include="Repository\CategoriasInteresseRepository.cs" />
     <Compile Include="Repository\CidadeRepository.cs" />
     <Compile Include="Repository\CustoAddVendaClienteRepository.cs" />
     <Compile Include="Repository\EnderecoEntregaRepository.cs" />

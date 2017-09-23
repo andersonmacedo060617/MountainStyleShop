@@ -1,4 +1,5 @@
-﻿using MountainStyleShop.ModelNH.Utils;
+﻿using MountainStyleShop.ModelNH.Config;
+using MountainStyleShop.ModelNH.Utils;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
@@ -40,7 +41,7 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual IList<EnderecoEntrega> Enderecos { get; set; }
 
-        public virtual IList<Categoria> CategoriasInteresse { get; set; }
+        public virtual IList<CategoriasInteresse> CategoriasInteresse { get; set; }
 
         public virtual bool SenhaValida(string Senha)
         {
@@ -55,6 +56,24 @@ namespace MountainStyleShop.ModelNH.Model
         public Usuario()
         {
             this.Admin = false;
+        }
+
+        public virtual bool EhCategoriaInteresse(int IdCategoria)
+        {
+            return ConfigDB.Instance.CategoriasInteresseRepository.GetAll().
+                Where(x => x.Usuario.Id == this.Id && x.Categoria.Id == IdCategoria).Count() > 0;
+        }
+
+        public virtual List<Categoria> CategoriasFavoritas()
+        {
+            List<CategoriasInteresse> catInteresses = ConfigDB.Instance.CategoriasInteresseRepository.GetAll().Where(x => x.Usuario.Id == this.Id).ToList();
+            List<Categoria> lstCategorias = new List<Categoria>();
+            foreach (CategoriasInteresse cat in catInteresses) 
+            {
+                lstCategorias.Add(cat.Categoria);
+            }
+
+            return lstCategorias;
         }
     }
 
@@ -111,7 +130,7 @@ namespace MountainStyleShop.ModelNH.Model
                 r => r.OneToMany()
             );
 
-            Bag<Categoria>(x => x.CategoriasInteresse, m =>
+            Bag<CategoriasInteresse>(x=> x.CategoriasInteresse, m =>
             {
                 m.Cascade(Cascade.All);
                 m.Lazy(CollectionLazy.Lazy);
@@ -119,6 +138,8 @@ namespace MountainStyleShop.ModelNH.Model
             },
                 r => r.OneToMany()
             );
+
+
 
             
 
