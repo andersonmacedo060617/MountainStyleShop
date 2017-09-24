@@ -65,6 +65,7 @@
     <Compile Include="Config\ConfigDB.cs" />
     <Compile Include="Model\AjusteEstoque.cs" />
     <Compile Include="Model\AvaliacaoProduto.cs" />
+    <Compile Include="Model\BuscaProduto.cs" />
     <Compile Include="Model\Categoria.cs" />
     <Compile Include="Model\CategoriasInteresse.cs" />
     <Compile Include="Model\Cidade.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AjusteEstoqueRepository.cs" />
     <Compile Include="Repository\AvaliacaoProdutoRepository.cs" />
+    <Compile Include="Repository\BuscaProdutoRepository.cs" />
     <Compile Include="Repository\CategoriaRepository.cs" />
     <Compile Include="Repository\CategoriasInteresseRepository.cs" />
     <Compile Include="Repository\CidadeRepository.cs" />

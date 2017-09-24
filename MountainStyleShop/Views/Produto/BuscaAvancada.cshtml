@@ -1,0 +1,81 @@
+﻿@model MountainStyleShop.ModelNH.Model.BuscaProduto
+
+@{
+    Html.EnableClientValidation(false);
+    ViewBag.Title = "BuscaAvancada";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Consulta Avançada de Produtos</h3>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("ConsultaProdutos", "Produto", FormMethod.Post))
+        {
+            <div class="form-horizontal">
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdProduto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-1">
+                        @Html.EditorFor(model => model.IdProduto, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.TextAreaFor(model => model.Descricao, 3, 10, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+
+                
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(model => model.Categoria.Id, (SelectList)ViewBag.lstCategorias, "Selecione...", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Fabricante, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(model => model.Fabricante.Id, (SelectList)ViewBag.lstFabricantes, "Selecione...", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                
+
+                <div class="form-group">
+                    @Html.Label("Valor do produto entre: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.ValorInicio, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    </div>
+                    @Html.Label("ate ", htmlAttributes: new { @class = "col-sm-1"})
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.ValorFim, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Buscar" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Voltar", "Index", "Home", null, htmlAttributes: new { @class="btn btn-info"})
+        </div>
+    </div>
+</div>

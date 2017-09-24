@@ -130,6 +130,7 @@ namespace MountainStyleShop.Controllers
 
         }
 
+        [Authorize(Roles = "Administrador, Usuario")]
         public ActionResult Configuracoes()
         {
             if(UsuarioUtils.Usuario == null)
@@ -140,6 +141,7 @@ namespace MountainStyleShop.Controllers
             return View(UsuarioUtils.Usuario);
         }
 
+        [Authorize(Roles = "Administrador, Usuario")]
         public PartialViewResult FormInteresses()
         {
             Usuario user;

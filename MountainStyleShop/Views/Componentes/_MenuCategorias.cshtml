@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.Categoria>
 
-@using (Html.BeginForm("ConsultaProdutos", "Produto", FormMethod.Get))
+@using (Html.BeginForm("ConsultaProdutos", "Produto", FormMethod.Post))
 {
     <div class="sidebar-search">
         <div class="input-group custom-search-form">
-            <input type="text" class="form-control" name="busca" placeholder="Buscar...">
+            <input type="text" class="form-control" name="Nome" placeholder="Buscar por nome...">
             <span class="input-group-btn">
                 <input type="submit" class="btn btn-info" value="Buscar" />
 
@@ -44,4 +44,7 @@
         }
 
     </ul>
+</div>
+<div style="text-align:center;">
+    @Html.ActionLink("Consulta Avançada", "BuscaAvancada", "Produto", null, htmlAttributes: new { @class = "btn btn-info" })
 </div>

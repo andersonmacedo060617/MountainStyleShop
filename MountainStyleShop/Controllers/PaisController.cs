@@ -11,17 +11,19 @@ namespace MountainStyleShop.Controllers
     public class PaisController : Controller
     {
         // GET: Pais
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var Paises = ConfigDB.Instance.PaisRepository.GetAll();
             return View(Paises);
         }
-
+        [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult Gravar(Pais pais)
         {

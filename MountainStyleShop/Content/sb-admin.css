@@ -438,3 +438,8 @@ table.dataTable thead .sorting:after {
         max-width: 1500px;
     }
 }
+
+.table-overflow{
+    max-height:400px;
+    overflow-x:auto;
+}

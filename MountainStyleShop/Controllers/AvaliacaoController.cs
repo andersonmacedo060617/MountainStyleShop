@@ -11,13 +11,14 @@ namespace MountainStyleShop.Controllers
 {
     public class AvaliacaoController : Controller
     {
-
+        
         public PartialViewResult PainelAvaliacoesProduto(int idProduto)
         {
             ViewBag.Avaliacoes = ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x=>x.Produto.Id == idProduto).ToList();
             return PartialView("_PainelAvaliacoesProduto");
         }
 
+        [Authorize(Roles = "Usuario")]
         public PartialViewResult FormularioInseriAvaliacao(int idProduto)
         {
             AvaliacaoProduto avaliacao = new AvaliacaoProduto();
@@ -28,6 +29,7 @@ namespace MountainStyleShop.Controllers
             return PartialView("_FormularioInseriAvaliacao", avaliacao);
         }
 
+        [Authorize(Roles = "Usuario")]
         [HttpPost]
         public ActionResult Gravar(AvaliacaoProduto avaliacaoProduto)
         {

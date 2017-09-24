@@ -154,6 +154,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdministrativoController.cs" />
     <Compile Include="Controllers\AvaliacaoController.cs" />
+    <Compile Include="Controllers\BuscaProdutoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CategoriasInteresseController.cs" />
     <Compile Include="Controllers\CidadeController.cs" />
@@ -324,6 +325,8 @@
     <Content Include="Views\Home\_FormBuscaSimples.cshtml" />
     <Content Include="Views\Produto\ConsultaProdutos.cshtml" />
     <Content Include="Views\Usuario\_FormInteresses.cshtml" />
+    <Content Include="Views\Produto\BuscaAvancada.cshtml" />
+    <Content Include="Views\BuscaProduto\_ListaHistoricoBusca.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

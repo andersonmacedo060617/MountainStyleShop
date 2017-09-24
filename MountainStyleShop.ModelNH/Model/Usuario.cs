@@ -31,6 +31,8 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual bool Ativo { get; set; }
 
+        public virtual IList<BuscaProduto> HistoricoBusca { get; set; }
+
         public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
 
         public virtual IList<ProdutoFavorito> ProdutosFavoritos { get; set; }
@@ -139,9 +141,14 @@ namespace MountainStyleShop.ModelNH.Model
                 r => r.OneToMany()
             );
 
-
-
-            
+            Bag<BuscaProduto>(x => x.HistoricoBusca, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
 
         }
     }

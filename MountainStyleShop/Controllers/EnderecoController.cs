@@ -12,6 +12,7 @@ namespace MountainStyleShop.Controllers
     public class EnderecoController : Controller
     {
         // GET: Endereco
+        [Authorize(Roles = "Usuario")]
         public ActionResult EnderecoUsuario(int idUsuario)
         {
             
@@ -20,6 +21,7 @@ namespace MountainStyleShop.Controllers
             return View(Enderecos);
         }
 
+        [Authorize(Roles = "Usuario")]
         public ActionResult Novo()
         {
             var Estados = ConfigDB.Instance.UFRepository.GetAll();
@@ -28,6 +30,8 @@ namespace MountainStyleShop.Controllers
 
             return View();
         }
+
+        [Authorize(Roles = "Usuario")]
         [HttpPost]
         public ActionResult Gravar(EnderecoEntrega Endereco)
         {

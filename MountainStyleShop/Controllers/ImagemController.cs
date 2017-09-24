@@ -11,6 +11,7 @@ namespace MountainStyleShop.Controllers
     public class ImagemController : Controller
     {
         // GET: Imagem
+        [Authorize(Roles = "Administrador")]
         public ActionResult AddImagemProduto(int idProduto)
         {
             var Produto = ConfigDB.Instance.ProdutoRepository.BuscaPorId(idProduto);
@@ -22,6 +23,7 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Gravar(Imagem Imagem, HttpPostedFileBase file)
         {
             var Prod = ConfigDB.Instance.ProdutoRepository.BuscaPorId(Imagem.Produto.Id);

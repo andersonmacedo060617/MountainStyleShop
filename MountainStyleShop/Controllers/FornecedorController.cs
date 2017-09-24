@@ -20,11 +20,13 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult Gravar(Fornecedor fornecedor)
         {
@@ -39,6 +41,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Alterar(int id)
         {
             var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
@@ -50,6 +53,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult ConfirmaDelete(int id)
         {
             var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
@@ -61,6 +65,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Apagar(int id)
         {
             var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);

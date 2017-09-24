@@ -11,12 +11,14 @@ namespace MountainStyleShop.Controllers
     public class UFController : Controller
     {
         // GET: UF
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var UFs = ConfigDB.Instance.UFRepository.GetAll();
             return View(UFs);
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
             
@@ -26,6 +28,7 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult Gravar(UF UF)
         {

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.BuscaProduto>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Minhas Consultas
+    </div>
+
+    <div class="panel-body">
+        @if (Model.Count() != 0)
+        {
+            <div class="table-overflow">
+                <table class="table">
+                    <tr style="background:#AAAAAA">
+                        <th>
+                            Consulta
+                        </th>
+                        <th>
+                            Data e Hora
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.OrderByDescending(x => x.DataHoraBusca))
+                    {
+                        <tr>
+                            <td>
+                                @if (item.IdProduto != 0)
+                                {
+                                    @Html.Label("Codigo do Produto: ")
+                                    @Html.DisplayFor(modelItem => item.IdProduto)<br />
+                                }
+                                @if (item.Nome != null && item.Nome != "")
+                                {
+                                    @Html.Label("Nome do produto:  ")
+                                    @Html.DisplayFor(modelItem => item.Nome)<br />
+                                }
+                                @if (item.Descricao != null && item.Descricao != "")
+                                {
+                                    @Html.Label("Descrição do produto:  ")
+                                    @Html.DisplayFor(modelItem => item.Descricao)<br />
+                                }
+                                @if (item.Categoria != null && item.Categoria.Id != 0)
+                                {
+                                    @Html.Label("Categoria:  ")
+                                    @Html.DisplayFor(modelItem => item.Categoria.Nome)<br />
+                                }
+                                @if (item.Fabricante != null && item.Fabricante.Id != 0)
+                                {
+                                    @Html.Label("Fabricante: ")
+                                    @Html.DisplayFor(modelItem => item.Fabricante.Nome) <br />
+                                }
+                                @if (item.ValorInicio != 0)
+                                {
+                                    @Html.Label("Valor Inicio: R$")
+                                    @Html.DisplayFor(modelItem => item.ValorInicio)<br />
+                                }
+                                @if (item.ValorFim != 0)
+                                {
+                                    @Html.Label("Valor Final: R$")
+                                    @Html.DisplayFor(modelItem => item.ValorFim)<br />
+                                }
+                               
+                                
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataHoraBusca)
+                            </td>
+                            <th>
+                                <a class="btn btn-info" href="@Url.Action("UtilizarConsulta", "BuscaProduto", new { id = item.Id })"><i class="fa fa-search"></i></a>
+                            </th>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        }
+        @if (Model.Count() == 0)
+        {
+            <div>Sem Itens Para Exibir</div>
+        }
+        
+    </div>
+</div>

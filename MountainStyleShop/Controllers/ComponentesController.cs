@@ -23,6 +23,7 @@ namespace MountainStyleShop.Controllers
             return PartialView("_PainelImagensIndex");
         }
 
+        
         public PartialViewResult MenuUsuarioLogado()
         {
             if (UsuarioUtils.Usuario != null)

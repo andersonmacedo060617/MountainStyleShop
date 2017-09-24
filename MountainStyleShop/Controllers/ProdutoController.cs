@@ -201,14 +201,99 @@ namespace MountainStyleShop.Controllers
             return PartialView("_ExibirProdutos");
         }
 
-        public ActionResult ConsultaProdutos(String busca)
+        [HttpPost]
+        public ActionResult ConsultaProdutos(BuscaProduto ParametrosBusca)
         {
-            var produtosBusca = ConfigDB.Instance.ProdutoRepository.GetAll().
-                Where(x => (x.Nome.ToUpper().Contains(busca.ToUpper()) || x.Descricao.ToUpper().Contains(busca.ToUpper())) && x.Ativo == true).ToList();
+            var filtroProdutos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Ativo == true);
+
+            bool AlgumParamPreenchido = false;
+
             
-            return View(produtosBusca);
+
+            if (ParametrosBusca.IdProduto != 0 && ParametrosBusca.IdProduto != null)
+            {
+                AlgumParamPreenchido = true;
+                filtroProdutos = filtroProdutos.Where(x => x.Id == ParametrosBusca.IdProduto);
+            }
+            if (ParametrosBusca.Descricao != null && ParametrosBusca.Descricao != "")
+            {
+                AlgumParamPreenchido = true;
+                filtroProdutos = filtroProdutos.Where(x => x.Descricao.ToUpper().Contains(ParametrosBusca.Descricao.ToUpper()));
+            }
+            if (ParametrosBusca.Categoria != null && ParametrosBusca.Categoria.Id != 0)
+            {
+                AlgumParamPreenchido = true;
+                filtroProdutos = filtroProdutos.Where(x => x.Categoria.Id == ParametrosBusca.Categoria.Id);
+            }
+            else
+            {
+                ParametrosBusca.Categoria = null;
+            }
+
+            if (ParametrosBusca.Fabricante != null && ParametrosBusca.Fabricante.Id != 0)
+            {
+                AlgumParamPreenchido = true;
+                filtroProdutos = filtroProdutos.Where(x => x.Fabricante.Id == ParametrosBusca.Fabricante.Id);
+            }
+            else
+            {
+                ParametrosBusca.Fabricante = null;
+            }
+
+            if (ParametrosBusca.ValorInicio != null && ParametrosBusca.ValorInicio != 0)
+            {
+                AlgumParamPreenchido = true;
+                filtroProdutos = filtroProdutos.Where(x => x.Valor > ParametrosBusca.ValorInicio);
+            }
+            if (ParametrosBusca.ValorFim != null && ParametrosBusca.ValorFim != 0)
+            {
+                AlgumParamPreenchido = true;
+                filtroProdutos = filtroProdutos.Where(x => x.Valor < ParametrosBusca.ValorFim);
+            }
+            if (ParametrosBusca.Nome != null && ParametrosBusca.Nome != "")
+            {
+                AlgumParamPreenchido = true;
+                filtroProdutos = filtroProdutos.Where(x => x.Nome.ToUpper().Contains(ParametrosBusca.Nome.ToUpper()));
+            }
+
+            /*
+                Se a variavel de verificação dos criterios de consulta vier como falsa, significa que não
+                foi aplicado nenhum criterio de consulta. Não faz sentido salvar isso.
+            */
+            if (AlgumParamPreenchido)
+            {
+                if (UsuarioUtils.Usuario != null && UsuarioUtils.Usuario.Nome != "Admin")
+                {
+                    ParametrosBusca.Usuario = UsuarioUtils.Usuario;
+                    ParametrosBusca.DataHoraBusca = DateTime.Now;
+                    ConfigDB.Instance.BuscaProdutoRepository.Gravar(ParametrosBusca);
+                }
+            }
+            
+            return View(filtroProdutos.ToList());
         }
 
         
+
+        public ActionResult BuscaAvancada()
+        {
+            var Categorias = ConfigDB.Instance.CategoriaRepository.GetAll().ToList();
+            var lstCategorias = new SelectList(Categorias, "Id", "Nome");
+            ViewBag.lstCategorias = lstCategorias;
+
+            var Fabricantes = ConfigDB.Instance.FabricanteRepository.GetAll().ToList();
+            var lstFabricantes = new SelectList(Fabricantes, "Id", "Nome");
+            ViewBag.lstFabricantes = lstFabricantes;
+
+            var ParametrosBusca = new BuscaProduto();
+
+            if (TempData["UtilizarConsulta"] != null)
+            {
+                ParametrosBusca = (BuscaProduto)TempData["UtilizarConsulta"];
+            }
+
+            return View(ParametrosBusca);
+        }
+
     }
 }

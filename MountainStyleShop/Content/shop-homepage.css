@@ -286,3 +286,8 @@ footer {
 /*#ListaOpcoesUsuario > li > a{
     color:#fff;
 }*/
+
+table-overflow{
+    max-height:400px;
+    overflow-x:auto;
+}

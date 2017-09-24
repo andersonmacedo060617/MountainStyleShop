@@ -11,12 +11,9 @@ namespace MountainStyleShop.Controllers
 {
     public class CategoriasInteresseController : Controller
     {
-        // GET: CategoriasInteresse
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
 
+        [Authorize(Roles = "Usuario")]
         [HttpPost]
         public ActionResult Gravar(string[] idCategorias)
         {
@@ -35,7 +32,7 @@ namespace MountainStyleShop.Controllers
                         ConfigDB.Instance.CategoriasInteresseRepository.Gravar(catInteresse);
                     }
                 }
-
+                TempData["MSG_MensagemSucesso"] = "Categorias salvas!";
                 return RedirectToAction("Configuracoes", "Usuario");
             }
 

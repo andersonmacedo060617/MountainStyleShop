@@ -11,13 +11,14 @@ namespace MountainStyleShop.Controllers
     public class CidadeController : Controller
     {
         // GET: Cidade
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var Cidades = ConfigDB.Instance.CidadeRepository.GetAll();
             return View(Cidades);
         }
 
-        
+        [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
             var Estados = ConfigDB.Instance.UFRepository.GetAll();
@@ -27,6 +28,7 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult Gravar(Cidade Cidade)
         {
             if(Cidade.Nome != null)
@@ -37,6 +39,7 @@ namespace MountainStyleShop.Controllers
             
             return RedirectToAction("Index", "Cidade");
         }
+
 
         public ActionResult GetCidades(int idUF)
         {
