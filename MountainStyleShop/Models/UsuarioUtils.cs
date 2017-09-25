@@ -19,7 +19,7 @@ namespace MountainStyleShop.Models
                 if (HttpContext.Current.Session["Usuario"] != null)
                 {
                     user = (Usuario)HttpContext.Current.Session["Usuario"];
-                    user = ConfigDB.Instance.UsuarioRepository.BuscaPorId(user.Id);
+                    
                 }
 
                 return user;

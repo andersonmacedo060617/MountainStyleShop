@@ -17,8 +17,7 @@ namespace MountainStyleShop.Controllers
             ViewBag.Avaliacoes = ConfigDB.Instance.AvaliacaoProdutoRepository.GetAll().Where(x=>x.Produto.Id == idProduto).ToList();
             return PartialView("_PainelAvaliacoesProduto");
         }
-
-        [Authorize(Roles = "Usuario")]
+        
         public PartialViewResult FormularioInseriAvaliacao(int idProduto)
         {
             AvaliacaoProduto avaliacao = new AvaliacaoProduto();

@@ -67,10 +67,10 @@
 
 
             <div id="InseriAvaliacao">
-                @*@if (ViewBag.UsuarioLogado)
-                {*@
+                @if (ViewBag.UsuarioLogado)
+                {
                     @Html.Action("FormularioInseriAvaliacao", "Avaliacao", new { idProduto = @Model.Id })
-                @*}*@
+                }
                 
             </div>
         </div>

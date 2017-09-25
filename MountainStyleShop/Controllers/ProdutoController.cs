@@ -243,12 +243,12 @@ namespace MountainStyleShop.Controllers
             if (ParametrosBusca.ValorInicio != null && ParametrosBusca.ValorInicio != 0)
             {
                 AlgumParamPreenchido = true;
-                filtroProdutos = filtroProdutos.Where(x => x.Valor > ParametrosBusca.ValorInicio);
+                filtroProdutos = filtroProdutos.Where(x => x.Valor >= ParametrosBusca.ValorInicio);
             }
             if (ParametrosBusca.ValorFim != null && ParametrosBusca.ValorFim != 0)
             {
                 AlgumParamPreenchido = true;
-                filtroProdutos = filtroProdutos.Where(x => x.Valor < ParametrosBusca.ValorFim);
+                filtroProdutos = filtroProdutos.Where(x => x.Valor <= ParametrosBusca.ValorFim);
             }
             if (ParametrosBusca.Nome != null && ParametrosBusca.Nome != "")
             {
