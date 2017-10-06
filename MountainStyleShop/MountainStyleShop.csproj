@@ -327,6 +327,7 @@
     <Content Include="Views\Usuario\_FormInteresses.cshtml" />
     <Content Include="Views\Produto\BuscaAvancada.cshtml" />
     <Content Include="Views\BuscaProduto\_ListaHistoricoBusca.cshtml" />
+    <Content Include="Views\Produto\Comprar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

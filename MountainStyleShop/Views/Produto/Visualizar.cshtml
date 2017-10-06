@@ -36,7 +36,7 @@
                 @if (Model.DisponivelParaCompra())
                 {
                     <div class="text-right">
-                        <a class="btn btn-success">Comprar <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                        <a class="btn btn-success" href="@Url.Action("Comprar", "Produto", new { idProduto = Model.Id })">Comprar <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                     </div>
                 }
                 else

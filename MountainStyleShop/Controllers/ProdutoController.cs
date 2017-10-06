@@ -295,5 +295,14 @@ namespace MountainStyleShop.Controllers
             return View(ParametrosBusca);
         }
 
+        public ActionResult Comprar(int IdProduto)
+        {
+            var produto = ConfigDB.Instance.ProdutoRepository.BuscaPorId(IdProduto);
+            if (produto == null)
+                return RedirectToAction("Index", "Home");
+
+            return View(produto);
+        }
+
     }
 }
