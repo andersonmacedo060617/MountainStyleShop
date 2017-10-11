@@ -107,10 +107,8 @@
                             @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
                             <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = produto.Id })" aria-label="Visualizar">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a> |
-                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=produto.Id })" aria-label="Delete">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            </a>
+                            </a> 
+                            
                         </td>
                     </tr>
                 }

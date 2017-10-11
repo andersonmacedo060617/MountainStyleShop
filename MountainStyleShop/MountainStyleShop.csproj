@@ -165,11 +165,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagemController.cs" />
     <Compile Include="Controllers\ItemPedidoController.cs" />
+    <Compile Include="Controllers\ItemVendaController.cs" />
     <Compile Include="Controllers\NotaDeCompraController.cs" />
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\UFController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\VendaClienteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -328,6 +330,9 @@
     <Content Include="Views\Produto\BuscaAvancada.cshtml" />
     <Content Include="Views\BuscaProduto\_ListaHistoricoBusca.cshtml" />
     <Content Include="Views\Produto\Comprar.cshtml" />
+    <Content Include="Views\ItemVenda\_FormAddItemVenda.cshtml" />
+    <Content Include="Views\Produto\_ExibirProdutosMini.cshtml" />
+    <Content Include="Views\VendaCliente\CarrinhoCompra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

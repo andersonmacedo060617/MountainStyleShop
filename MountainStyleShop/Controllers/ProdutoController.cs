@@ -157,7 +157,15 @@ namespace MountainStyleShop.Controllers
             return View();
         }
 
-        
+        public PartialViewResult ExibirProdutoSelecionado(int idProduto)
+        {
+            
+             ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Id == idProduto).ToList();
+            
+
+            return PartialView("_ExibirProdutosMini");
+        }
+
         public PartialViewResult ExibirProdutos(int idCategoria = 0)
         {
             if(idCategoria == 0)

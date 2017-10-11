@@ -1,0 +1,58 @@
+﻿@model MountainStyleShop.ModelNH.Model.ItemVendaCliente
+
+
+
+@using (Html.BeginForm("AdicionarItem", "ItemVenda", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.Produto.Id)
+
+    @Html.HiddenFor(model => model.Produto.Valor)
+
+    <div class="col-lg-3">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "col-md-1" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-12 sale-price">
+            Valor Total: <div id="preco"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-3">
+                <input type="submit" value="Adicionar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+        
+        }
+
+<script language="javascript">
+    $(window).load(function () {
+        $("#Quantidade").val("1");
+        CalculaValor();
+    });
+
+
+    $("#Quantidade").change(function () {
+        
+        CalculaValor();
+    });
+
+    function CalculaValor() {
+        var qtd = $("#Quantidade").val();
+        var vlrProduto = $("#Produto_Valor").val();
+        var valorTotal;
+        if (qtd > 0) {
+            valorTotal = parseFloat(vlrProduto) * parseInt(qtd);
+            $("#preco").text("R$" + valorTotal);
+        } else {
+            $("#Quantidade").val("1");
+        }
+    }
+</script>

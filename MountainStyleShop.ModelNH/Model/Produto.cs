@@ -41,7 +41,6 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
         public virtual IList<AjusteEstoque> AjustesDeEstoque { get; set; }
         public virtual IList<ItemNotaCompraFornecedor> ItemNotaDeCompraFornecedor { get; set; }
-        public virtual IList<ItemVendaCliente> ItemVendasCliente { get; set; }
         public virtual IList<Imagem> Imagens { get; set; }
 
         public virtual Fabricante Fabricante { get; set; }
@@ -180,14 +179,7 @@ namespace MountainStyleShop.ModelNH.Model
                 r => r.OneToMany()
             );
 
-            Bag<ItemVendaCliente>(x => x.ItemVendasCliente, m =>
-            {
-                m.Cascade(Cascade.All);
-                m.Lazy(CollectionLazy.Lazy);
-                m.Inverse(true);
-            },
-                r => r.OneToMany()
-            );
+            
 
             Bag<Imagem>(x => x.Imagens, m =>
             {
