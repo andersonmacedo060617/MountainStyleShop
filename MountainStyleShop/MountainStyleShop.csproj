@@ -175,6 +175,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CookieUtils.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Models\UsuarioUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolesSecurity\Roles.cs" />
@@ -333,6 +336,7 @@
     <Content Include="Views\ItemVenda\_FormAddItemVenda.cshtml" />
     <Content Include="Views\Produto\_ExibirProdutosMini.cshtml" />
     <Content Include="Views\VendaCliente\CarrinhoCompra.cshtml" />
+    <Content Include="Views\ItemVenda\AlterarItemVenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

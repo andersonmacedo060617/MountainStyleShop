@@ -19,20 +19,27 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult CarrinhoCompra()
         {
-            VendaCliente vendaEmAberto;
+            VendaCliente vendaEmAberto = new VendaCliente();
             if (UsuarioUtils.Usuario != null)
             {
-                vendaEmAberto = ConfigDB.Instance.VendaClienteRepository.GetAll().Where(x => x.VendaConfirmada == false).First();
-            }else
-            {
-                vendaEmAberto = new VendaCliente();
-                vendaEmAberto.Cliente = UsuarioUtils.Usuario;
-                vendaEmAberto.VendaConfirmada = false;
+                vendaEmAberto = ConfigDB.Instance.VendaClienteRepository.GetAll().Where(x => x.VendaConfirmada == false 
+                && x.Cliente.Id == UsuarioUtils.Usuario.Id).First();
 
-                ConfigDB.Instance.VendaClienteRepository.Gravar(vendaEmAberto);
+                if(vendaEmAberto == null)
+                {
+                    vendaEmAberto = new VendaCliente();
+                    vendaEmAberto.Cliente = UsuarioUtils.Usuario;
+                    vendaEmAberto.VendaConfirmada = false;
+                    ConfigDB.Instance.VendaClienteRepository.Gravar(vendaEmAberto);
+                }
             }
+
+            //vendaEmAberto.ItensVendaCliente = ConfigDB.Instance.ItemVendaClienteRepository.GetAll().
+            //    Where(x => x.VendaCliente.Id == vendaEmAberto.Id).ToList();
 
             return View("CarrinhoCompra", vendaEmAberto);
         }
+
+        
     }
 }

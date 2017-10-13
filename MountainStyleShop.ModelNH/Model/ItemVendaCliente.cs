@@ -31,12 +31,12 @@ namespace MountainStyleShop.ModelNH.Model
 
             ManyToOne<Produto>(x => x.Produto, m =>
             {
-                m.Column("IdProduto");
+                m.Column("Produto");
             });
 
             ManyToOne<VendaCliente>(x => x.VendaCliente, m =>
             {
-                m.Column("IdVendaCliente");
+                m.Column("VendaCliente");
             });
         }
     }

@@ -6,4 +6,50 @@
 }
 
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Itens no carrinho</h3>
+    </div>
+    <div class="panel-body" >
+        
+            @foreach (var itemCarrinho in Model.ItensVendaCliente)
+            {
+                
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="@itemCarrinho.Produto.ImagemPrincipal" alt="@itemCarrinho.Produto.Nome" width="150" height="100">
+                            </div>
+                            <div class="col-md-3">
+                                <h4>@itemCarrinho.Produto.Nome</h4>
+                                <p>Valor: R$@itemCarrinho.ValorUnitario.ToString("N2")</p>
+                            </div>
+                            <div class="col-lg-3">
+                                Quantidade: @itemCarrinho.Quantidade
+                                <p>Valor Total: R$@itemCarrinho.ValorTotal().ToString("N2")</p>
+                            </div>
+                            <div class="col-md-offset-11">
+                                <a href="@Url.Action("AlterarItemVenda", "ItemVenda", new { idItem = itemCarrinho.Id })" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 
+                                <a href="@Url.Action("RemoverItemVenda", "ItemVenda", new { idItem = itemCarrinho.Id })" class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        <div class="col-lg-12">
+            <div class="col-md-3 col-md-offset-1" >Valor Total da Compra: @Model.ValorTotalVenda().ToString("N2")</div>
+            <div class="col-lg-1 col-md-offset-9">
+                <a href="@Url.Action("FinalizarCompra", "VendaCliente", new { idVendaCliente = Model.Id })" class="btn btn-success">
+                    <i class="fa fa-shopping-cart"></i> Finalizar Compra
+                </a>
+            </div>
+        </div>
+
+        </div>
+    <div class="panel-footer">
+        
+    </div>
+</div>

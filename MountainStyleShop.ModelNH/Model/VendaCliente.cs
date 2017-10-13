@@ -18,6 +18,38 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual IList<CustoAddVendaCliente> CustosAdicionaisVenda { get; set; }
         public virtual IList<ValoresPagamentoVendaCliente> ValoresPagamentoVendaCliente { get; set; }
         public virtual double ValorFrete { get; set; }
+
+        public virtual double ValorTotalVenda()
+        {
+            double valorTotal = this.ValorTotalItens();
+            valorTotal = valorTotal + this.ValorTotalCustosAdicionais();
+            valorTotal = valorTotal + ValorFrete ;
+
+            return valorTotal;
+        }
+
+        public virtual double ValorTotalItens()
+        {
+            double valorTotal = 0;
+            foreach (var itemVenda in this.ItensVendaCliente)
+            {
+                valorTotal = valorTotal + itemVenda.ValorTotal();
+            }
+
+            return valorTotal;
+        }
+
+        public virtual double ValorTotalCustosAdicionais()
+        {
+            double valorTotal = 0;
+            foreach (var custoAdd in this.CustosAdicionaisVenda)
+            {
+                valorTotal = valorTotal + custoAdd.Valor;
+            }
+
+            return valorTotal;
+        }
+
     }
 
     public class VendaClienteMap : ClassMapping<VendaCliente>
@@ -35,10 +67,7 @@ namespace MountainStyleShop.ModelNH.Model
             Property<bool>(x => x.VendaConfirmada);
             Property<double>(x => x.ValorFrete);
 
-            ManyToOne<Usuario>(x => x.Cliente, m =>
-            {
-                m.Column("IdUsuario");
-            });
+            ManyToOne<Usuario>(x => x.Cliente);
 
             ManyToOne<EnderecoEntrega>(x => x.EnderecoParaEntrega, m =>
             {

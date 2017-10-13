@@ -162,7 +162,6 @@ namespace MountainStyleShop.Controllers
             
              ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Id == idProduto).ToList();
             
-
             return PartialView("_ExibirProdutosMini");
         }
 
