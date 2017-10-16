@@ -44,5 +44,20 @@ namespace MountainStyleShop.Controllers
 
             return RedirectToAction("EnderecoUsuario", "Endereco", new { idUsuario = UsuarioUtils.Usuario.Id });
         }
+
+        public ActionResult GravarEnderecoVenda(VendaCliente venda)
+        {
+            EnderecoEntrega endereco = venda.EnderecoParaEntrega;
+            if (UsuarioUtils.Usuario != null)
+            {
+                endereco.Usuario = UsuarioUtils.Usuario;
+                endereco.Cidade = ConfigDB.Instance.CidadeRepository.BuscaPorId(endereco.Cidade.Id);
+                ConfigDB.Instance.EnderecoEntregaRepository.Gravar(endereco);
+            }
+            
+
+            return RedirectToAction("FinalizarCompra", "VendaCliente", new { idVendaCliente = venda.Id });
+
+        }
     }
 }

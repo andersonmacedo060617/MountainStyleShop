@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.VendaCliente>
+
+@{
+    ViewBag.Title = "HistoricoCompras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Historico de Compras</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVenda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiasParaEntrega)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataEntrega)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VendaConfirmada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorFrete)
+        </th>
+        <th>
+            Valor Negociado
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorFinal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataVenda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiasParaEntrega)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEntrega)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VendaConfirmada)
+        </td>
+        <td>
+            R$@Html.DisplayFor(modelItem => item.ValorFrete)
+        </td>
+        <td>
+            R$@Html.Name(item.ValorComDesconto().ToString("N2"))
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorFinal)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Visualizar", new { id=item.Id }) 
+        </td>
+    </tr>
+}
+
+</table>

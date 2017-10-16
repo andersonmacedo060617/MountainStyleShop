@@ -45,14 +45,14 @@ namespace MountainStyleShop.ModelNH.Model
 
             ManyToOne<Pais>(x => x.Pais, m =>
             {
-                m.Column("IdPais");
+                m.Column("Pais");
+                m.Fetch(FetchKind.Select);
             });
             
 
             Bag<Cidade>(x => x.Cidades, m =>
             {
                 m.Cascade(Cascade.All);
-                m.Lazy(CollectionLazy.Lazy);
                 m.Inverse(true);
             },
                 r => r.OneToMany()

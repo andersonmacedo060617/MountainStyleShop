@@ -13,7 +13,15 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual double ValorTotal()
         {
-            return this.Quantidade * this.ValorUnitario;
+            if (this.VendaCliente.VendaConfirmada)
+            {
+                return this.Quantidade * this.ValorUnitario;
+            }
+            else
+            {
+                return this.Quantidade * this.Produto.Valor;
+            }
+            
         }
     }
 

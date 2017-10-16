@@ -79,6 +79,7 @@ namespace MountainStyleShop.ModelNH.Config
         public ImagemRepository ImagemRepository { get; set; }
         public CategoriasInteresseRepository CategoriasInteresseRepository { get; set; }
         public BuscaProdutoRepository BuscaProdutoRepository { get; set; }
+        public CupomDescontoRepository CupomDescontoRepository { get; set; }
 
 
         #endregion
@@ -116,6 +117,7 @@ namespace MountainStyleShop.ModelNH.Config
                 this.ImagemRepository = new ImagemRepository(Session);
                 this.CategoriasInteresseRepository = new CategoriasInteresseRepository(Session);
                 this.BuscaProdutoRepository = new BuscaProdutoRepository(Session);
+                this.CupomDescontoRepository = new CupomDescontoRepository(Session);
             }
             #endregion
         }
@@ -256,6 +258,9 @@ namespace MountainStyleShop.ModelNH.Config
                 );
                 mapper.AddMappings(
                     Assembly.GetAssembly(typeof(BuscaProdutoMap)).GetTypes()
+                );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(CupomDescontoMap)).GetTypes()
                 );
 
                 return mapper.CompileMappingForAllExplicitlyAddedEntities();

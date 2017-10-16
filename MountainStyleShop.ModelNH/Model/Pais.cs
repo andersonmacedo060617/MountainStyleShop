@@ -27,7 +27,6 @@ namespace MountainStyleShop.ModelNH.Model
             Bag<UF>(x => x.UFs, m =>
             {
                 m.Cascade(Cascade.All);
-                m.Lazy(CollectionLazy.Lazy);
                 m.Inverse(true);
             },
                 r => r.OneToMany()

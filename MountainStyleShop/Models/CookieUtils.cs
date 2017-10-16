@@ -10,7 +10,7 @@ namespace MountainStyleShop.Models
     {
         private String nomeCookie = "MountainStyleShopping";
         private String parametroCarrinho  = "itensCarrinho";
-        private char delimitador = "_";
+        private char delimitador = char.Parse("_");
 
         public CookieUtils()
         {
@@ -24,7 +24,7 @@ namespace MountainStyleShop.Models
             String strProdutos = cookie.Values.Get(parametroCarrinho).ToString();
             List<String> idsProdutos  = strProdutos.Split(delimitador).ToList();
 
-            idsProdutos.Add(idProduto);
+            idsProdutos.Add(idProduto.ToString());
         }
 
         private void VerificandoCookie()

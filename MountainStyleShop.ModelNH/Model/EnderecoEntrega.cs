@@ -14,6 +14,7 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual string CEP { get; set; }
         public virtual Cidade Cidade { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual string DescricaoEndereco { get; set; }
         
 
         public virtual ValorEntrega ValorFrete()
@@ -36,6 +37,11 @@ namespace MountainStyleShop.ModelNH.Model
 
             return MaiorValor;
         }
+
+        public virtual string DescricaoEnderecoStr()
+        {
+            return "Rua: " + this.Rua + "- Bairro: " + this.Bairro + " - Cidade: " + this.Cidade.Nome + " - Estado: " + this.Cidade.UF.Nome + " - Pais: " + this.Cidade.UF.Pais.Nome;
+        }
     }
 
     public class EnderecoEntregaMap : ClassMapping<EnderecoEntrega>
@@ -52,7 +58,7 @@ namespace MountainStyleShop.ModelNH.Model
             Property<string>(x => x.Complemento);
             Property<string>(x => x.Bairro);
             Property<string>(x => x.CEP);
-            
+            Property<string>(x => x.DescricaoEndereco);
 
             ManyToOne<Cidade>(x => x.Cidade, m =>
             {

@@ -25,7 +25,7 @@ namespace MountainStyleShop.Controllers
             if(UsuarioUtils.Usuario != null)
             {
                 var prod = ConfigDB.Instance.ProdutoRepository.BuscaPorId(itemVenda.Produto.Id);
-                itemVenda.ValorUnitario = prod.Valor;
+                
                 
                 var vendasClienteSemConcluir = ConfigDB.Instance.VendaClienteRepository.GetAll().Where(x => x.VendaConfirmada == false && x.Cliente.Id == UsuarioUtils.Usuario.Id);
                 VendaCliente vendaCliente;
@@ -108,7 +108,7 @@ namespace MountainStyleShop.Controllers
             if(vendaEmAberto != null)
             {
                 var prod = ConfigDB.Instance.ProdutoRepository.BuscaPorId(itemVenda.Produto.Id);
-                itemVenda.ValorUnitario = prod.Valor;
+                
                 itemVenda.Produto = prod;
                 itemVenda.VendaCliente = vendaEmAberto;
                 ConfigDB.Instance.ItemVendaClienteRepository.Gravar(itemVenda);

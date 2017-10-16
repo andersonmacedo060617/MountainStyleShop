@@ -158,7 +158,9 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CategoriasInteresseController.cs" />
     <Compile Include="Controllers\CidadeController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ComponentesController.cs" />
+    <Compile Include="Controllers\CupomDescontoController.cs" />
     <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\FabricanteController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
@@ -337,11 +339,15 @@
     <Content Include="Views\Produto\_ExibirProdutosMini.cshtml" />
     <Content Include="Views\VendaCliente\CarrinhoCompra.cshtml" />
     <Content Include="Views\ItemVenda\AlterarItemVenda.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\VendaCliente\FinalizarCompra.cshtml" />
+    <Content Include="Views\Usuario\HistoricoCompras.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Imagens\Produtos\" />
     <Folder Include="Views\CategoriasInteresse\" />
+    <Folder Include="Views\CupomDesconto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,0 +1,264 @@
+﻿@model MountainStyleShop.ModelNH.Model.VendaCliente
+
+@{
+    ViewBag.Title = "FinalizarCompra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Finalizando Compra</h3>
+    </div>
+    <div class="panel-body">
+
+        @foreach (var itemCarrinho in Model.ItensVendaCliente)
+        {
+
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="@itemCarrinho.Produto.ImagemPrincipal" alt="@itemCarrinho.Produto.Nome" width="75" height="50">
+                        </div>
+                        <div class="col-md-3">
+                            <h4>@itemCarrinho.Produto.Nome</h4>
+                            <p>Valor: R$@itemCarrinho.Produto.Valor.ToString("N2")</p>
+                        </div>
+                        <div class="col-lg-3">
+                            Quantidade: @itemCarrinho.Quantidade
+                            <p>Valor Total: R$@itemCarrinho.ValorTotal().ToString("N2")</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+        }
+        <div class="col-lg-3 col-lg-offset-1">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <tbody>
+                        <tr class="info">
+                            <td>Sub Total:</td>
+                            <td>@Model.ValorTotalItens().ToString("N2")</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Frete:</td>
+                            <td>@Model.ValorFrete.ToString("N2")</td>
+                        </tr>
+                        <tr class="info">
+                            <td>Valor Total da Compra:</td>
+                            <td>@Model.ValorTotalVenda().ToString("N2")</td>
+                        </tr>
+                        @if (Model.CupomDesconto != null)
+                        {
+                        <tr class="info">
+                            <td>Desconto Aplicado:</td>
+                            <td>@Model.ValorDescontoVendaStr()</td>
+                        </tr>
+                        }
+                        <tr class="success">
+                            <td>Total a pagar</td>
+                            <td><b>@Model.ValorComDesconto().ToString("N2")</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (Model.VendaConfirmada == false)
+        {
+        <div class="col-lg-3 col-lg-offset-1">
+            <div class="col-lg-1">
+                <button class="btn btn-warning"  data-toggle="modal" data-target="#modalEnderecosEntrega">
+                    <i class="fa fa-ma"></i> Definir Endereço de Entrega
+                </button>
+            </div>
+        </div>
+        }
+        @if (Model.EnderecoParaEntrega != null && Model.VendaConfirmada == false)
+        {
+            <div class="col-lg-3 col-lg-offset-1">
+                <div class="col-lg-1">
+                    <a href="@Url.Action("ConcluirVenda", "VendaCliente", new { idVendaCliente = Model.Id })" class="btn btn-success">
+                        <i class="fa fa-shopping-cart"></i> Finalizar Compra 
+                    </a>
+                </div>
+            </div>
+        }
+        @if (Model.VendaConfirmada)
+        {
+            <h2>Venda Concluida!</h2>
+        }
+
+        </div>
+    <div class="panel-footer">
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalEnderecosEntrega" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Escolher Local de Entrega</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("VinculaEndereco", "VendaCliente", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    @Html.HiddenFor(model=>model.Id)
+                    <button class="btn btn-info" data-dismiss="modal" data-toggle="modal" data-target="#modalCadEnderecoEntrega">
+                        <i class="fa fa-ma"></i> Adicionar Novo Endereço
+                    </button>
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.Hidden("Id", Model.Id)
+                    @foreach (var item in (IList<MountainStyleShop.ModelNH.Model.EnderecoEntrega>)ViewBag.Enderecos)
+                    {
+                        @Html.Label(item.Id + " - " + item.DescricaoEndereco) 
+                        @Html.RadioButton("EnderecoParaEntrega.Id", 
+                            item.Id, 
+                            (Model.EnderecoParaEntrega != null && Model.EnderecoParaEntrega.Id == item.Id)
+                        )  
+                        <br />
+                    }
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Selecionar Endereço</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCadEnderecoEntrega" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Escolher Local de Entrega</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("GravarEnderecoVenda", "Endereco", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                
+                @Html.HiddenFor(model=>model.Id)
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EnderecoParaEntrega.Rua, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EnderecoParaEntrega.Rua, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EnderecoParaEntrega.Rua, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EnderecoParaEntrega.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EnderecoParaEntrega.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EnderecoParaEntrega.Numero, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EnderecoParaEntrega.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EnderecoParaEntrega.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EnderecoParaEntrega.Complemento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EnderecoParaEntrega.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EnderecoParaEntrega.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EnderecoParaEntrega.Bairro, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EnderecoParaEntrega.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EnderecoParaEntrega.CEP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EnderecoParaEntrega.CEP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EnderecoParaEntrega.Cidade.UF, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.EnderecoParaEntrega.Cidade.UF.Id, (SelectList)ViewBag.lstEstados, "Selecione...", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EnderecoParaEntrega.Cidade.UF.Id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EnderecoParaEntrega.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.EnderecoParaEntrega.Cidade.Id, new SelectList(string.Empty, "", ""), "Selecione...", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EnderecoParaEntrega.Cidade.Id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3 col-md-offset-2">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalEnderecosEntrega">Cancelar</button>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1">
+                            <input type="submit" value="Gravar" class="btn btn-success" />
+                        </div>
+                   </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).load(function () {
+
+    });
+
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#EnderecoParaEntrega_Cidade_UF_Id").change(function () {
+            $("#EnderecoParaEntrega_Cidade_Id").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCidades", "Cidade")', // we are calling json method
+
+                dataType: 'json',
+
+                data: { idUF: $("#EnderecoParaEntrega_Cidade_UF_Id").val() },
+                // here we are get value of selected country and passing same value as inputto json method GetStates.
+
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+
+                    $.each(states, function (i, state) {
+                        $("#EnderecoParaEntrega_Cidade_Id").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                },
+            error: function (ex) {
+                alert('Failed to retrieve states.' + ex);
+            }
+        });
+        return false;
+    })
+    });
+</script>
+

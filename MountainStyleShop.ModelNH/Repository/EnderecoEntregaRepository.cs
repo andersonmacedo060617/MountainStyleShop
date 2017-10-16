@@ -12,6 +12,18 @@ namespace MountainStyleShop.ModelNH.Repository
     {
         public EnderecoEntregaRepository(ISession session) : base(session)
         {
+
+        }
+
+        
+        public bool Gravar(EnderecoEntrega entity)
+        {
+            this.session.Clear();
+            entity.DescricaoEndereco = entity.DescricaoEnderecoStr();
+            var transacao = this.session.BeginTransaction();
+            this.session.SaveOrUpdate(entity);
+            transacao.Commit();
+            return true;
         }
     }
 }

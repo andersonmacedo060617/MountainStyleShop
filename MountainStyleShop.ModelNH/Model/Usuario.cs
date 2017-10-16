@@ -45,6 +45,8 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual IList<CategoriasInteresse> CategoriasInteresse { get; set; }
 
+        public virtual IList<CupomDesconto> CuponsDesconto { get; set; }
+
         public virtual bool SenhaValida(string Senha)
         {
             return Criptografia.Comparar(Senha, this.Senha);
@@ -58,6 +60,7 @@ namespace MountainStyleShop.ModelNH.Model
         public Usuario()
         {
             this.Admin = false;
+            this.Enderecos = new List<EnderecoEntrega>();
         }
 
         public virtual bool EhCategoriaInteresse(int IdCategoria)
@@ -142,6 +145,15 @@ namespace MountainStyleShop.ModelNH.Model
             );
 
             Bag<BuscaProduto>(x => x.HistoricoBusca, m =>
+            {
+                m.Cascade(Cascade.All);
+                m.Lazy(CollectionLazy.Lazy);
+                m.Inverse(true);
+            },
+                r => r.OneToMany()
+            );
+
+            Bag<CupomDesconto>(x => x.CuponsDesconto, m =>
             {
                 m.Cascade(Cascade.All);
                 m.Lazy(CollectionLazy.Lazy);

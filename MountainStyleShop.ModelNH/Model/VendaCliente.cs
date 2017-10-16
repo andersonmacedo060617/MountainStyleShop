@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.ENum;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,36 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual IList<CustoAddVendaCliente> CustosAdicionaisVenda { get; set; }
         public virtual IList<ValoresPagamentoVendaCliente> ValoresPagamentoVendaCliente { get; set; }
         public virtual double ValorFrete { get; set; }
+        public virtual double ValorFinal { get; set; }
+
+        public virtual CupomDesconto CupomDesconto { get; set; }
+
+        public VendaCliente()
+        {
+            this.ItensVendaCliente = new List<ItemVendaCliente>();
+            this.CustosAdicionaisVenda = new List<CustoAddVendaCliente>();
+            this.ValoresPagamentoVendaCliente = new List<ValoresPagamentoVendaCliente>();
+        }
 
         public virtual double ValorTotalVenda()
         {
             double valorTotal = this.ValorTotalItens();
             valorTotal = valorTotal + this.ValorTotalCustosAdicionais();
-            valorTotal = valorTotal + ValorFrete ;
-
+            valorTotal = valorTotal + ValorFrete;
+            
             return valorTotal;
         }
 
+        public virtual double ValorComDesconto()
+        {
+            var vlTotal = this.ValorTotalVenda();
+            if(this.CupomDesconto != null)
+            {
+                vlTotal = vlTotal - ValorDesconto();
+            }
+            return vlTotal;
+        }
+        
         public virtual double ValorTotalItens()
         {
             double valorTotal = 0;
@@ -39,6 +60,22 @@ namespace MountainStyleShop.ModelNH.Model
             return valorTotal;
         }
 
+        public virtual double ValorDesconto()
+        {
+            double valorDesconto = 0;
+            if (this.CupomDesconto.TipoDesconto == ETipoDesconto.Percentual)
+            {
+                valorDesconto = (this.ValorTotalVenda() * (this.CupomDesconto.Valor / 100));
+            }
+
+            if (this.CupomDesconto.TipoDesconto == ETipoDesconto.Valor)
+            {
+                valorDesconto = this.CupomDesconto.Valor;
+            }
+
+            return valorDesconto;
+        }
+
         public virtual double ValorTotalCustosAdicionais()
         {
             double valorTotal = 0;
@@ -48,6 +85,25 @@ namespace MountainStyleShop.ModelNH.Model
             }
 
             return valorTotal;
+        }
+
+        public virtual String ValorDescontoVendaStr()
+        {
+            String ValorDesconto = "R$0,00";
+            if(CupomDesconto != null)
+            {
+                if(this.CupomDesconto.TipoDesconto == ETipoDesconto.Percentual)
+                {
+                    ValorDesconto = this.CupomDesconto.Valor + "% - R$" + this.ValorDesconto().ToString("N2");
+                }
+
+                if (this.CupomDesconto.TipoDesconto == ETipoDesconto.Valor)
+                {
+                    ValorDesconto = "R$" + this.CupomDesconto.Valor.ToString("N2");
+                }
+            }
+
+            return ValorDesconto;
         }
 
     }
@@ -66,6 +122,7 @@ namespace MountainStyleShop.ModelNH.Model
             Property<DateTime>(x => x.DataEntrega);
             Property<bool>(x => x.VendaConfirmada);
             Property<double>(x => x.ValorFrete);
+            Property<double>(x => x.ValorFinal);
 
             ManyToOne<Usuario>(x => x.Cliente);
 
@@ -100,6 +157,11 @@ namespace MountainStyleShop.ModelNH.Model
             },
                 r => r.OneToMany()
             );
+
+            ManyToOne<CupomDesconto>(x => x.CupomDesconto, m =>
+            {
+                m.Column("CupomDesconto");
+            });
         }
     }
 

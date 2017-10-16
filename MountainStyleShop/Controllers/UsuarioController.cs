@@ -160,6 +160,13 @@ namespace MountainStyleShop.Controllers
             return PartialView("_FormInteresses");            
         }
 
+        [Authorize(Roles = "Usuario")]
+        public ActionResult HistoricoCompras()
+        {
+            var vendas = ConfigDB.Instance.VendaClienteRepository.GetAll().Where(x => x.Cliente.Id == UsuarioUtils.Usuario.Id);
+
+            return View(vendas);
+        }
 
     }
 }

@@ -25,13 +25,13 @@ namespace MountainStyleShop.ModelNH.Model
 
             ManyToOne<UF>(x => x.UF, m =>
             {
-                m.Column("IdUF");
+                m.Column("UF");
+                m.Fetch(FetchKind.Select);
             });
 
             Bag<ValorEntrega>(x => x.ValoresEntrega, m =>
             {
                 m.Cascade(Cascade.All);
-                m.Lazy(CollectionLazy.Lazy);
                 m.Inverse(true);
             },
                r => r.OneToMany()
