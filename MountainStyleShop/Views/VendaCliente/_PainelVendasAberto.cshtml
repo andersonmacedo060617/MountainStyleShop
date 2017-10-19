@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.VendaCliente>
+
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3 class="panel-title">Vendas Em Aberto</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.VendaConfirmada)
+                </th>
+                <th>
+                    Valor Negociado
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorFinal)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    
+                    <td>
+                        @if (item.VendaConfirmada)
+                        {
+                            <i class="fa fa-2x fa-check-square-o" style="color:green;" aria-hidden="true"></i>
+                        }
+                        @if (!item.VendaConfirmada)
+                        {
+                            <i class="fa fa-2x fa-square-o" style="color:green;" aria-hidden="true"></i>
+                        }
+                    </td>
+                    <td>
+                        R$@Html.DisplayFor(modelItem => item.ValorFrete)
+                    </td>
+                    <td>
+                        R$@Html.Name(item.ValorTotalItens().ToString("N2"))
+                    </td>
+                    <td>
+                        <a href="@Url.Action("FinalizarCompra", "VendaCliente", new { idVendaCliente = item.Id })" class="btn btn-success">
+                            <i class="fa fa-shopping-cart"></i> Finalizar Compra
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

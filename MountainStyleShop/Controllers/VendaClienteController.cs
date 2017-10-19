@@ -26,8 +26,8 @@ namespace MountainStyleShop.Controllers
                     primeiraVenda.VendaConfirmada = false;
                     ConfigDB.Instance.VendaClienteRepository.Gravar(primeiraVenda);
                 }
-                vendaEmAberto = ConfigDB.Instance.VendaClienteRepository.GetAll().Where(x => x.VendaConfirmada == false 
-                && x.Cliente.Id == UsuarioUtils.Usuario.Id).First();
+                vendaEmAberto = ConfigDB.Instance.VendaClienteRepository.GetAll().Where(x => x.VendaConfirmada == false
+                && x.Cliente.Id == UsuarioUtils.Usuario.Id).OrderBy(x => x.Id).First();
 
                 if(vendaEmAberto == null)
                 {
@@ -109,6 +109,10 @@ namespace MountainStyleShop.Controllers
         public ActionResult ConcluirVenda(int idVendaCliente)
         {
             VendaCliente venda = ConfigDB.Instance.VendaClienteRepository.BuscaPorId(idVendaCliente);
+            foreach (var item in venda.ItensVendaCliente)
+            {
+                item.ValorUnitario = item.Produto.Valor;
+            }
             venda.VendaConfirmada = true;
             venda.DataVenda = DateTime.Now;
             venda.ValorFinal = venda.ValorComDesconto();
@@ -117,6 +121,20 @@ namespace MountainStyleShop.Controllers
             ViewBag.MsgSucesso = "Compra Concluida com Sucesso!";
 
             return RedirectToAction("HistoricoCompras", "Usuario");
+        }
+
+        public PartialViewResult PainelVendasConcluidas()
+        {
+            var vendasConcluidas = ConfigDB.Instance.VendaClienteRepository.GetAll()
+                .Where(x => x.Cliente.Id == UsuarioUtils.Usuario.Id && x.VendaConfirmada);
+            return PartialView("_PainelVendasConcluidas", vendasConcluidas);
+        }
+
+        public PartialViewResult PainelVendasAberto()
+        {
+            var vendasAberto = ConfigDB.Instance.VendaClienteRepository.GetAll()
+                .Where(x => x.Cliente.Id == UsuarioUtils.Usuario.Id && !x.VendaConfirmada && x.ValorTotalItens() > 0);
+            return PartialView("_PainelVendasAberto", vendasAberto);
         }
 
     }

@@ -130,7 +130,7 @@ namespace MountainStyleShop.Controllers
 
         }
 
-        [Authorize(Roles = "Administrador, Usuario")]
+        [Authorize(Roles = "Usuario")]
         public ActionResult Configuracoes()
         {
             if(UsuarioUtils.Usuario == null)

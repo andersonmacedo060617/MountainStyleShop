@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.VendaCliente>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Vendas Concluidas</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataVenda)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiasParaEntrega)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataEntrega)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VendaConfirmada)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorFrete)
+                </th>
+                <th>
+                    Valor Negociado
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValorFinal)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataVenda)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiasParaEntrega)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataEntrega)
+                    </td>
+                    <td>
+                        @if (item.VendaConfirmada)
+                        {
+                            <i class="fa fa-2x fa-check-square-o" style="color:green;" aria-hidden="true"></i>
+                        }
+                        @if (!item.VendaConfirmada)
+                        {
+                            <i class="fa fa-2x fa-square-o" style="color:green;" aria-hidden="true"></i>
+                        }
+                    </td>
+                    <td>
+                        R$@Html.DisplayFor(modelItem => item.ValorFrete)
+                    </td>
+                    <td>
+                        R$@Html.Name(item.ValorComDesconto().ToString("N2"))
+                    </td>
+                    <td>
+                        R$@Html.Name(item.ValorFinal.ToString("N2"))
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Visualizar", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
