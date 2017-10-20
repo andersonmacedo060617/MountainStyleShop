@@ -344,6 +344,7 @@
     <Content Include="Views\Usuario\HistoricoCompras.cshtml" />
     <Content Include="Views\VendaCliente\_PainelVendasConcluidas.cshtml" />
     <Content Include="Views\VendaCliente\_PainelVendasAberto.cshtml" />
+    <Content Include="Views\VendaCliente\VisualizaVenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

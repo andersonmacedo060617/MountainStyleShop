@@ -1,0 +1,140 @@
+﻿@model MountainStyleShop.ModelNH.Model.VendaCliente
+
+@{
+    ViewBag.Title = "VisualizaVenda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Itens no carrinho</h3>
+    </div>
+    <div class="panel-body">
+
+        @foreach (var itemCarrinho in Model.ItensVendaCliente)
+        {
+
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="@itemCarrinho.Produto.ImagemPrincipal" alt="@itemCarrinho.Produto.Nome" width="150" height="100">
+                        </div>
+                        <div class="col-md-3">
+                            <h4>@itemCarrinho.Produto.Nome</h4>
+                            <p>Valor: R$@itemCarrinho.ValorUnitario.ToString("N2")</p>
+                        </div>
+                        <div class="col-lg-3">
+                            Quantidade: @itemCarrinho.Quantidade
+                            <p>Valor Total: R$@itemCarrinho.ValorTotal().ToString("N2")</p>
+                        </div>
+                        <div class="col-md-offset-11">
+                            <a href="@Url.Action("Visualizar", "Produto", new { id = itemCarrinho.Produto.Id })" title="Visualizar" class="btn btn-info">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-lg-3 col-lg-offset-1">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <tbody>
+                        <tr class="info">
+                            <td>Sub Total:</td>
+                            <td>@Model.ValorTotalItens().ToString("N2")</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Frete:</td>
+                            <td>@Model.ValorFrete.ToString("N2")</td>
+                        </tr>
+                        <tr class="info">
+                            <td>Valor Total da Compra:</td>
+                            <td>@Model.ValorTotalVenda().ToString("N2")</td>
+                        </tr>
+                        @if (Model.CupomDesconto != null)
+                        {
+                            <tr class="info">
+                                <td>Desconto Aplicado:</td>
+                                <td>@Model.ValorDescontoVendaStr()</td>
+                            </tr>
+                        }
+                        <tr class="success">
+                            <td>Total a pagar</td>
+                            <td><b>@Model.ValorComDesconto().ToString("N2")</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-12 sale-price">
+            <div class="col-md-3 col-md-offset-1">Valor Total da Compra: @Model.ValorTotalVenda().ToString("N2")</div>
+        </div>
+        @if (!Model.VendaConfirmada && Model.ItensVendaCliente.Count > 0)
+        {
+            
+
+            <div class="col-lg-1">
+                <a href="@Url.Action("FinalizarCompra", "VendaCliente", new { idVendaCliente = Model.Id })" class="btn btn-success">
+                    <i class="fa fa-shopping-cart"></i> Finalizar Compra
+                </a>
+            </div>
+
+        }
+
+        <div class="col-lg-9 col-lg-offset-1">
+            <div class="well well-sm">
+                <div class="col-lg-12">
+                    <h4>Endereço de Entrega:</h4>
+                </div>
+                
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <b>Rua:</b> @Model.EnderecoParaEntrega.Rua, N° @Model.EnderecoParaEntrega.Numero
+                        </div>
+                        <div class="col-lg-3">
+                            <b>Complemento:</b> @Model.EnderecoParaEntrega.Complemento
+                        </div>
+                        <div class="col-lg-3">
+                            <b>Bairro:</b> @Model.EnderecoParaEntrega.Bairro
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <b>Cidade:</b> @Model.EnderecoParaEntrega.Cidade.Nome
+                        </div>
+                        <div class="col-lg-3">
+                            <b>UF:</b> @Model.EnderecoParaEntrega.Cidade.UF.Nome
+                        </div>
+                        <div class="col-lg-3">
+                            <b>País:</b> @Model.EnderecoParaEntrega.Cidade.UF.Pais.Nome
+                        </div>
+                        <div class="col-lg-3">
+                            <b>CEP:</b> @Model.EnderecoParaEntrega.CEP
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        <div class="col-lg-5 col-sm-offset-1">
+            <a href="@Url.Action("HistoricoCompras", "Usuario")" class="btn btn-info">
+                Voltar
+            </a>
+        </div>
+    </div>
+
+
+    
+
+    <div class="panel-footer">
+        
+    </div>
+</div>
+
+
+

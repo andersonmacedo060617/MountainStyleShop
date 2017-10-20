@@ -106,6 +106,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("FinalizarCompra", "VendaCliente", new { idVendaCliente = venda.Id } );
         }
 
+        [Authorize(Roles = "Usuario")]
         public ActionResult ConcluirVenda(int idVendaCliente)
         {
             VendaCliente venda = ConfigDB.Instance.VendaClienteRepository.BuscaPorId(idVendaCliente);
@@ -123,6 +124,7 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("HistoricoCompras", "Usuario");
         }
 
+        [Authorize(Roles = "Usuario")]
         public PartialViewResult PainelVendasConcluidas()
         {
             var vendasConcluidas = ConfigDB.Instance.VendaClienteRepository.GetAll()
@@ -130,11 +132,26 @@ namespace MountainStyleShop.Controllers
             return PartialView("_PainelVendasConcluidas", vendasConcluidas);
         }
 
+
         public PartialViewResult PainelVendasAberto()
         {
             var vendasAberto = ConfigDB.Instance.VendaClienteRepository.GetAll()
                 .Where(x => x.Cliente.Id == UsuarioUtils.Usuario.Id && !x.VendaConfirmada && x.ValorTotalItens() > 0);
             return PartialView("_PainelVendasAberto", vendasAberto);
+        }
+
+        [Authorize(Roles = "Usuario")]
+        public ActionResult VisualizaVenda(int idVendaCliente)
+        {
+            var venda = ConfigDB.Instance.VendaClienteRepository.GetAll().Where(x => x.Id == idVendaCliente && x.Cliente.Id == UsuarioUtils.Usuario.Id);
+
+            if (venda == null)
+            {
+                return RedirectToAction("HistoricoCompra", "Usuario");
+            }
+            
+
+            return View(venda.First());
         }
 
     }

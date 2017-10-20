@@ -63,7 +63,9 @@
                         R$@Html.Name(item.ValorFinal.ToString("N2"))
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "Visualizar", new { id = item.Id })
+                        <a href="@Url.Action("VisualizaVenda", "VendaCliente", new { idVendaCliente = item.Id })" title="Visualizar" class="btn btn-info">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
                     </td>
                 </tr>
             }
