@@ -1,11 +1,13 @@
 ﻿<!-- /.navbar-header -->
 <ul class="nav navbar-top-links navbar-right">
-
-    <li>
-        <a href="@Url.Action("CarrinhoCompra", "VendaCliente")">
-            <i class="fa fa-shopping-cart"></i>
-        </a>
-    </li>
+    @if ((bool)!ViewBag.IsAdmin)
+    {
+        <li>
+            <a href="@Url.Action("CarrinhoCompra", "VendaCliente")">
+                <i class="fa fa-shopping-cart"></i>
+            </a>
+        </li>
+    }
     <!-- /.dropdown -->
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">

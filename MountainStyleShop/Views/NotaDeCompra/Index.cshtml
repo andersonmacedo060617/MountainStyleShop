@@ -20,96 +20,117 @@
         <i class="fa fa-info" aria-hidden="true"></i> Não é possivel incluir itens a nota depois dos produtos entregues.<br />
     </div>
 </div>
-        
-    
-<table class="table">
-    <tr>
-        <th>
-            Adicionar Produto
-        </th>
-        <th>
-            Numero Da Nota
-        </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.DataDaCompra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model=>model.Fornecedor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataDeEntrega)
-        </th>
-        <th>
-            Valor Total da Nota
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataDeCadastro)
-        </th>
-        <th>
-            Produtos foram entregues?
-        </th>
-    </tr>
 
-@foreach (var NotaDeCompra in (IList<MountainStyleShop.ModelNH.Model.NotaDeCompraFornecedor>)ViewBag.NotasDeCompra) {
-    <tr>
-        
-        <td>
-            @if (!NotaDeCompra.ProdutoEntregue()) { 
-            <a class="btn btn-info fa fa-cubes" href="@Url.Action("AddProduto", new { id = NotaDeCompra.Id })" aria-label="Alterar" >
-                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-            </a>
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => NotaDeCompra.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => NotaDeCompra.DataDaCompra)
-        </td>
+<div class="panel panel-green">
+    <div class="panel-heading"> Notas de compra</div>
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+                <th>
+                    Lista de Produto da Nota
+                </th>
+                <th>
+                    Numero Da Nota
+                </th>
 
-        <td>
-            @Html.DisplayFor(modelItem => NotaDeCompra.Fornecedor.Nome)
-        </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataDaCompra)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fornecedor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataDeEntrega)
+                </th>
+                <th>
+                    Valor Total da Nota
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataDeCadastro)
+                </th>
+                <th>
+                    Produtos foram entregues?
+                </th>
+                <th>
+                    Compra Concluida
+                </th>
+                <th></th>
+            </tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => NotaDeCompra.DataDeEntrega)
-        </td>
-        <td>
-            @NotaDeCompra.ValorTotalNota()
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => NotaDeCompra.DataDeCadastro)
-        </td>
-        <td>
-            @if (NotaDeCompra.ProdutoEntregue())
+            @foreach (var NotaDeCompra in (IList<MountainStyleShop.ModelNH.Model.NotaDeCompraFornecedor>)ViewBag.NotasDeCompra)
             {
-                <i class="fa fa-check-square-o"></i>
-            }
-            else
-            {
-                <i class="fa fa-square-o"></i>
-            }
-        </td>
-        
+                <tr>
 
-        <td>
-            @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
-           
-            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = NotaDeCompra.Id })" aria-label="Alterar">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-            @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
-            <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = NotaDeCompra.Id })" aria-label="Visualizar">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-            </a> 
-            @if(NotaDeCompra.ItensPedidos.Count == 0){
-                <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=NotaDeCompra.Id })" aria-label="Delete">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </a>
-            }
-        </td>
-    </tr>
-}
+                    <td>
+                        @if (!NotaDeCompra.ProdutoEntregue())
+                        {
+                            <a class="btn btn-info fa fa-cubes" href="@Url.Action("AddProduto", new { id = NotaDeCompra.Id })" aria-label="Alterar">
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => NotaDeCompra.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => NotaDeCompra.DataDaCompra)
+                    </td>
 
-</table>
+                    <td>
+                        @Html.DisplayFor(modelItem => NotaDeCompra.Fornecedor.Nome)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => NotaDeCompra.DataDeEntrega)
+                    </td>
+                    <td>
+                        @NotaDeCompra.ValorTotalNota()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => NotaDeCompra.DataDeCadastro)
+                    </td>
+                    <td>
+                        @if (NotaDeCompra.ProdutoEntregue())
+                        {
+                            <i class="fa fa-check-square-o"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-square-o"></i>
+                        }
+                    </td>
+
+                    <td>
+                        @if (NotaDeCompra.CompraConfirmada)
+                        {
+                            <i class="fa fa-check-square-o"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-square-o"></i>
+                        }
+                    </td>
+
+
+                    <td>
+                        @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
+
+                        <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = NotaDeCompra.Id })" aria-label="Alterar">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
+                        <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = NotaDeCompra.Id })" aria-label="Visualizar">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                        @if (NotaDeCompra.ItensPedidos.Count == 0)
+                        {
+                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=NotaDeCompra.Id })" aria-label="Delete">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

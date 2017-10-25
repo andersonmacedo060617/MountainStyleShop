@@ -21,10 +21,33 @@ namespace MountainStyleShop.Controllers
                 {
                     NotaDeCompra = nota
                 };
+
+                var produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Ativo);
+                ViewBag.lstProdutos = new SelectList(produtos, "Id", "Nome");
+
                 return View(item);
             }
 
             return RedirectToAction("AddProduto", "NotaDeCompra", IdDaNota);
+        }
+
+        [HttpPost]
+        public ActionResult Gravar(ItemNotaCompraFornecedor item)
+        {
+            var produto = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Id == item.Produto.Id && x.Ativo).First();
+            var notaCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().Where(x => x.Id == item.NotaDeCompra.Id && !x.ProdutoEntregue()).First();
+
+            if(produto == null || notaCompra == null)
+            {
+                return RedirectToAction("Index", "NotaDeCompra");
+            }
+
+            item.Produto = produto;
+            item.NotaDeCompra = notaCompra;
+
+            ConfigDB.Instance.ItemNotaCompraFornecedorRepository.Gravar(item);
+
+            return RedirectToAction("AddProduto", "NotaDeCompra", new { id = item.NotaDeCompra.Id});
         }
 
     }

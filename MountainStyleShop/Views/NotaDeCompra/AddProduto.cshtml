@@ -5,134 +5,152 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Adicionar Podutos</h2>
+<div class="panel panel-info">
+    <div class="panel-heading"> Regras para Nota de Compra</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                Nome do Fornecedor
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Fornecedor.Nome)
+            </dd>
+            <dt>
+                CNPJ
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Fornecedor.Cnpj)
+            </dd>
 
-<div>
-    <h4>NotaDeCompra</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DataDaCompra)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataDaCompra)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataDaCompra)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataDaCompra)
-        </dd>
+            <dt>
+                Quantidade de Itens
+            </dt>
+            <dd>
+                @Model.ItensPedidos.Count.ToString()
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataDeEntrega)
-        </dt>
+            
 
-        <dd>
-            @Html.DisplayFor(model => model.DataDeEntrega)
-        </dd>
+            @if (Model.ProdutoEntregue())
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.DataDeEntrega)
+                </dt>
 
-        <dt>
-            Valor Total
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DataDeEntrega)
+                </dd>
+            }
+            
 
-        <dd>
-            @Model.ValorTotalNota()
-        </dd>
+            <dt>
+                Valor Total
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataDeCadastro)
-        </dt>
+            <dd>
+                R$@Model.ValorTotalNota().ToString("N2")
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataDeCadastro)
-        </dd>
-
-    </dl>
-
-    <hr />
-
-    <a class="btn btn-success" href="@Url.Action("Novo", "ItemPedido", new { IdDaNota = Model.Id })" aria-label="Novo">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+        </dl>
+    </div>
+</div>
+@if(!Model.CompraConfirmada){
+    <div>
+        <a class="btn btn-success" href="@Url.Action("Novo", "ItemPedido", new { IdDaNota = Model.Id })" aria-label="Novo">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+    </div>
     <br />
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Lista de Produtos</h3>
-        </div>
-
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    
-                    <th>
-                        Nome
-                    </th>
-
-                    <th>
-                        Categoria
-                    </th>
-
-                    <th>
-                        Quantidade
-                    </th>
-
-                    <th>
-                        Valor Unitario
-                    </th>
-
-                    <th>
-                        Valor Total Item
-                    </th>
-
-                </tr>
-
-                @foreach (var ItemPedido in Model.ItensPedidos)
-                {
-                    <tr>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => ItemPedido.Produto.Nome)
-                        </td>
-                        
-                        <td>
-                            @Html.DisplayFor(modelItem => ItemPedido.Produto.Categoria)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => ItemPedido.Quantidade)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => ItemPedido.ValorUnitario)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => ItemPedido.ValorTotalItens())
-                        </td>
-
-
-                        <td>
-                            @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
-
-                            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = ItemPedido.Id })" aria-label="Alterar">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
-                            @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
-                            <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = ItemPedido.Id })" aria-label="Visualizar">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a>
-                            
-                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=ItemPedido.Id })" aria-label="Delete">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            </a>
-                            
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        </div>
+}
+<div class="panel panel-green">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lista de Itens Data Nota</h3>
     </div>
 
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+
+                <th>
+                    Nome
+                </th>
+
+                <th>
+                    Categoria
+                </th>
+
+                <th>
+                    Quantidade
+                </th>
+
+                <th>
+                    Valor Unitario
+                </th>
+
+                <th>
+                    Valor Total Item
+                </th>
+
+            </tr>
+
+            @foreach (var ItemPedido in Model.ItensPedidos)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => ItemPedido.Produto.Nome)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => ItemPedido.Produto.Categoria.Nome)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => ItemPedido.Quantidade)
+                    </td>
+
+                    <td>
+                        R$@Html.DisplayFor(modelItem => ItemPedido.ValorUnitario)
+                    </td>
+
+                    <td>
+                        R$@ItemPedido.ValorTotalItens().ToString("N2")
+                    </td>
+
+
+                    <td>
+                        @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
+
+                        <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = ItemPedido.Id })" aria-label="Alterar">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
+                        <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = ItemPedido.Id })" aria-label="Visualizar">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+
+                        <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=ItemPedido.Id })" aria-label="Delete">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 </div>
-<p>
-    <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
-        Voltar
-    </a>
-</p>
+
+    </div>
+    <p>
+        <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
+            Voltar
+        </a>
+    </p>

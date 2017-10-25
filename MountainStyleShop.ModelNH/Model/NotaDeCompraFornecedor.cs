@@ -42,6 +42,8 @@ namespace MountainStyleShop.ModelNH.Model
         [Display(Name = "Fornecedor")]
         public virtual Fornecedor Fornecedor { get; set; }
         
+        public virtual bool CompraConfirmada { get; set; }
+
         public virtual IList<ValorAddNotaCompraFornecedor> ValorAddNotaCompra { get; set; }
 
         public NotaDeCompraFornecedor()
@@ -107,7 +109,8 @@ namespace MountainStyleShop.ModelNH.Model
             Property<DateTime>(x => x.DataDeEntrega);
             Property<DateTime>(x => x.DataEntregaPrevista);
             Property<DateTime>(x => x.DataDeCadastro);
-            
+            Property<bool>(x => x.CompraConfirmada);
+
 
             ManyToOne<Fornecedor>(x => x.Fornecedor, m =>
             {

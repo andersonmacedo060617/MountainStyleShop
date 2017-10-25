@@ -22,7 +22,7 @@ namespace MountainStyleShop.Controllers
 
         public ActionResult Novo()
         {
-            var fornecedores = ConfigDB.Instance.FornecedorRepository.GetAll();
+            var fornecedores = ConfigDB.Instance.FornecedorRepository.GetAll().Where(x=>x.Ativo);
             var lstFornecedores = new SelectList(fornecedores, "Id", "Nome");
             ViewBag.lstFornecedores = lstFornecedores;
             
