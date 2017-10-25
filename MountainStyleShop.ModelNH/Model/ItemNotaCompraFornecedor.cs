@@ -32,12 +32,30 @@ namespace MountainStyleShop.ModelNH.Model
         [Display(Name = "Produto")]
         public virtual Produto Produto { get; set; }
         
-        public virtual IList<ValorAddNotaCompraFornecedor> ValorAddNotaCompraFornecedor { get; set; }
+        public virtual IList<ValorAddNotaCompraPedido> ValorAddNotaCompraPedido { get; set; }
+
+        [Display(Name = "Valor Total Itens")]
+        public virtual double ValorAddTotal()
+        {
+            double vlrAddTotal = 0;
+            foreach (var vlrAdd in ValorAddNotaCompraPedido)
+            {
+                vlrAddTotal = vlrAddTotal + vlrAdd.Valor;
+            }
+
+            return vlrAddTotal;
+        }
 
         [Display(Name ="Valor Total Itens")]
-        public virtual Double ValorTotalItens()
+        public virtual Double ValorItens()
         {
             return ValorUnitario * Quantidade;
+        }
+
+        
+        public virtual Double ValorTotalItens()
+        {
+            return ValorItens() + ValorAddTotal();
         }
 
 
@@ -60,15 +78,15 @@ namespace MountainStyleShop.ModelNH.Model
 
             ManyToOne<NotaDeCompraFornecedor>(x => x.NotaDeCompra, m =>
             {
-                m.Column("IdNotaDeCompra");
+                m.Column("NotaDeCompra");
             });
 
             ManyToOne<Produto>(x => x.Produto, m =>
             {
-                m.Column("IdProduto");
+                m.Column("Produto");
             });
 
-            Bag<ValorAddNotaCompraFornecedor>(x => x.ValorAddNotaCompraFornecedor, m =>
+            Bag<ValorAddNotaCompraPedido>(x => x.ValorAddNotaCompraPedido, m =>
             {
                 m.Cascade(Cascade.All);
                 m.Lazy(CollectionLazy.Lazy);
@@ -76,6 +94,7 @@ namespace MountainStyleShop.ModelNH.Model
             },
                 r => r.OneToMany()
            );
+        
 
         }
     }

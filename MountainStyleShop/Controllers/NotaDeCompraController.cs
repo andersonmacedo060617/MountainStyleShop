@@ -25,7 +25,7 @@ namespace MountainStyleShop.Controllers
             var fornecedores = ConfigDB.Instance.FornecedorRepository.GetAll();
             var lstFornecedores = new SelectList(fornecedores, "Id", "Nome");
             ViewBag.lstFornecedores = lstFornecedores;
-
+            
             return View();
         }
 
@@ -90,7 +90,7 @@ namespace MountainStyleShop.Controllers
         {
             var notaDeCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(x => x.Id == id);
 
-            if (notaDeCompra == null)
+            if (notaDeCompra != null)
             {
                 return View(notaDeCompra);
             }

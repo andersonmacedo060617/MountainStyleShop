@@ -1,34 +1,49 @@
-﻿@model MountainStyleShop.ModelNH.Model.Pessoa
+﻿@model MountainStyleShop.ModelNH.Model.Fornecedor
 
 @{
     ViewBag.Title = "Confirma Delete";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Deseja realmente apagar o registro?</h2>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Deseja realmente inativar o fornecedor?</h3>
 
-<div>
-    <h4>@Model.Nome</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+    </div>
+    <div class="panel-body">
+        <div>
+            <h4>@Model.Nome</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Nome)
+                </dd>
 
-    </dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Cnpj)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Cnpj)
+                </dd>
+
+
+            </dl>
+        </div>
+        <p>
+            <a class="btn btn-danger" href="@Url.Action("Inativar",new { id = Model.Id })" aria-label="Confimar">
+                Confirmar
+            </a>
+            <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
+                Voltar
+            </a>
+            @*@Html.ActionLink("Confirmar", "Apagar", @Model) |
+                @Html.ActionLink("Voltar", "Index")*@
+
+        </p>
+    </div>
 </div>
-<p>
-    <a class="btn btn-success" href="@Url.Action("Apagar",new { id = Model.Id })" aria-label="Confimar">
-        Confirmar
-    </a>
-    <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
-        Voltar
-    </a>
-    @*@Html.ActionLink("Confirmar", "Apagar", @Model) |
-        @Html.ActionLink("Voltar", "Index")*@
-
-</p>

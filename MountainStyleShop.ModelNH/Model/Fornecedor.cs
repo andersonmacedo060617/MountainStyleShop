@@ -19,6 +19,8 @@ namespace MountainStyleShop.ModelNH.Model
 
         public virtual string Cnpj{ get; set; }
 
+        public virtual bool Ativo { get; set; }
+
         public virtual IList<NotaDeCompraFornecedor> NotasCompraFornecedor { get; set; }
     }
 
@@ -35,6 +37,7 @@ namespace MountainStyleShop.ModelNH.Model
 
             Property<string>(x => x.Nome);
             Property<string>(x => x.Cnpj);
+            Property<bool>(x => x.Ativo);
 
             Bag<NotaDeCompraFornecedor>(x => x.NotasCompraFornecedor, m =>
             {

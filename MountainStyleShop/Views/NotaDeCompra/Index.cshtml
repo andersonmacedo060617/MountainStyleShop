@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.NotaDeCompra>
+﻿@model IEnumerable<MountainStyleShop.ModelNH.Model.NotaDeCompraFornecedor>
 
 @{
     ViewBag.Title = "Index";
@@ -41,21 +41,21 @@
             @Html.DisplayNameFor(model => model.DataDeEntrega)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ValorTotal)
+            Valor Total da Nota
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataDeCadastro)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProdEntregue)
+            Produtos foram entregues?
         </th>
     </tr>
 
-@foreach (var NotaDeCompra in (IList<MountainStyleShop.ModelNH.Model.NotaDeCompra>)ViewBag.NotasDeCompra) {
+@foreach (var NotaDeCompra in (IList<MountainStyleShop.ModelNH.Model.NotaDeCompraFornecedor>)ViewBag.NotasDeCompra) {
     <tr>
         
         <td>
-            @if (!NotaDeCompra.ProdEntregue) { 
+            @if (!NotaDeCompra.ProdutoEntregue()) { 
             <a class="btn btn-info fa fa-cubes" href="@Url.Action("AddProduto", new { id = NotaDeCompra.Id })" aria-label="Alterar" >
                 <i class="fa fa-plus-square-o" aria-hidden="true"></i>
             </a>
@@ -76,13 +76,13 @@
             @Html.DisplayFor(modelItem => NotaDeCompra.DataDeEntrega)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => NotaDeCompra.ValorTotal)
+            @NotaDeCompra.ValorTotalNota()
         </td>
         <td>
             @Html.DisplayFor(modelItem => NotaDeCompra.DataDeCadastro)
         </td>
         <td>
-            @if (NotaDeCompra.ProdEntregue)
+            @if (NotaDeCompra.ProdutoEntregue())
             {
                 <i class="fa fa-check-square-o"></i>
             }

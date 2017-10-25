@@ -1,62 +1,49 @@
-﻿@model MountainStyleShop.ModelNH.Model.Pessoa
+﻿@model MountainStyleShop.ModelNH.Model.Fornecedor
 
 @{
     ViewBag.Title = "Visualizar";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Visualizar</h2>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Visualizando Fornecedor</h3>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
 
-<div>
-    <h4>Pessoa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Cnpj)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cnpj)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ativo)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PFisica)
-        </dt>
 
-        <dd>
-            @if(Model.PFisica == true){
-                <i class = "fa fa-check-square-o"></i>
-            }
-            else
-            {
-                <i class="fa fa-square-o"></i>
-            }
-        </dd>
+        </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Fornecedor)
-        </dt>
-
-        <dd>
-            @if (Model.Fornecedor == true)
-            {
-                <i class="fa fa-check-square-o"></i>
-            }
-            else
-            {
-                <i class="fa fa-square-o"></i>
-            }
-        </dd>
-
-    </dl>
+        <p>
+            <a class="btn btn-warning" href="@Url.Action("Alterar",new { id = Model.Id })" aria-label="Alterar">
+                Alterar
+            </a>
+            <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
+                Voltar
+            </a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                @Html.ActionLink("Back to List", "Index")*@
+        </p>
+    </div>
 </div>
-<p>
-    <a class="btn btn-warning" href="@Url.Action("Alterar",new { id = Model.Id })" aria-label="Alterar">
-        Alterar
-    </a>
-    <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
-        Voltar
-    </a>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")*@
-</p>

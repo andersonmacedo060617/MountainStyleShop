@@ -23,7 +23,9 @@ namespace MountainStyleShop.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult Novo()
         {
-            return View();
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.Ativo = true;
+            return View(fornecedor);
         }
 
         [Authorize(Roles = "Administrador")]
@@ -66,12 +68,13 @@ namespace MountainStyleShop.Controllers
         }
 
         [Authorize(Roles = "Administrador")]
-        public ActionResult Apagar(int id)
+        public ActionResult Inativar(int id)
         {
             var fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(f => f.Id == id);
             if (fornecedor != null)
             {
-                ConfigDB.Instance.FornecedorRepository.Excluir(fornecedor);
+                fornecedor.Ativo = false;
+                ConfigDB.Instance.FornecedorRepository.Gravar(fornecedor);
             }
             return RedirectToAction("Index");
         }

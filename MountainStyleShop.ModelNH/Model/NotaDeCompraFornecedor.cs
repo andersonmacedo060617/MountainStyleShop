@@ -25,9 +25,7 @@ namespace MountainStyleShop.ModelNH.Model
         [DataType(dataType: DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
         public virtual DateTime DataEntregaPrevista { get; set; }
-
-
-
+        
         [Display(Name = "Data da Entrega")]
         [DataType(dataType: DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Data Invalida")]
@@ -49,6 +47,46 @@ namespace MountainStyleShop.ModelNH.Model
         public NotaDeCompraFornecedor()
         {
             ItensPedidos = new List<ItemNotaCompraFornecedor>();
+            ValorAddNotaCompra = new List<ValorAddNotaCompraFornecedor>();
+        }
+
+        public virtual bool ProdutoEntregue()
+        {
+            if (this.DataDeEntrega.ToString("dd/MM/yyyy").Equals("01/01/0001"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public virtual double ValorTotalItens()
+        {
+            double valorTotalItens = 0;
+            foreach (var item in this.ItensPedidos)
+            {
+                valorTotalItens = valorTotalItens + item.ValorTotalItens();
+            }
+
+            return valorTotalItens;
+        }
+
+        public virtual double ValorTotalAdicional()
+        {
+            double valorAddTotal = 0;
+            foreach (var vlrAdd in this.ValorAddNotaCompra)
+            {
+                valorAddTotal = valorAddTotal + vlrAdd.Valor;
+            }
+
+            return valorAddTotal;
+        }
+
+        public virtual double ValorTotalNota()
+        {
+            return this.ValorTotalItens() + ValorTotalAdicional();
         }
 
     }
@@ -73,7 +111,7 @@ namespace MountainStyleShop.ModelNH.Model
 
             ManyToOne<Fornecedor>(x => x.Fornecedor, m =>
             {
-                m.Column("idFornecedor");
+                m.Column("Fornecedor");
             });
 
             Bag<ItemNotaCompraFornecedor>(x => x.ItensPedidos, m =>

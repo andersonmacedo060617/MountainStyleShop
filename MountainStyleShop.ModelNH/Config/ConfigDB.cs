@@ -80,7 +80,7 @@ namespace MountainStyleShop.ModelNH.Config
         public CategoriasInteresseRepository CategoriasInteresseRepository { get; set; }
         public BuscaProdutoRepository BuscaProdutoRepository { get; set; }
         public CupomDescontoRepository CupomDescontoRepository { get; set; }
-
+        public ValorAddNotaCompraPedidoRepository ValorAddNotaCompraPedidoRepository { get; set; }
 
         #endregion
 
@@ -118,6 +118,7 @@ namespace MountainStyleShop.ModelNH.Config
                 this.CategoriasInteresseRepository = new CategoriasInteresseRepository(Session);
                 this.BuscaProdutoRepository = new BuscaProdutoRepository(Session);
                 this.CupomDescontoRepository = new CupomDescontoRepository(Session);
+                this.ValorAddNotaCompraPedidoRepository = new ValorAddNotaCompraPedidoRepository(Session);
             }
             #endregion
         }
@@ -127,8 +128,7 @@ namespace MountainStyleShop.ModelNH.Config
         {
             //Cria a configuração com o NH
             var config = new NHibernate.Cfg.Configuration();
-            try
-            {
+            
                 //Integração com o Banco de Dados
                 config.DataBaseIntegration(c =>
                 {
@@ -166,19 +166,14 @@ namespace MountainStyleShop.ModelNH.Config
                 this.SessionFactory = config.BuildSessionFactory();
 
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+           
         }
 
         #region Mapeamento
         private HbmMapping Mapeamento()
         {
             
-            try
-            {
+            
                 var mapper = new ModelMapper();
 
                 mapper.AddMappings(
@@ -262,14 +257,12 @@ namespace MountainStyleShop.ModelNH.Config
                 mapper.AddMappings(
                     Assembly.GetAssembly(typeof(CupomDescontoMap)).GetTypes()
                 );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(ValorAddNotaCompraPedidoMap)).GetTypes()
+                );
 
                 return mapper.CompileMappingForAllExplicitlyAddedEntities();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-
-            }
+           
         }
         #endregion
 
@@ -278,8 +271,7 @@ namespace MountainStyleShop.ModelNH.Config
             get
             {
 
-                try
-                {
+                
                     if (CurrentSessionContext.HasBind(SessionFactory))
                     {
                         return SessionFactory.GetCurrentSession();
@@ -288,11 +280,7 @@ namespace MountainStyleShop.ModelNH.Config
                     var session = SessionFactory.OpenSession();
                     CurrentSessionContext.Bind(session);
                     return session;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                
             }
 
         }

@@ -1,4 +1,4 @@
-﻿@model MountainStyleShop.ModelNH.Model.NotaDeCompra
+﻿@model MountainStyleShop.ModelNH.Model.NotaDeCompraFornecedor
 
 @{
     ViewBag.Title = "Adicionar Produto";
@@ -28,11 +28,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ValorTotal)
+            Valor Total
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ValorTotal)
+            @Model.ValorTotalNota()
         </dd>
 
         <dt>

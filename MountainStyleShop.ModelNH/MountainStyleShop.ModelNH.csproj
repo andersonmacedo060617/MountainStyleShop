@@ -88,6 +88,7 @@
     <Compile Include="Model\UF.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Model\ValorAddNotaCompraFornecedor.cs" />
+    <Compile Include="Model\ValorAddNotaCompraPedido.cs" />
     <Compile Include="Model\ValorEntrega.cs" />
     <Compile Include="Model\ValoresPagamentoVendaCliente.cs" />
     <Compile Include="Model\VendaCliente.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Repository\UFRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
     <Compile Include="Repository\ValorAddNotaCompraFornecedorRepository.cs" />
+    <Compile Include="Repository\ValorAddNotaCompraPedidoRepository.cs" />
     <Compile Include="Repository\ValorEntregaRepository.cs" />
     <Compile Include="Repository\ValoresPagamentoVendaClienteRepository.cs" />
     <Compile Include="Repository\VendaClienteRepository.cs" />
