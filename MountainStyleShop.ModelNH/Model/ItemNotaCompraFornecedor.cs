@@ -40,7 +40,7 @@ namespace MountainStyleShop.ModelNH.Model
             double vlrAddTotal = 0;
             foreach (var vlrAdd in ValorAddNotaCompraPedido)
             {
-                vlrAddTotal = vlrAddTotal + vlrAdd.Valor;
+                vlrAddTotal = vlrAddTotal + vlrAdd.Valor();
             }
 
             return vlrAddTotal;
@@ -58,6 +58,10 @@ namespace MountainStyleShop.ModelNH.Model
             return ValorItens() + ValorAddTotal();
         }
 
+        public virtual double ValorUnitComVlrAdd()
+        {
+            return ValorTotalItens() / Quantidade;
+        }
 
     }
 

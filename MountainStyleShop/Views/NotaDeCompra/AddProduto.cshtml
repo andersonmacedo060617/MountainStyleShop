@@ -77,7 +77,9 @@
     <div class="panel-body">
         <table class="table">
             <tr>
-
+                <th>
+                    Impostos
+                </th>
                 <th>
                     Nome
                 </th>
@@ -103,7 +105,11 @@
             @foreach (var ItemPedido in Model.ItensPedidos)
             {
                 <tr>
-
+                    <td>
+                        <a class="btn btn-info" href="@Url.Action("ListaVlrAdd", "ItemPedido", new { IdItemPedido = ItemPedido.Id })" >
+                            <i class="fa fa-money"></i>
+                        </a>
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => ItemPedido.Produto.Nome)
                     </td>

@@ -345,12 +345,15 @@
     <Content Include="Views\VendaCliente\_PainelVendasConcluidas.cshtml" />
     <Content Include="Views\VendaCliente\_PainelVendasAberto.cshtml" />
     <Content Include="Views\VendaCliente\VisualizaVenda.cshtml" />
+    <Content Include="Views\ItemPedido\ListaVlrAdd.cshtml" />
+    <Content Include="Views\ItemPedido\_FormVlrAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Imagens\Produtos\" />
     <Folder Include="Views\CategoriasInteresse\" />
     <Folder Include="Views\CupomDesconto\" />
+    <Folder Include="Views\ValorAddNotaCompraPedido\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

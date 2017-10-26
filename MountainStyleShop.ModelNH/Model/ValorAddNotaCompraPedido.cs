@@ -2,6 +2,7 @@
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,23 @@ namespace MountainStyleShop.ModelNH.Model
     public class ValorAddNotaCompraPedido
     {
         public virtual int Id { get; set; }
-        public virtual DateTime DataDeBase { get; set; }
-        public virtual double Valor { get; set; }
-        public virtual TipoValorAdd TipoValor { get; set; }
+
+       
+        public virtual double Percentual { get; set; }
+        public virtual String NomeValor { get; set; }
         public virtual ItemNotaCompraFornecedor ItemNotaCompraFornecedor { get; set;}
+
+        public virtual double Valor()
+        {
+            return this.ValorAddCalculado() * this.ItemNotaCompraFornecedor.Quantidade;
+        }
+
+        public virtual double ValorAddCalculado()
+        {
+            return this.ItemNotaCompraFornecedor.ValorUnitario * (Percentual / 100);
+        }
+
+        
     }
 
     public class ValorAddNotaCompraPedidoMap : ClassMapping<ValorAddNotaCompraPedido>
@@ -25,14 +39,10 @@ namespace MountainStyleShop.ModelNH.Model
             {
                 m.Generator(Generators.Identity);
             });
+            
+            Property<double>(x => x.Percentual);
+            Property<String>(x => x.NomeValor);
 
-            Property<DateTime>(x => x.DataDeBase);
-            Property<double>(x => x.Valor);
-
-            ManyToOne<TipoValorAdd>(x => x.TipoValor, m =>
-            {
-                m.Column("TipoValor");
-            });
 
             ManyToOne<ItemNotaCompraFornecedor>(x => x.ItemNotaCompraFornecedor, m =>
             {

@@ -62,11 +62,8 @@
                 <tr>
 
                     <td>
-                        @if (!NotaDeCompra.ProdutoEntregue())
-                        {
-                            <a class="btn btn-info fa fa-cubes" href="@Url.Action("AddProduto", new { id = NotaDeCompra.Id })" aria-label="Alterar">
-                            </a>
-                        }
+                        <a class="btn btn-info fa fa-cubes" href="@Url.Action("AddProduto", new { id = NotaDeCompra.Id })" aria-label="Alterar">
+                        </a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => NotaDeCompra.Id)

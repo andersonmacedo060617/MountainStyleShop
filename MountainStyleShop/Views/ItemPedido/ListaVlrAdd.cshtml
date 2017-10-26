@@ -1,0 +1,170 @@
+﻿@model MountainStyleShop.ModelNH.Model.ItemNotaCompraFornecedor
+
+@{
+    ViewBag.Title = "ListaVlrAdd";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading"> Dados do Items da Compra</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                Id Item Pedido
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+
+            <dt>
+                Fornecedor
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NotaDeCompra.Fornecedor.Nome)
+            </dd>
+
+            <dt>
+                Nome do Produto
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Produto.Nome)
+            </dd>
+
+            <dt>
+                Quantidade
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Quantidade)
+            </dd>
+
+            <dt>
+                Valor Unitario
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ValorUnitario)
+            </dd>
+
+            <dt>
+                SubTotal
+            </dt>
+            <dd>
+                @Model.ValorItens().ToString("N2")
+            </dd>
+
+
+            <hr />
+            <dt>
+                Qtd. de Valores Add.
+            </dt>
+            <dd>
+                @Model.ValorAddNotaCompraPedido.Count.ToString()
+            </dd>
+            <dt>
+                Valor Add Total
+            </dt>
+            <dd>
+                R$@Model.ValorAddTotal().ToString("N2")
+            </dd>
+
+
+            <hr />
+            <dt>
+                Valor Total Item
+            </dt>
+            <dd>
+                R$@Model.ValorTotalItens().ToString("N2")
+            </dd>
+
+            <dt>
+                Valor Final P/ Item
+            </dt>
+            <dd>
+                R$@Model.ValorUnitComVlrAdd().ToString("N2")
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<div>
+    <button class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#modelFrmAddValor">
+        <i class="fa fa-plus"></i>
+    </button>
+</div>
+<br />
+
+<div class="panel panel-success">
+    <div class="panel-heading"> Valores Adicionais</div>
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Descrição do Valor
+                </th>
+
+                <th>
+                    Percentual
+                </th>
+
+                <th>
+                    Valor Calculado
+                </th>
+
+            </tr>
+
+            @foreach (var vlrAdd in Model.ValorAddNotaCompraPedido)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => vlrAdd.Id)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => vlrAdd.NomeValor)
+                    </td>
+
+                    <td>
+                        @vlrAdd.Percentual.ToString("N2") %
+                    </td>
+
+                    <td>
+                        R$@vlrAdd.ValorAddCalculado().ToString("N2")
+                    </td>
+
+                    <td>
+
+                        @if (!Model.NotaDeCompra.CompraConfirmada)
+                        {
+                            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = vlrAdd.Id })" aria-label="Alterar">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=vlrAdd.Id })" aria-label="Delete">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modelFrmAddValor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Informações do valor Adicional</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("FormVlrAdd", "ItemPedido", new { idItemPedido = Model.Id })
+            </div>
+        </div>
+    </div>
+</div>

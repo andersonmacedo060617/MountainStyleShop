@@ -14,7 +14,7 @@ namespace MountainStyleShop.Controllers
         
         public ActionResult Novo(int IdDaNota)
         {
-            NotaDeCompraFornecedor nota = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(n => n.Id == IdDaNota);
+            NotaDeCompraFornecedor nota = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(n => n.Id == IdDaNota && !n.CompraConfirmada);
             
             if(nota != null) {
                 ItemNotaCompraFornecedor item = new ItemNotaCompraFornecedor()
@@ -35,7 +35,7 @@ namespace MountainStyleShop.Controllers
         public ActionResult Gravar(ItemNotaCompraFornecedor item)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Id == item.Produto.Id && x.Ativo).First();
-            var notaCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().Where(x => x.Id == item.NotaDeCompra.Id && !x.ProdutoEntregue()).First();
+            var notaCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().Where(x => x.Id == item.NotaDeCompra.Id && !x.CompraConfirmada).First();
 
             if(produto == null || notaCompra == null)
             {
@@ -48,6 +48,42 @@ namespace MountainStyleShop.Controllers
             ConfigDB.Instance.ItemNotaCompraFornecedorRepository.Gravar(item);
 
             return RedirectToAction("AddProduto", "NotaDeCompra", new { id = item.NotaDeCompra.Id});
+        }
+
+        public ActionResult ListaVlrAdd(int IdItemPedido)
+        {
+            var itemPedido = ConfigDB.Instance.ItemNotaCompraFornecedorRepository.GetAll().Where(x => x.Id == IdItemPedido).First();
+            if (itemPedido == null)
+            {
+                return RedirectToAction("Index", "NotaDeCompra");
+            }
+
+            return View(itemPedido);
+        }
+
+        public PartialViewResult FormVlrAdd(int idItemPedido)
+        {
+            var itemPedido = ConfigDB.Instance.ItemNotaCompraFornecedorRepository.BuscaPorId(idItemPedido);
+            ValorAddNotaCompraPedido vlrAddPedido = new ValorAddNotaCompraPedido();
+            vlrAddPedido.ItemNotaCompraFornecedor = itemPedido;
+
+            return PartialView("_FormVlrAdd", vlrAddPedido);
+        }
+
+        [HttpPost]
+        public ActionResult GravaVlrAdicional(ValorAddNotaCompraPedido vlrAddPedido)
+        {
+            var itemPedido = ConfigDB.Instance.ItemNotaCompraFornecedorRepository.GetAll().Where(x => x.Id == vlrAddPedido.ItemNotaCompraFornecedor.Id && !x.NotaDeCompra.CompraConfirmada).First();
+            
+            if(itemPedido == null)
+            {
+                return RedirectToAction("Index", "NotaDeCompra");
+            }
+
+            vlrAddPedido.ItemNotaCompraFornecedor = itemPedido;
+            ConfigDB.Instance.ValorAddNotaCompraPedidoRepository.Gravar(vlrAddPedido);
+
+            return RedirectToAction("ListaVlrAdd", "ItemPedido", new { IdItemPedido = vlrAddPedido.ItemNotaCompraFornecedor.Id });
         }
 
     }
