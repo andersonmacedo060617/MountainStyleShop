@@ -10,7 +10,7 @@
                     <b><a href="@Url.Action("Visualizar", "Produto",new { id = produto.Id })">@produto.Nome</a></b>
                 </h4>
                 <h4>
-                    R$ @produto.Valor.ToString()
+                    R$ @produto.Valor.ToString("N2")
                 </h4>
                 <p>@produto.Descricao</p>
             </div>

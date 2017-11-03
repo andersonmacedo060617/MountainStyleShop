@@ -6,7 +6,7 @@
 }
 
 <div class="panel panel-info">
-    <div class="panel-heading"> Regras para Nota de Compra</div>
+    <div class="panel-heading"> Dados da Nota de Compra</div>
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>
@@ -27,6 +27,13 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.DataDaCompra)
+            </dd>
+
+            <dt>
+                Previsão Entrega
+            </dt>
+            <dd>
+                @Html.DisplayFor(model=>model.DataEntregaPrevista)
             </dd>
 
             <dt>
@@ -58,10 +65,61 @@
                 R$@Model.ValorTotalNota().ToString("N2")
             </dd>
 
+            <dt>
+                Status da Nota
+            </dt>
+            <dd>
+                @if (Model.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Aberta)
+                {
+                    <span class="label label-warning">Em aberto</span>
+                }
+                @if (Model.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Cancelada)
+                {
+                    <span class="label label-danger">Cancelada</span>
+                }
+                @if (Model.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Encomendado)
+                {
+                    <span class="label label-info">Encomendado</span>
+                }
+                @if (Model.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Concluida)
+                {
+                    <span class="label label-success">Concluido</span>
+                }
+            </dd>
+
+            @if (Model.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Aberta)
+            {
+                <hr />
+
+                <dt>
+                    Confirmar Compra
+                </dt>
+                <dd>
+                    <a class="btn btn-info" href="@Url.Action("ConfirmarCompra","NotaDeCompra", new {id = Model.Id })">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </a>
+                </dd>
+            }
+
+            @if (Model.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Encomendado)
+            {
+                <hr />
+
+                <dt>
+                    Confirmar Recebimento
+                </dt>
+                <dd>
+                    <button class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#modelConfirmaEntrega">
+                        <i class="fa fa-truck"></i>
+                    </button>
+                </dd>
+            }
+            
+
         </dl>
     </div>
 </div>
-@if(!Model.CompraConfirmada){
+@if(Model.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Aberta){
     <div>
         <a class="btn btn-success" href="@Url.Action("Novo", "ItemPedido", new { IdDaNota = Model.Id })" aria-label="Novo">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -93,7 +151,11 @@
                 </th>
 
                 <th>
-                    Valor Unitario
+                    Valor Unitario(Sem Adicionais)
+                </th>
+
+                <th>
+                    Valor Unitario(Com Adicionais)
                 </th>
 
                 <th>
@@ -105,6 +167,7 @@
             @foreach (var ItemPedido in Model.ItensPedidos)
             {
                 <tr>
+
                     <td>
                         <a class="btn btn-info" href="@Url.Action("ListaVlrAdd", "ItemPedido", new { IdItemPedido = ItemPedido.Id })" >
                             <i class="fa fa-money"></i>
@@ -127,26 +190,15 @@
                     </td>
 
                     <td>
+                        R$@ItemPedido.ValorUnitComVlrAdd().ToString("N2")
+                    </td>
+
+                    <td>
                         R$@ItemPedido.ValorTotalItens().ToString("N2")
                     </td>
 
 
-                    <td>
-                        @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
-
-                        <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = ItemPedido.Id })" aria-label="Alterar">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                        @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
-                        <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = ItemPedido.Id })" aria-label="Visualizar">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                        </a>
-
-                        <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=ItemPedido.Id })" aria-label="Delete">
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-
-                    </td>
+                    
                 </tr>
             }
 
@@ -154,9 +206,42 @@
     </div>
 </div>
 
-    </div>
     <p>
         <a class="btn btn-info" href="@Url.Action("Index")" aria-label="Voltar">
             Voltar
         </a>
     </p>
+
+
+<div class="modal fade" id="modelConfirmaEntrega" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmação de recebimento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("ConfirmaRecebimento", "NotaDeCompra", FormMethod.Post))
+                {
+                    <div class="form-horizontal">
+                        @Html.HiddenFor(model => model.Id)
+                        <div class="form-group">
+                            <label class="control-label col-md-5">Data da Entrega </label>
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(model => model.DataDeEntrega, "{0:yyyy-MM-dd}", htmlAttributes: new { @type = "date", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DataDeEntrega, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" value="Incluir" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿using MountainStyleShop.ModelNH.Config;
+using MountainStyleShop.ModelNH.ENum;
 using MountainStyleShop.ModelNH.Model;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace MountainStyleShop.Controllers
         {
             var notasDeCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll();
             ViewBag.NotasDeCompra = notasDeCompra;
+
             
             return View();
         }
@@ -25,6 +27,7 @@ namespace MountainStyleShop.Controllers
             var fornecedores = ConfigDB.Instance.FornecedorRepository.GetAll().Where(x=>x.Ativo);
             var lstFornecedores = new SelectList(fornecedores, "Id", "Nome");
             ViewBag.lstFornecedores = lstFornecedores;
+
             
             return View();
         }
@@ -33,6 +36,7 @@ namespace MountainStyleShop.Controllers
         public ActionResult Gravar(NotaDeCompraFornecedor notaDeCompra)
         {
             ModelState.Remove("Fornecedor.Nome");
+            ModelState.Remove("StatusNotaCompra");
             notaDeCompra.Fornecedor = ConfigDB.Instance.FornecedorRepository.GetAll().FirstOrDefault(x => x.Id == notaDeCompra.Fornecedor.Id);
 
             bool novoRegistro = notaDeCompra.Id == 0 ? true:false;
@@ -40,12 +44,13 @@ namespace MountainStyleShop.Controllers
             //Data de Cadastro Atual para o novo registro
             if (novoRegistro)
             {
+                notaDeCompra.StatusNotaCompra = EStatusNotaCompraFornecedor.Aberta;
                 notaDeCompra.DataDeCadastro = DateTime.Now;
             }
 
             if (!ModelState.IsValid && novoRegistro)
             {
-                return View("Novo", notaDeCompra);
+                return RedirectToAction("Novo", "NotaDeCompra", notaDeCompra);
             }else if(!ModelState.IsValid && !novoRegistro)
             {
                 return View("Alterar", notaDeCompra);
@@ -92,6 +97,7 @@ namespace MountainStyleShop.Controllers
 
             if (notaDeCompra != null)
             {
+                notaDeCompra.DataDeEntrega = DateTime.Now;
                 return View(notaDeCompra);
             }
             
@@ -109,6 +115,50 @@ namespace MountainStyleShop.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult ConfirmarCompra(int id)
+        {
+            var nota = ConfigDB.Instance.NotaDeCompraFornecedorRepository.BuscaPorId(id);
+
+            if(nota == null)
+            {
+                return RedirectToAction("Index", "NotaDeCompra");
+            }
+
+            nota.StatusNotaCompra = EStatusNotaCompraFornecedor.Encomendado;
+            ConfigDB.Instance.NotaDeCompraFornecedorRepository.Gravar(nota);
+
+            return RedirectToAction("AddProduto", "NotaDeCompra", new { id = nota.Id });
+
+        }
+
+        public ActionResult ConfirmaRecebimento(NotaDeCompraFornecedor notaCompra)
+        {
+            var nota = ConfigDB.Instance.NotaDeCompraFornecedorRepository.BuscaPorId(notaCompra.Id);
+
+            if (nota == null)
+            {
+                return RedirectToAction("Index", "NotaDeCompra");
+            }
+            nota.DataDeEntrega = notaCompra.DataDeEntrega;
+            nota.ConcluirNota();
+            
+            ConfigDB.Instance.NotaDeCompraFornecedorRepository.Gravar(nota);
+
+            //Gero uma nota de despesa
+            LancamentosCaixa lancamento = new LancamentosCaixa();
+            lancamento.DataLancamento = nota.DataDaCompra;
+            lancamento.Entrada = false;
+            lancamento.ValorLancamento = nota.ValorTotalNota();
+            lancamento.NotaDeCompra = nota;
+            lancamento.Descricao = "Compra de Produtos da Loja";
+            ConfigDB.Instance.LancamentosCaixaRepository.Gravar(lancamento);
+            //---------------
+
+            return RedirectToAction("AddProduto", "NotaDeCompra", new { id = nota.Id });
+
+        }
+
 
     }
 }

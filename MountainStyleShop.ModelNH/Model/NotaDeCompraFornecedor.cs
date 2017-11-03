@@ -1,4 +1,6 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.Config;
+using MountainStyleShop.ModelNH.ENum;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections;
@@ -41,8 +43,6 @@ namespace MountainStyleShop.ModelNH.Model
 
         [Display(Name = "Fornecedor")]
         public virtual Fornecedor Fornecedor { get; set; }
-        
-        public virtual bool CompraConfirmada { get; set; }
 
         public virtual IList<ValorAddNotaCompraFornecedor> ValorAddNotaCompra { get; set; }
 
@@ -91,6 +91,20 @@ namespace MountainStyleShop.ModelNH.Model
             return this.ValorTotalItens() + ValorTotalAdicional();
         }
 
+        public virtual EStatusNotaCompraFornecedor StatusNotaCompra{ get; set; }
+
+        public virtual void ConcluirNota()
+        {
+            
+            this.StatusNotaCompra = EStatusNotaCompraFornecedor.Concluida;
+
+            foreach (var item in this.ItensPedidos)
+            {
+                item.AjustaValorUnidade();
+            }
+            
+        }
+
     }
 
     public class NotaDeCompraFornecedorMap : ClassMapping<NotaDeCompraFornecedor>
@@ -109,7 +123,7 @@ namespace MountainStyleShop.ModelNH.Model
             Property<DateTime>(x => x.DataDeEntrega);
             Property<DateTime>(x => x.DataEntregaPrevista);
             Property<DateTime>(x => x.DataDeCadastro);
-            Property<bool>(x => x.CompraConfirmada);
+            Property<EStatusNotaCompraFornecedor>(x => x.StatusNotaCompra);
 
 
             ManyToOne<Fornecedor>(x => x.Fornecedor, m =>

@@ -119,8 +119,16 @@ namespace MountainStyleShop.Controllers
             venda.ValorFinal = venda.ValorComDesconto();
 
             ConfigDB.Instance.VendaClienteRepository.Gravar(venda);
-            ViewBag.MsgSucesso = "Compra Concluida com Sucesso!";
+            
+            LancamentosCaixa lancamento = new LancamentosCaixa();
+            lancamento.DataLancamento = venda.DataVenda;
+            lancamento.Entrada = true;
+            lancamento.ValorLancamento = venda.ValorFinal;
+            lancamento.VendaCliente = venda;
+            lancamento.Descricao = "Venda da Loja";
+            ConfigDB.Instance.LancamentosCaixaRepository.Gravar(lancamento);
 
+            ViewBag.MsgSucesso = "Compra Concluida com Sucesso!";
             return RedirectToAction("HistoricoCompras", "Usuario");
         }
 

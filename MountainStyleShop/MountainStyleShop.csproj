@@ -163,6 +163,7 @@
     <Compile Include="Controllers\CupomDescontoController.cs" />
     <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\FabricanteController.cs" />
+    <Compile Include="Controllers\FluxoCaixaController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagemController.cs" />
@@ -212,6 +213,7 @@
     <Content Include="Imagens\Painel\img9.jpg" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
+    <Content Include="Scripts\ajuste_validate.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -347,6 +349,9 @@
     <Content Include="Views\VendaCliente\VisualizaVenda.cshtml" />
     <Content Include="Views\ItemPedido\ListaVlrAdd.cshtml" />
     <Content Include="Views\ItemPedido\_FormVlrAdd.cshtml" />
+    <Content Include="Views\FluxoCaixa\Index.cshtml" />
+    <Content Include="Views\FluxoCaixa\_ModalNovoLancamento.cshtml" />
+    <Content Include="Views\FluxoCaixa\ModalNovoLancamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

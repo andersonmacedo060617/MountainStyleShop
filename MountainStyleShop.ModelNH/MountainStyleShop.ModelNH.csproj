@@ -63,21 +63,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigDB.cs" />
+    <Compile Include="ENum\EOperadorValorAdicional.cs" />
+    <Compile Include="ENum\EStatusNotaCompraFornecedor.cs" />
     <Compile Include="ENum\ETipoDesconto.cs" />
     <Compile Include="Model\AjusteEstoque.cs" />
     <Compile Include="Model\AvaliacaoProduto.cs" />
     <Compile Include="Model\BuscaProduto.cs" />
+    <Compile Include="Model\CaixaEmpresa.cs" />
     <Compile Include="Model\Categoria.cs" />
     <Compile Include="Model\CategoriasInteresse.cs" />
     <Compile Include="Model\Cidade.cs" />
     <Compile Include="Model\CupomDesconto.cs" />
     <Compile Include="Model\CustoAddVendaCliente.cs" />
     <Compile Include="Model\EnderecoEntrega.cs" />
+    <Compile Include="Model\Estoque.cs" />
     <Compile Include="Model\Fabricante.cs" />
     <Compile Include="Model\FormaPagamento.cs" />
     <Compile Include="Model\Imagem.cs" />
     <Compile Include="Model\ItemNotaCompraFornecedor.cs" />
     <Compile Include="Model\ItemVendaCliente.cs" />
+    <Compile Include="Model\LancamentosCaixa.cs" />
     <Compile Include="Model\NotaDeCompraFornecedor.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Pagamento.cs" />
@@ -108,6 +113,7 @@
     <Compile Include="Repository\ImagemRepository.cs" />
     <Compile Include="Repository\ItemNotaCompraFornecedorRepository.cs" />
     <Compile Include="Repository\ItemVendaClienteRepository.cs" />
+    <Compile Include="Repository\LancamentosCaixaRepository.cs" />
     <Compile Include="Repository\NotaDeCompraFornecedorRepository.cs" />
     <Compile Include="Repository\PagamentoRepository.cs" />
     <Compile Include="Repository\PaisRepository.cs" />

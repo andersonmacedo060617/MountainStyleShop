@@ -27,7 +27,7 @@
         <table class="table">
             <tr>
                 <th>
-                    Lista de Produto da Nota
+                    Lista de Produto
                 </th>
                 <th>
                     Numero Da Nota
@@ -49,10 +49,10 @@
                     @Html.DisplayNameFor(model => model.DataDeCadastro)
                 </th>
                 <th>
-                    Produtos foram entregues?
+                    Produtos entregues?
                 </th>
                 <th>
-                    Compra Concluida
+                    Status da Compra
                 </th>
                 <th></th>
             </tr>
@@ -80,7 +80,7 @@
                         @Html.DisplayFor(modelItem => NotaDeCompra.DataDeEntrega)
                     </td>
                     <td>
-                        @NotaDeCompra.ValorTotalNota()
+                        R$@NotaDeCompra.ValorTotalNota().ToString("N2")
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => NotaDeCompra.DataDeCadastro)
@@ -95,35 +95,43 @@
                             <i class="fa fa-square-o"></i>
                         }
                     </td>
-
+                    
                     <td>
-                        @if (NotaDeCompra.CompraConfirmada)
+                        @if (NotaDeCompra.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Aberta)
                         {
-                            <i class="fa fa-check-square-o"></i>
+                            <span class="label label-warning">Em aberto</span>
                         }
-                        else
+                        @if (NotaDeCompra.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Cancelada)
                         {
-                            <i class="fa fa-square-o"></i>
+                            <span class="label label-danger">Cancelada</span>
                         }
+                        @if (NotaDeCompra.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Encomendado)
+                        {
+                            <span class="label label-info">Encomendado</span>
+                        }
+                        @if (NotaDeCompra.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Concluida)
+                        {
+                            <span class="label label-success">Concluido</span>
+                        }
+                        
                     </td>
+
+                 
 
 
                     <td>
                         @* @Html.ActionLink("Alterar", "Edit", new { id=produto.Id })*@
-
-                        <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = NotaDeCompra.Id })" aria-label="Alterar">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                        @*@Html.ActionLink("Visualizar", "Details", new { id=produto.Id })*@
-                        <a class="btn btn-info" href="@Url.Action("Visualizar", new { id = NotaDeCompra.Id })" aria-label="Visualizar">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                        </a>
-                        @if (NotaDeCompra.ItensPedidos.Count == 0)
+                        @if (NotaDeCompra.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Aberta)
                         {
-                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=NotaDeCompra.Id })" aria-label="Delete">
+                            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = NotaDeCompra.Id })" aria-label="Alterar">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+
+                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=NotaDeCompra.Id })" title="Cancelar Nota" aria-label="Cancelar">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </a>
                         }
+                        
                     </td>
                 </tr>
             }

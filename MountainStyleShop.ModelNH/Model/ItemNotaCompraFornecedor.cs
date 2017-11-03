@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.Config;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace MountainStyleShop.ModelNH.Model
 
         [Display(Name = "Produto")]
         public virtual Produto Produto { get; set; }
+
+        public virtual double MargemLucro { get; set; }
         
         public virtual IList<ValorAddNotaCompraPedido> ValorAddNotaCompraPedido { get; set; }
 
@@ -40,16 +43,34 @@ namespace MountainStyleShop.ModelNH.Model
             double vlrAddTotal = 0;
             foreach (var vlrAdd in ValorAddNotaCompraPedido)
             {
-                vlrAddTotal = vlrAddTotal + vlrAdd.Valor();
+                if(vlrAdd.OperadorValorAdicional == ENum.EOperadorValorAdicional.Substracao)
+                {
+                    vlrAddTotal = vlrAddTotal - vlrAdd.Valor();
+                }
+                else
+                {
+                    vlrAddTotal = vlrAddTotal + vlrAdd.Valor();
+                }
+                
             }
 
             return vlrAddTotal;
         }
 
+        public virtual double ValorLucro()
+        {
+            return this.ValorUnitario * (this.MargemLucro / 100);
+        }
+
+        public virtual double ValorUnitarioComLucro()
+        {
+            return this.ValorUnitario + this.ValorLucro();
+        }
+
         [Display(Name ="Valor Total Itens")]
         public virtual Double ValorItens()
         {
-            return ValorUnitario * Quantidade;
+            return this.ValorUnitarioComLucro() * Quantidade;
         }
 
         
@@ -61,6 +82,24 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual double ValorUnitComVlrAdd()
         {
             return ValorTotalItens() / Quantidade;
+        }
+
+        public virtual void AjustaValorUnidade()
+        {
+            if(Quantidade > 0)
+            {
+
+                var produto = ConfigDB.Instance.ProdutoRepository.BuscaPorId(this.Produto.Id);
+                var valorAntigo = produto.Valor;
+                var valorUnitComprado = this.ValorUnitComVlrAdd();
+                var estoqueAntigo = produto.Estoque.QuantidadeEstoqueProduto();
+                var estoqueNovo = this.Quantidade;
+
+                var valorNovo = (estoqueAntigo * valorAntigo) + (estoqueNovo * valorUnitComprado);
+                valorNovo = valorNovo / (estoqueAntigo + estoqueNovo);
+                produto.Valor = Math.Round(valorNovo, 2);
+                ConfigDB.Instance.ProdutoRepository.Gravar(produto);
+            }
         }
 
     }
@@ -79,6 +118,7 @@ namespace MountainStyleShop.ModelNH.Model
 
             Property<Double>(x => x.ValorUnitario);
             Property<int>(x => x.Quantidade);
+            Property<double>(x => x.MargemLucro);
 
             ManyToOne<NotaDeCompraFornecedor>(x => x.NotaDeCompra, m =>
             {
@@ -93,11 +133,13 @@ namespace MountainStyleShop.ModelNH.Model
             Bag<ValorAddNotaCompraPedido>(x => x.ValorAddNotaCompraPedido, m =>
             {
                 m.Cascade(Cascade.All);
-                m.Lazy(CollectionLazy.Lazy);
+                m.Lazy(CollectionLazy.NoLazy);
                 m.Inverse(true);
             },
                 r => r.OneToMany()
            );
+
+
         
 
         }

@@ -1,4 +1,5 @@
 ﻿using MountainStyleShop.ModelNH.Config;
+using MountainStyleShop.ModelNH.ENum;
 using MountainStyleShop.ModelNH.Model;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,13 @@ namespace MountainStyleShop.Controllers
     [Authorize(Roles = "Administrador")]
     public class ItemPedidoController : Controller
     {
-        
+
         public ActionResult Novo(int IdDaNota)
         {
-            NotaDeCompraFornecedor nota = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(n => n.Id == IdDaNota && !n.CompraConfirmada);
-            
-            if(nota != null) {
+            NotaDeCompraFornecedor nota = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().First(n => n.Id == IdDaNota && n.StatusNotaCompra == EStatusNotaCompraFornecedor.Aberta);
+
+            if (nota != null)
+            {
                 ItemNotaCompraFornecedor item = new ItemNotaCompraFornecedor()
                 {
                     NotaDeCompra = nota
@@ -35,9 +37,9 @@ namespace MountainStyleShop.Controllers
         public ActionResult Gravar(ItemNotaCompraFornecedor item)
         {
             var produto = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Id == item.Produto.Id && x.Ativo).First();
-            var notaCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().Where(x => x.Id == item.NotaDeCompra.Id && !x.CompraConfirmada).First();
+            var notaCompra = ConfigDB.Instance.NotaDeCompraFornecedorRepository.GetAll().Where(x => x.Id == item.NotaDeCompra.Id && x.StatusNotaCompra == EStatusNotaCompraFornecedor.Aberta).First();
 
-            if(produto == null || notaCompra == null)
+            if (produto == null || notaCompra == null)
             {
                 return RedirectToAction("Index", "NotaDeCompra");
             }
@@ -47,7 +49,7 @@ namespace MountainStyleShop.Controllers
 
             ConfigDB.Instance.ItemNotaCompraFornecedorRepository.Gravar(item);
 
-            return RedirectToAction("AddProduto", "NotaDeCompra", new { id = item.NotaDeCompra.Id});
+            return RedirectToAction("AddProduto", "NotaDeCompra", new { id = item.NotaDeCompra.Id });
         }
 
         public ActionResult ListaVlrAdd(int IdItemPedido)
@@ -73,9 +75,9 @@ namespace MountainStyleShop.Controllers
         [HttpPost]
         public ActionResult GravaVlrAdicional(ValorAddNotaCompraPedido vlrAddPedido)
         {
-            var itemPedido = ConfigDB.Instance.ItemNotaCompraFornecedorRepository.GetAll().Where(x => x.Id == vlrAddPedido.ItemNotaCompraFornecedor.Id && !x.NotaDeCompra.CompraConfirmada).First();
-            
-            if(itemPedido == null)
+            var itemPedido = ConfigDB.Instance.ItemNotaCompraFornecedorRepository.GetAll().Where(x => x.Id == vlrAddPedido.ItemNotaCompraFornecedor.Id && x.NotaDeCompra.StatusNotaCompra == EStatusNotaCompraFornecedor.Aberta).First();
+
+            if (itemPedido == null)
             {
                 return RedirectToAction("Index", "NotaDeCompra");
             }
@@ -86,5 +88,21 @@ namespace MountainStyleShop.Controllers
             return RedirectToAction("ListaVlrAdd", "ItemPedido", new { IdItemPedido = vlrAddPedido.ItemNotaCompraFornecedor.Id });
         }
 
+        
+        public ActionResult ApagarVlrAdicional(int idVlrAdicional)
+        {
+            var vlrAdicional = ConfigDB.Instance.ValorAddNotaCompraPedidoRepository.BuscaPorId(idVlrAdicional);
+            
+            if(vlrAdicional == null)
+            {
+                return RedirectToAction("Index", "NotaDeCompra");
+            }
+            int idItemPed = vlrAdicional.ItemNotaCompraFornecedor.Id;
+
+            ConfigDB.Instance.ValorAddNotaCompraPedidoRepository.Excluir(vlrAdicional);
+
+            return RedirectToAction("ListaVlrAdd", "ItemPedido", new { IdItemPedido = idItemPed });
+
+        }
     }
 }

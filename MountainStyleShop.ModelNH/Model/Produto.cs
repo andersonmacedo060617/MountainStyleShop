@@ -39,13 +39,18 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual IList<ProdutoFavorito> ProdutoFavoritos { get; set; }
         public virtual Categoria Categoria { get; set; }
         public virtual IList<AvaliacaoProduto> AvaliacoesProdutos { get; set; }
-        public virtual IList<AjusteEstoque> AjustesDeEstoque { get; set; }
-        public virtual IList<ItemNotaCompraFornecedor> ItemNotaDeCompraFornecedor { get; set; }
         public virtual IList<Imagem> Imagens { get; set; }
 
         public virtual Fabricante Fabricante { get; set; }
 
         public virtual bool Ativo { get; set; }
+
+        public virtual Estoque Estoque { get; set; }
+
+        public Produto()
+        {
+            this.Estoque = new Estoque (this);
+        }
 
         public virtual double PercentualBom()
         {
@@ -104,7 +109,7 @@ namespace MountainStyleShop.ModelNH.Model
         
         public virtual bool DisponivelParaCompra()
         {
-            return this.Ativo;
+            return (this.Ativo) && (this.Estoque.QuantidadeEstoqueProduto() > 0);
         }
 
         public virtual int TotalImagens()
@@ -153,24 +158,6 @@ namespace MountainStyleShop.ModelNH.Model
            );
 
             Bag<ProdutoFavorito>(x => x.ProdutoFavoritos, m =>
-            {
-                m.Cascade(Cascade.All);
-                m.Lazy(CollectionLazy.Lazy);
-                m.Inverse(true);
-            },
-                r => r.OneToMany()
-            );
-
-            Bag<AjusteEstoque>(x => x.AjustesDeEstoque, m =>
-            {
-                m.Cascade(Cascade.All);
-                m.Lazy(CollectionLazy.Lazy);
-                m.Inverse(true);
-            },
-                r => r.OneToMany()
-            );
-
-            Bag<ItemNotaCompraFornecedor>(x => x.ItemNotaDeCompraFornecedor, m =>
             {
                 m.Cascade(Cascade.All);
                 m.Lazy(CollectionLazy.Lazy);

@@ -1,0 +1,94 @@
+﻿@model IEnumerable <MountainStyleShop.ModelNH.Model.LancamentosCaixa>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <button class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#modelFrmAddLancamento">
+        <i class="fa fa-plus"></i>
+    </button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Entrada / Saida
+        </th>
+        <th>
+            Id Lançamento
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataLancamento)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ValorLancamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            Nota de Compra / Venda
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var Lancamento in Model)
+    {
+        <tr>
+            <td>
+                @if (Lancamento.Entrada)
+                {
+                    <i class="fa fa-2x fa-plus-square-o" style="color:green"></i>
+                }
+                @if (!Lancamento.Entrada)
+                {
+                    <i class="fa fa-2x fa-minus-square-o" style="color:red;"></i>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Lancamento.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Lancamento.DataLancamento)
+            </td>
+            <td>
+                R$@Lancamento.ValorLancamento.ToString("N2")
+            </td>
+            <td>
+                @Lancamento.Descricao
+            </td>
+            <td>
+                @if(Lancamento.NotaDeCompra != null)
+                {
+                    <a href="@Url.Action("AddProduto", "NotaDeCompra", new { id = Lancamento.NotaDeCompra.Id})">@Lancamento.NotaDeCompra.Id</a>
+                }
+                @if (Lancamento.VendaCliente != null)
+                {
+                    @*<a href="@Url.Action("VisualizaVenda", "VendaCliente", new { idVendaCliente = Lancamento.VendaCliente.Id})">@Lancamento.VendaCliente.Id</a>*@
+                    @Lancamento.VendaCliente.Id
+                }
+            </td>
+            
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="modelFrmAddLancamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Informações do valor Adicional</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("ModalNovoLancamento", "FluxoCaixa")
+            </div>
+        </div>
+    </div>
+</div>

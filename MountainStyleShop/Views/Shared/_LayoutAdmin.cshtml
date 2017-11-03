@@ -53,9 +53,9 @@
                     <li id="Fornecedor">
                         <a href="@Url.Action("Index", "Fornecedor")"><i class="fa fa-database"></i> Fornecedores</a>
                     </li>
-                    <li id="Financeiro">
-                        <a href="javascript:;" data-toggle="collapse" data-target="#financeiro"><i class="fa fa-money"></i> Financeiro <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="financeiro" class="collapse">
+                    <li id="Financeiro" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-money"></i> Financeiro <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="financeiro" class="dropdown-menu">
                             <li>
                                 <a  href="@Url.Action("Index", "Vendas")"><i class="fa fa-usd"></i> Vendas</a>
                             </li>
@@ -63,14 +63,14 @@
                                 <a href="@Url.Action("Index", "NotaDeCompra")"><i class="fa fa-clipboard"></i> Compra de produtos</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Index", "Encomendas")"><i class="fa fa-cube"></i> Encomenda de fonecedores</a>
+                                <a href="@Url.Action("Index", "FluxoCaixa")"><i class="fa fa-line-chart"></i> Fluxo de Caixa</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li id="TabelasDiversas">
-                        <a href="javascript:;" data-toggle="collapse" data-target="#TabelasDiversasDown"><i class="fa fa-table"></i> Tabelas Diversas <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="TabelasDiversasDown" class="collapse">
+                    <li id="TabelasDiversas" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-table"></i> Tabelas Diversas <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="TabelasDiversasDown" class="dropdown-menu">
                             <li>
                                 <a href="@Url.Action("Index", "Pais")"> Paises</a>
                             </li>

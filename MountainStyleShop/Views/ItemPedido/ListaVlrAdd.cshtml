@@ -41,7 +41,21 @@
                 Valor Unitario
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.ValorUnitario)
+                R$ @Html.DisplayFor(model => model.ValorUnitario)
+            </dd>
+
+            <dt>
+                Margem de Lucro
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MargemLucro) %
+            </dd>
+
+            <dt>
+                Vlr Unidade com Lucro
+            </dt>
+            <dd>
+                R$ @Model.ValorUnitarioComLucro()
             </dd>
 
             <dt>
@@ -82,14 +96,19 @@
                 R$@Model.ValorUnitComVlrAdd().ToString("N2")
             </dd>
 
+
         </dl>
     </div>
 </div>
-<div>
-    <button class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#modelFrmAddValor">
-        <i class="fa fa-plus"></i>
-    </button>
-</div>
+
+@if (Model.NotaDeCompra.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Aberta)
+{
+    <div>
+        <button class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#modelFrmAddValor">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+}
 <br />
 
 <div class="panel panel-success">
@@ -105,11 +124,15 @@
                 </th>
 
                 <th>
+                    Operador
+                </th>
+
+                <th>
                     Percentual
                 </th>
 
                 <th>
-                    Valor Calculado
+                    Valor Calculado(Por Unidade)
                 </th>
 
             </tr>
@@ -125,6 +148,18 @@
                         @Html.DisplayFor(modelItem => vlrAdd.NomeValor)
                     </td>
 
+                    <td >
+                        @if (vlrAdd.OperadorValorAdicional == MountainStyleShop.ModelNH.ENum.EOperadorValorAdicional.Soma)
+                        {
+
+                            <i class="fa fa-2x fa-plus-square-o" style="color:green"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-2x fa-minus-square-o" style="color:red;"></i>
+                        }
+                    </td>
+
                     <td>
                         @vlrAdd.Percentual.ToString("N2") %
                     </td>
@@ -135,12 +170,9 @@
 
                     <td>
 
-                        @if (!Model.NotaDeCompra.CompraConfirmada)
+                        @if (Model.NotaDeCompra.StatusNotaCompra == MountainStyleShop.ModelNH.ENum.EStatusNotaCompraFornecedor.Aberta)
                         {
-                            <a class="btn btn-warning" href="@Url.Action("Alterar", new { id = vlrAdd.Id })" aria-label="Alterar">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
-                            <a class="btn btn-danger" href="@Url.Action("ConfirmaDelete", new { id=vlrAdd.Id })" aria-label="Delete">
+                            <a class="btn btn-danger" href="@Url.Action("ApagarVlrAdicional", "ItemPedido",new { idVlrAdicional = vlrAdd.Id })" aria-label="Delete">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </a>
                         }
@@ -150,6 +182,10 @@
 
         </table>
     </div>
+</div>
+<br />
+<div>
+    <a href="@Url.Action("AddProduto", "NotaDeCompra", new {id = Model.NotaDeCompra.Id} )" class="btn btn-info">Voltar</a>
 </div>
 
 
@@ -168,3 +204,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("input[name=Percentual]").change(function(){
+        $("input[name=Percentual]").val($("input[name=Percentual]").val().replace(".", ","));
+    });
+</script>

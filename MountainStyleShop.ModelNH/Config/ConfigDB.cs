@@ -81,6 +81,7 @@ namespace MountainStyleShop.ModelNH.Config
         public BuscaProdutoRepository BuscaProdutoRepository { get; set; }
         public CupomDescontoRepository CupomDescontoRepository { get; set; }
         public ValorAddNotaCompraPedidoRepository ValorAddNotaCompraPedidoRepository { get; set; }
+        public LancamentosCaixaRepository LancamentosCaixaRepository { get; set; }
 
         #endregion
 
@@ -119,6 +120,7 @@ namespace MountainStyleShop.ModelNH.Config
                 this.BuscaProdutoRepository = new BuscaProdutoRepository(Session);
                 this.CupomDescontoRepository = new CupomDescontoRepository(Session);
                 this.ValorAddNotaCompraPedidoRepository = new ValorAddNotaCompraPedidoRepository(Session);
+                this.LancamentosCaixaRepository = new LancamentosCaixaRepository(Session);
             }
             #endregion
         }
@@ -260,8 +262,11 @@ namespace MountainStyleShop.ModelNH.Config
                 mapper.AddMappings(
                     Assembly.GetAssembly(typeof(ValorAddNotaCompraPedidoMap)).GetTypes()
                 );
+                mapper.AddMappings(
+                    Assembly.GetAssembly(typeof(LancamentosCaixaMap)).GetTypes()
+                );
 
-                return mapper.CompileMappingForAllExplicitlyAddedEntities();
+            return mapper.CompileMappingForAllExplicitlyAddedEntities();
            
         }
         #endregion

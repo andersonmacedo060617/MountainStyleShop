@@ -36,7 +36,11 @@ namespace MountainStyleShop.Controllers
             var lstFabricante = new SelectList(fabricantes, "Id", "Nome");
             ViewBag.lstFabricante = lstFabricante;
 
-            return View();
+            var produto = new Produto()
+            {
+                Valor = 0
+            };
+            return View(produto);
         }
 
         [Authorize(Roles = "Administrador")]
@@ -48,13 +52,10 @@ namespace MountainStyleShop.Controllers
             ModelState.Remove("Fabricante.Nome");
             ModelState.Remove("Fabricante.Pais");
             ModelState.Remove("Fabricante.Produtos");
+            ModelState.Remove("Estoque");
             produto.Categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(c => c.Id == produto.Categoria.Id);
             
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Novo", produto);
-            }
-
+            
             ConfigDB.Instance.ProdutoRepository.Gravar(produto);
 
             if(file != null)
@@ -121,7 +122,7 @@ namespace MountainStyleShop.Controllers
         
         public ActionResult Visualizar(int id)
         {
-            var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(x => x.Id == id);
+            var produto = ConfigDB.Instance.ProdutoRepository.GetAll().FirstOrDefault(x => x.Id == id && x.Valor > 0);
 
             if(produto == null)
             {
@@ -146,7 +147,7 @@ namespace MountainStyleShop.Controllers
             if (idCategoria == 0)
                 return RedirectToAction("Index", "Home");
 
-            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x=>x.Categoria.Id == idCategoria).ToList();
+            ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x=>x.Categoria.Id == idCategoria && x.Valor > 0).ToList();
             var Categoria = ConfigDB.Instance.CategoriaRepository.GetAll().FirstOrDefault(x => x.Id == idCategoria);
 
             if(Categoria == null)
@@ -160,7 +161,7 @@ namespace MountainStyleShop.Controllers
         public PartialViewResult ExibirProdutoSelecionado(int idProduto)
         {
             
-             ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Id == idProduto).ToList();
+             ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Id == idProduto && x.Valor > 0).ToList();
             
             return PartialView("_ExibirProdutosMini");
         }
@@ -172,7 +173,7 @@ namespace MountainStyleShop.Controllers
                 if(UsuarioUtils.Usuario == null || UsuarioUtils.Usuario.CategoriasFavoritas().Count == 0) { 
                     Random rnd = new Random();
                     var Produtos = ConfigDB.Instance.ProdutoRepository.GetAll()
-                        .Where(x => x.ApareeceNaVitrine)
+                        .Where(x => x.ApareeceNaVitrine && x.Ativo && x.Valor > 0)
                         //Ordem aleatoria
                         .OrderBy(i => rnd.Next())
                         .Take(8).ToList();
@@ -185,7 +186,7 @@ namespace MountainStyleShop.Controllers
                     List<Produto> lstProdutos = new List<Produto>();
                     foreach (var catFav in user.CategoriasFavoritas())
                     {
-                        var prodCat = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Categoria.Id == catFav.Id);
+                        var prodCat = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Categoria.Id == catFav.Id && x.Ativo && x.Valor > 0);
                         foreach (var produto in prodCat)
                         {
                             lstProdutos.Add(produto);
@@ -202,7 +203,7 @@ namespace MountainStyleShop.Controllers
             }
             else
             {
-                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Categoria.Id == idCategoria).ToList();
+                ViewBag.Produtos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Categoria.Id == idCategoria && x.Ativo && x.Valor > 0).ToList();
             }
             
             return PartialView("_ExibirProdutos");
@@ -211,7 +212,7 @@ namespace MountainStyleShop.Controllers
         [HttpPost]
         public ActionResult ConsultaProdutos(BuscaProduto ParametrosBusca)
         {
-            var filtroProdutos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Ativo == true);
+            var filtroProdutos = ConfigDB.Instance.ProdutoRepository.GetAll().Where(x => x.Ativo && x.Valor > 0);
 
             bool AlgumParamPreenchido = false;
 

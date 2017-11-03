@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.ENum;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,11 @@ namespace MountainStyleShop.ModelNH.Model
     {
         public virtual int Id { get; set; }
 
-       
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:F}")]
         public virtual double Percentual { get; set; }
+
+        public virtual EOperadorValorAdicional OperadorValorAdicional { get; set; }
+
         public virtual String NomeValor { get; set; }
         public virtual ItemNotaCompraFornecedor ItemNotaCompraFornecedor { get; set;}
 
@@ -24,7 +28,7 @@ namespace MountainStyleShop.ModelNH.Model
         }
 
         public virtual double ValorAddCalculado()
-        {
+        { 
             return this.ItemNotaCompraFornecedor.ValorUnitario * (Percentual / 100);
         }
 
@@ -42,6 +46,7 @@ namespace MountainStyleShop.ModelNH.Model
             
             Property<double>(x => x.Percentual);
             Property<String>(x => x.NomeValor);
+            Property<EOperadorValorAdicional>(x => x.OperadorValorAdicional);
 
 
             ManyToOne<ItemNotaCompraFornecedor>(x => x.ItemNotaCompraFornecedor, m =>
