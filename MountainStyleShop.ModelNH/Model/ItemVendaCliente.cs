@@ -1,5 +1,7 @@
-﻿using NHibernate.Mapping.ByCode;
+﻿using MountainStyleShop.ModelNH.Config;
+using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
+using System.Linq;
 
 namespace MountainStyleShop.ModelNH.Model
 {
@@ -23,6 +25,8 @@ namespace MountainStyleShop.ModelNH.Model
             }
             
         }
+
+        
     }
 
     public class ItemVendaClienteMap : ClassMapping<ItemVendaCliente>

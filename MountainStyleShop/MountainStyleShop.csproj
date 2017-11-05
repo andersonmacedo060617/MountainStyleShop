@@ -189,6 +189,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\estiloIndex.css" />
+    <Content Include="Content\estilo_notavenda.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\sb-admin-rtl.css" />
@@ -352,6 +353,7 @@
     <Content Include="Views\FluxoCaixa\Index.cshtml" />
     <Content Include="Views\FluxoCaixa\_ModalNovoLancamento.cshtml" />
     <Content Include="Views\FluxoCaixa\ModalNovoLancamento.cshtml" />
+    <Content Include="Views\VendaCliente\EmitiNotaVendaCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

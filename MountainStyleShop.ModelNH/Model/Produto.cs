@@ -116,6 +116,12 @@ namespace MountainStyleShop.ModelNH.Model
         {
             return ConfigDB.Instance.ImagemRepository.GetAll().Where(x=>x.Produto.Id == this.Id).ToList().Count + 1;
         }
+
+        public virtual ItemNotaCompraFornecedor UltimaNotaCompra()
+        {
+            var UltimoPedido = ConfigDB.Instance.ItemNotaCompraFornecedorRepository.GetAll().Where(x => x.Produto.Id == this.Id).OrderByDescending(x => x.NotaDeCompra.DataDaCompra).First();
+            return UltimoPedido;
+        }
     }
 
     public class ProdutoMap : ClassMapping<Produto>

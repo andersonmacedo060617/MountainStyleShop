@@ -129,7 +129,20 @@ namespace MountainStyleShop.Controllers
             ConfigDB.Instance.LancamentosCaixaRepository.Gravar(lancamento);
 
             ViewBag.MsgSucesso = "Compra Concluida com Sucesso!";
-            return RedirectToAction("HistoricoCompras", "Usuario");
+            return RedirectToAction("EmitiNotaVendaCliente", "VendaCliente", new { id = venda.Id });
+        }
+
+        [Authorize(Roles = "Usuario")]
+        public ActionResult EmitiNotaVendaCliente(int id)
+        {
+            var venda = ConfigDB.Instance.VendaClienteRepository.BuscaPorId(id);
+
+            if(venda == null)
+            {
+                return RedirectToAction("HistoricoCompras", "Usuario");
+            }
+
+            return View(venda);
         }
 
         [Authorize(Roles = "Usuario")]

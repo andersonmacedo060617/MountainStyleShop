@@ -1,0 +1,118 @@
+﻿@model MountainStyleShop.ModelNH.Model.VendaCliente
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    
+    <link href="~/Content/estilo_notavenda.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Nota de Venda</title>
+</head>
+<body>
+    <div class="notaVenda col-lg-8"> 
+        
+        <div class="row titulo">
+            <div class="col-lg-12">Nota de Venda de Produtos</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                N° Cupom de venda:
+            </div>
+            <div class="col-lg-1">
+                @Model.Id
+            </div>
+        </div>
+        <hr />
+        <div class="row col-lg-12"><h3>Dados do cliente</h3></div>
+
+        <div class="row">
+
+            <div class="col-lg-6">
+                <b>Nome/ Razão Social: </b> @Model.Cliente.Nome
+            </div>
+            <div class="col-lg-6">
+                <b>Endereço: </b> @Model.EnderecoParaEntrega.Rua , @Model.EnderecoParaEntrega.Numero
+            </div>
+        </div>
+        
+        <div class="row">
+
+            <div class="col-lg-5">
+                <b>Complemento: </b> @Model.EnderecoParaEntrega.Complemento
+            </div>
+            <div class="col-lg-3">
+                <b>Bairro: </b> @Model.EnderecoParaEntrega.Bairro
+            </div>
+            <div class="col-lg-4">
+                <b>Cidade: </b> @Model.EnderecoParaEntrega.Cidade.Nome / @Model.EnderecoParaEntrega.Cidade.UF.Sigla
+            </div>
+        </div>
+        <hr />
+        <div class="row col-lg-12"><h3>Dados da compra</h3></div>
+        <div class="row col-lg-offset-1">
+            <div class="col-lg-5">
+                <b>Data da Compra: </b> @Model.DataVenda
+            </div>
+            <div class="col-lg-3">
+                <b>Valor do Frete: </b> R$@Model.ValorFrete.ToString("N2")
+            </div>
+            <div class="col-lg-3">
+                <b>Valor do Total: </b> R$@Model.ValorFinal.ToString("N2")
+            </div>
+        </div>
+        <hr />
+        <div class="row col-lg-10"><h3>Itens da Nota</h3></div>
+        
+        @foreach(var item in Model.ItensVendaCliente)
+        { 
+            <div class="row col-lg-offset-1">
+                <div class="col-lg-5">
+                    <b>Nome do Produto: </b> @item.Produto.Nome
+                </div>
+                <div class="col-lg-3">
+                    <b>Quantidade: </b> @item.Quantidade UN.
+                </div>
+                <div class="col-lg-3">
+                    <b>Valor unidade: </b> R$@item.ValorUnitario.ToString("N2")
+                </div>
+            </div>
+            
+            foreach (var vlrAdd in item.Produto.UltimaNotaCompra().ValorAddNotaCompraPedido)
+            {
+
+                <div class="row col-lg-offset-3 vlrAdd">
+                    <div class="col-lg-5">
+                        <b>Descrição: </b> @vlrAdd.NomeValor
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Percentual: </b> @vlrAdd.Percentual %
+                    </div>
+                    <div class="col-lg-3">
+                        <b>Tipo operador: </b>
+                        @if(vlrAdd.OperadorValorAdicional == MountainStyleShop.ModelNH.ENum.EOperadorValorAdicional.Soma)
+                        {
+                            @Html.DisplayName("Acrecimo")
+                        }
+                        else
+                        {
+                            @Html.DisplayText("Desconto")
+                        }
+                    </div>
+                </div>
+                    }
+
+                    <div class="col-lg-offset-1">
+                        <hr />
+                    </div>
+                    }
+
+                </div>
+</body>
+</html>
+

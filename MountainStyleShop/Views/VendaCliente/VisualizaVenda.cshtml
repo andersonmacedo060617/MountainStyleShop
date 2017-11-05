@@ -125,6 +125,13 @@
             <a href="@Url.Action("HistoricoCompras", "Usuario")" class="btn btn-info">
                 Voltar
             </a>
+            @if (Model.VendaConfirmada)
+            {
+                <a href="@Url.Action("EmitiNotaVendaCliente", "VendaCliente", new { id = Model.Id})" class="btn btn-default">
+                    Emitir Nota da Compra
+                </a>
+            }
+            
         </div>
     </div>
 

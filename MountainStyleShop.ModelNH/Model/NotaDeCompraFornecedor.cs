@@ -96,13 +96,13 @@ namespace MountainStyleShop.ModelNH.Model
         public virtual void ConcluirNota()
         {
             
-            this.StatusNotaCompra = EStatusNotaCompraFornecedor.Concluida;
-
             foreach (var item in this.ItensPedidos)
             {
                 item.AjustaValorUnidade();
             }
-            
+
+            this.StatusNotaCompra = EStatusNotaCompraFornecedor.Concluida;
+
         }
 
     }
