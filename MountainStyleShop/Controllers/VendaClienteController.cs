@@ -1,6 +1,7 @@
 ﻿using MountainStyleShop.ModelNH.Config;
 using MountainStyleShop.ModelNH.Model;
 using MountainStyleShop.Models;
+using MountainStyleShop.ServiceReference1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,6 +108,30 @@ namespace MountainStyleShop.Controllers
         }
 
         [Authorize(Roles = "Usuario")]
+        public PartialViewResult FrmCartao(int idVendaCliente)
+        {
+            tDadosCartao cartao = new tDadosCartao();
+            ViewBag.idVendaCliente = idVendaCliente;
+            return PartialView("_FrmCartao", cartao);
+        }
+
+        [HttpPost]
+        [Authorize(Roles ="Usuario")]
+        public ActionResult PassarCartao(int idVendaCliente, tDadosCartao cartao)
+        {
+            cartao.NomeEmpresa = "Mountain Style Shopping";
+            cartao.CNPJEmpresa = 1000231;
+            cartao.Valor = ConfigDB.Instance.VendaClienteRepository.BuscaPorId(idVendaCliente).ValorComDesconto();
+            cartao.Validade.Replace("-", "");
+
+            CardPortTypeClient valida = new CardPortTypeClient();
+            var retorno = valida.ValidarCartao(cartao);
+
+            return RedirectToAction("ConcluirVenda", "VendaCliente", new { idVendaCliente = idVendaCliente });
+        }
+
+
+        [Authorize(Roles = "Usuario")]
         public ActionResult ConcluirVenda(int idVendaCliente)
         {
             VendaCliente venda = ConfigDB.Instance.VendaClienteRepository.BuscaPorId(idVendaCliente);
@@ -119,6 +144,8 @@ namespace MountainStyleShop.Controllers
             venda.ValorFinal = venda.ValorComDesconto();
 
             ConfigDB.Instance.VendaClienteRepository.Gravar(venda);
+
+
             
             LancamentosCaixa lancamento = new LancamentosCaixa();
             lancamento.DataLancamento = venda.DataVenda;
@@ -127,6 +154,8 @@ namespace MountainStyleShop.Controllers
             lancamento.VendaCliente = venda;
             lancamento.Descricao = "Venda da Loja";
             ConfigDB.Instance.LancamentosCaixaRepository.Gravar(lancamento);
+
+            
 
             ViewBag.MsgSucesso = "Compra Concluida com Sucesso!";
             return RedirectToAction("EmitiNotaVendaCliente", "VendaCliente", new { id = venda.Id });
@@ -143,6 +172,11 @@ namespace MountainStyleShop.Controllers
             }
 
             return View(venda);
+        }
+
+        public ActionResult EmitirNotaFiscalVendaCliente()
+        {
+            return View();
         }
 
         [Authorize(Roles = "Usuario")]

@@ -39,6 +39,10 @@ namespace MountainStyleShop.ModelNH.Model
             return valorTotal;
         }
 
+        /// <summary>
+        /// Calcula o valor total da venda com descontos. Valor final para o cliente
+        /// </summary>
+        /// <returns>Valor Total com descontos</returns>
         public virtual double ValorComDesconto()
         {
             var vlTotal = this.ValorTotalVenda();

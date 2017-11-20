@@ -79,9 +79,12 @@
         {
             <div class="col-lg-3 col-lg-offset-1">
                 <div class="col-lg-1">
-                    <a href="@Url.Action("ConcluirVenda", "VendaCliente", new { idVendaCliente = Model.Id })" class="btn btn-success">
+                    <button class="btn btn-success" data-toggle="modal" data-target="#modalDadosCartao">
+                        <i class="fa fa-shopping-cart"></i> Finalizar Compra
+                    </button>
+                    @*<a href="@Url.Action("ConcluirVenda", "VendaCliente", new { idVendaCliente = Model.Id })" class="btn btn-success">
                         <i class="fa fa-shopping-cart"></i> Finalizar Compra 
-                    </a>
+                    </a>*@
                 </div>
             </div>
         }
@@ -223,6 +226,10 @@
         </div>
     </div>
 </div>
+
+@Html.Action("FrmCartao", "VendaCliente", new { idVendaCliente = Model.Id})
+
+
 
 <script type="text/javascript">
     $(document).load(function () {

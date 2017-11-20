@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Card" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:Card" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:Card">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+      <xsd:complexType name="tDadosCartao">
+        <xsd:sequence>
+          <xsd:element name="NumeroCartao" type="xsd:string" />
+          <xsd:element name="Codigo" type="xsd:int" />
+          <xsd:element name="NomeCliente" type="xsd:string" />
+          <xsd:element name="Validade" type="xsd:string" />
+          <xsd:element name="Valor" type="xsd:double" />
+          <xsd:element name="Parcelas" type="xsd:int" />
+          <xsd:element name="NomeEmpresa" type="xsd:string" />
+          <xsd:element name="CNPJEmpresa" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ValidarCartaoRequest">
+    <wsdl:part name="dadosCartao" type="tns:tDadosCartao" />
+  </wsdl:message>
+  <wsdl:message name="ValidarCartaoResponse">
+    <wsdl:part name="msg" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="CardPortType">
+    <wsdl:operation name="ValidarCartao">
+      <documentation>Metodo responsavel pela validaÃ§ao da compra utilizando cartao de Credito.</documentation>
+      <wsdl:input message="tns:ValidarCartaoRequest" />
+      <wsdl:output message="tns:ValidarCartaoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CardBinding" type="tns:CardPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="ValidarCartao">
+      <soap:operation soapAction="urn:Card#ValidarCartao" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:Card" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:Card" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Card">
+    <wsdl:port name="CardPort" binding="tns:CardBinding">
+      <soap:address location="http://tadeuclasse.pe.hu/WSCartao/Server.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,72 @@
+﻿@model MountainStyleShop.ServiceReference1.tDadosCartao
+
+<div class="modal fade" id="modalDadosCartao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dados do cartão</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("PassarCartao", "VendaCliente", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.Hidden("idVendaCliente", (int)ViewBag.idVendaCliente)
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    
+                    <div class="form-group">
+                        @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.NomeCliente, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NomeCliente, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Numero do Cartao", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.NumeroCartao, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NumeroCartao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Codigo", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Numero de Parcelas", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Parcelas, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Vencimento do Cartão", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Validade, new { htmlAttributes = new { @class = "form-control", @type = "Month" } })
+                            @Html.ValidationMessageFor(model => model.Validade, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3 col-md-offset-2">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Cancelar</button>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1">
+                            <input type="submit" value="Enviar" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
